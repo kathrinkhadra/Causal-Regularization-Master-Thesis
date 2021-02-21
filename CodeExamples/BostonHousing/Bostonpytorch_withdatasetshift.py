@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
 import pandas as pd
+import random
 
 boston = load_boston()
 X,y   = (boston.data, boston.target)
@@ -51,6 +52,22 @@ y_train=y[:indice]
 y_test=y[indice:]
 #print(y_test.shape)
 #print('---------------------')
+#performance= []
+#for rand in range(350,400):
+#    print(rand)
+rand=369
+finalindices=sample_sizes-indice
+#rand=363#random.randint(350, 400)#random.randint(indice, finalindices)
+#print(rand)
+
+X_train=X[rand:indice+rand,:]
+#print(X_train.shape)
+X_test=np.concatenate((X[:rand,:],X[indice+rand:,:]))
+#print(X_test.shape)
+#print('---------------------')
+y_train=y[rand:indice+rand]
+#print(y_train.shape)
+y_test=np.concatenate((y[:rand],y[indice+rand:]))
 
 
 
@@ -88,8 +105,8 @@ for i in range(num_epochs):
     opt.zero_grad()
     y_hat_class = (y_hat.detach().numpy())
     accuracy = np.sum(y_train.reshape(-1,1)== y_hat_class )/len(y_train)
-    if i > 0 and i % 100 == 0:
-        print('Epoch %d, loss = %g acc = %g ' % (i, loss,  accuracy))
+    #if i > 0 and i % 100 == 0:
+    #    print('Epoch %d, loss = %g acc = %g ' % (i, loss,  accuracy))
 
 ss=np.array(stepsave)
 ss.shape
@@ -101,17 +118,17 @@ sl.shape
 #sl.reshape(8000)
 
 py = net(torch.DoubleTensor(X_train))
-plt.plot(sl, '+')
-plt.xlabel('Actual value of training set')
-plt.ylabel('Prediction')
-plt.show()
+#plt.plot(sl, '+')
+#plt.xlabel('Actual value of training set')
+#plt.ylabel('Prediction')
+#plt.show()
 
 ypred = net(torch.from_numpy(X_test).detach())
 err = ypred.detach().numpy() - y_test
 mse = np.mean(err*err)
 print(np.sqrt(mse))
-plt.plot(ypred.detach().numpy(),y_test, '+')
-plt.show()
+#plt.plot(ypred.detach().numpy(),y_test, '+')
+#plt.show()
 
 
 model = MLPRegressor(
@@ -133,11 +150,18 @@ err = y_test - py
 mse = np.mean(err**2)
 rmse = np.sqrt(mse)
 print('rmse for test %g' % rmse)
-plt.subplot(121)
-plt.plot(y_test, py, '+')
-plt.show()
-err = y_train - model.predict(X_train)
-mse = np.mean(err**2)
+#plt.subplot(121)
+#plt.plot(y_test, py, '+')
+#plt.show()
+#err = y_train - model.predict(X_train)
+#mse = np.mean(err**2)
 
-plt.plot(py)
+#plt.plot(py)
 py.mean()
+
+performance.append(rmse)
+
+
+#plt.plot(range(350,400),performance)
+#plt.savefig('figures/performance.png')
+#plt.close()
