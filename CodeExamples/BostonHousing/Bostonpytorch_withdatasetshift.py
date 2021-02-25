@@ -32,8 +32,6 @@ y
 #house.hist(column='medv', bins=50)
 #plt.show()
 
-#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.9, random_state=0)
-
 sample_sizes=X.shape[0]
 #print(round(sample_sizes*0.1))
 
@@ -52,8 +50,8 @@ y_train=y[:indice]
 y_test=y[indice:]
 #print(y_test.shape)
 #print('---------------------')
-#performance= []
-#for rand in range(350,400):
+performance= []
+#for rand in range(370,400):
 #    print(rand)
 rand=369
 finalindices=sample_sizes-indice
@@ -69,7 +67,7 @@ y_train=y[rand:indice+rand]
 #print(y_train.shape)
 y_test=np.concatenate((y[:rand],y[indice+rand:]))
 
-
+#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.9, random_state=0)
 
 num_train = X_train.shape[0]
 X_train
@@ -131,25 +129,25 @@ print(np.sqrt(mse))
 #plt.show()
 
 
-model = MLPRegressor(
-    hidden_layer_sizes=(50,50,50),
-    alpha = 0,
-    activation='relu',
-    batch_size=128,
-    learning_rate_init = 1e-3,
-    solver = 'adam',
-    learning_rate = 'constant',
-    verbose = False,
-    n_iter_no_change = 1000,
-    validation_fraction = 0.0,
-    max_iter=1000)
-model.fit(X_train, y_train)
+#model = MLPRegressor(
+#    hidden_layer_sizes=(50,50,50),
+#    alpha = 0,
+#    activation='relu',
+#    batch_size=128,
+#    learning_rate_init = 1e-3,
+#    solver = 'adam',
+#    learning_rate = 'constant',
+#    verbose = False,
+#    n_iter_no_change = 1000,
+#    validation_fraction = 0.0,
+#    max_iter=1000)
+#model.fit(X_train, y_train)
 
-py = model.predict(X_test)
-err = y_test - py
-mse = np.mean(err**2)
-rmse = np.sqrt(mse)
-print('rmse for test %g' % rmse)
+#py = model.predict(X_test)
+#err = y_test - py
+#mse = np.mean(err**2)
+#rmse = np.sqrt(mse)
+#print('rmse for test %g' % rmse)
 #plt.subplot(121)
 #plt.plot(y_test, py, '+')
 #plt.show()
@@ -157,11 +155,11 @@ print('rmse for test %g' % rmse)
 #mse = np.mean(err**2)
 
 #plt.plot(py)
-py.mean()
+#py.mean()
 
-performance.append(rmse)
+    #performance.append(np.sqrt(mse))
 
 
-#plt.plot(range(350,400),performance)
-#plt.savefig('figures/performance.png')
+#plt.plot(range(370,400),performance)
+#plt.savefig('figures/performance_new.png')
 #plt.close()

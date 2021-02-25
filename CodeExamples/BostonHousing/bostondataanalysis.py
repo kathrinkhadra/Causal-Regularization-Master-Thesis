@@ -58,17 +58,17 @@ y_test=y[:finalindices]
 #print(y_test.shape)
 #print('---------------------')
 
-#rand=369#386#random.randint(indice, finalindices)
+rand=390#369#386#random.randint(indice, finalindices)
 #print(rand)
 
-#X_train=X[rand:indice+rand,:]
+X_train=X[rand:indice+rand,:]
 #print(X_train.shape)
-#X_test=np.concatenate((X[:rand,:],X[indice+rand:,:]))
+X_test=np.concatenate((X[:rand,:],X[indice+rand:,:]))
 #print(X_test.shape)
 #print('---------------------')
-#y_train=y[rand:indice+rand]
+y_train=y[rand:indice+rand]
 #print(y_train.shape)
-#y_test=np.concatenate((y[:rand],y[indice+rand:]))
+y_test=np.concatenate((y[:rand],y[indice+rand:]))
 #print(y_test.shape)
 #print('---------------------')
 
@@ -91,9 +91,9 @@ for i, column in enumerate(X_train.T):
 #    plt.savefig('figures/datasetshift/distribution'+str(i)+'.png')
 
     # Train
-    sns.distplot(column, hist=False, rug=True)
-    sns.distplot(testdata[i,:], hist=False, rug=True)
-    plt.savefig('figures/datasetshift/distribution'+str(i)+'.png')
+    sns.displot([column,testdata[i,:]])#sns.distplot(column, hist=False,rug=True)#sns.displot(column, kind="kde")#
+    #sns.displot(testdata[i,:])#sns.distplot(testdata[i,:], hist=False,rug=True)#sns.displot(testdata[i,:], kind="kde")#
+    plt.savefig('figures/datasetshift/shiftwith390/distribution'+str(i)+'.png')
     plt.close()
 #    axes[0].set_title('Training Data')
     # Test

@@ -92,30 +92,30 @@ plt.plot(ypred.detach().numpy(),y_test, '+')
 plt.show()
 
 
-model = MLPRegressor(
-    hidden_layer_sizes=(50,50,50),
-    alpha = 0,
-    activation='relu',
-    batch_size=128,
-    learning_rate_init = 1e-3,
-    solver = 'adam',
-    learning_rate = 'constant',
-    verbose = False,
-    n_iter_no_change = 1000,
-    validation_fraction = 0.0,
-    max_iter=1000)
-model.fit(X_train, y_train)
+#model = MLPRegressor(
+#    hidden_layer_sizes=(50,50,50),
+#    alpha = 0,
+#    activation='relu',
+#    batch_size=128,
+#    learning_rate_init = 1e-3,
+#    solver = 'adam',
+#    learning_rate = 'constant',
+#    verbose = False,
+#    n_iter_no_change = 1000,
+#    validation_fraction = 0.0,
+#    max_iter=1000)
+#model.fit(X_train, y_train)
 
-py = model.predict(X_test)
-err = y_test - py
-mse = np.mean(err**2)
-rmse = np.sqrt(mse)
-print('rmse for test %g' % rmse)
-plt.subplot(121)
-plt.plot(y_test, py, '+')
-plt.show()
-err = y_train - model.predict(X_train)
-mse = np.mean(err**2)
+#py = model.predict(X_test)
+#err = y_test - py
+#mse = np.mean(err**2)
+#rmse = np.sqrt(mse)
+#print('rmse for test %g' % rmse)
+#plt.subplot(121)
+#plt.plot(y_test, py, '+')
+#plt.show()
+#err = y_train - model.predict(X_train)
+#mse = np.mean(err**2)
 
-plt.plot(py)
-py.mean()
+#plt.plot(py)
+#py.mean()
