@@ -24,7 +24,8 @@ X.shape
 
 y
 
-
+scaler = MinMaxScaler(feature_range=(0, 1))
+X = scaler.fit_transform(X)
 
 # Skip the next four lines if BostonHousing.csv is not available.
 #house = pd.read_csv('BostonHousing.csv')

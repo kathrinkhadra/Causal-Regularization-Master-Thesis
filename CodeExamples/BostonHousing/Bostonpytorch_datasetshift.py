@@ -35,7 +35,42 @@ scaler = MinMaxScaler(feature_range=(0, 1))
 X = scaler.fit_transform(X)
 y = (y - y.min()) / (y.max() - y.min())
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.9, random_state=0)
+sample_sizes=X.shape[0]
+#print(round(sample_sizes*0.1))
+
+sample_sizes=y.shape[0]
+#print(round(sample_sizes*0.1))
+indice=round(sample_sizes*0.1)-1
+#print('---------------------')
+#A=np.array_split(X, round(sample_sizes*0.1))
+X_train=X[:indice,:]
+#print(X_train.shape)
+X_test=X[indice:,:]
+#print(X_test.shape)
+#print('---------------------')
+y_train=y[:indice]
+#print(y_train.shape)
+y_test=y[indice:]
+#print(y_test.shape)
+#print('---------------------')
+performance= []
+#for rand in range(370,400):
+#    print(rand)
+rand=369
+finalindices=sample_sizes-indice
+#rand=363#random.randint(350, 400)#random.randint(indice, finalindices)
+#print(rand)
+
+X_train=X[rand:indice+rand,:]
+#print(X_train.shape)
+X_test=np.concatenate((X[:rand,:],X[indice+rand:,:]))
+#print(X_test.shape)
+#print('---------------------')
+y_train=y[rand:indice+rand]
+#print(y_train.shape)
+y_test=np.concatenate((y[:rand],y[indice+rand:]))
+
+#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.9, random_state=0)
 num_train = X_train.shape
 
 
