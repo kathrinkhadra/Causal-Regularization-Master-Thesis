@@ -41,10 +41,10 @@ neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_train
 neural.model(get_data.inputs)
 
 #train neural net
-losssave,test_losssave=neural.training()
+loss_training,test_loss_training=neural.training()
 
 #plot training performance
-#neural.testing_training(losssave,test_losssave,'training_performance.png')
+#neural.testing_training(loss_training,test_loss_training,'training_performance.png')
 
 #test neural net
 loss_test=neural.testing()

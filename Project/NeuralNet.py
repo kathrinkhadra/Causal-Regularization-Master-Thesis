@@ -39,14 +39,14 @@ class neural_network(object):
         x_train_t =torch.from_numpy(self.inputs_training).clone()
         #dataset = TensorDataset(torch.from_numpy(inputs_training).detach().clone(), torch.from_numpy(y_train).reshape(-1,1).detach().clone())
         #loader = DataLoader(dataset=dataset, batch_size=128, shuffle=True)
-        losssave = []
+        loss_training = []
         stepsave = []
-        test_losssave=[]
+        test_loss_training=[]
         for i in range(self.epochs):
             self.net.train()
             y_hat = self.net(x_train_t)
             loss = self.criterion(y_train_t,self.net(x_train_t))
-            losssave.append(loss.item())
+            loss_training.append(loss.item())
             stepsave.append(i)
             loss.backward()
             self.opt.step()
@@ -56,15 +56,15 @@ class neural_network(object):
             self.net.eval()
             ypred = self.net(torch.from_numpy(self.inputs_test).detach())
             loss_test = self.criterion(torch.from_numpy(self.target_test).clone().reshape(-1, 1),ypred)
-            test_losssave.append(loss_test)
+            test_loss_training.append(loss_test)
             if i > 0 and i % 10 == 0:
                 print('Epoch %d, loss = %g' % (i, loss))
 
-        return losssave,test_losssave
+        return loss_training,test_loss_training
 
-    def testing_training(self,losssave,test_losssave,figure_name):
-        sl =np.array(losssave)
-        test=np.array(test_losssave)
+    def testing_training(self,loss_training,test_loss_training,figure_name):
+        sl =np.array(loss_training)
+        test=np.array(test_loss_training)
 
         plt.plot(sl[300:])
         plt.plot(test[300:])
