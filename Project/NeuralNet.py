@@ -79,3 +79,6 @@ class neural_network(object):
         print(loss_test)
 
         return loss_test
+
+    def extract_activations(self):
+        print(1)
