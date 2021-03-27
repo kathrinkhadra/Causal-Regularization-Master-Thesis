@@ -12,6 +12,7 @@ import pandas as pd
 
 import NeuralNet
 import datapreprocessing
+import causal
 
 ######################preprocessing data
 test_size=0.9
@@ -49,7 +50,21 @@ loss_training,test_loss_training=neural.training()
 #test neural net
 loss_test=neural.testing()
 
+causal_test=causal.causality(neural)
+
+causal_test.slicing_NN(get_data.inputs_training)
+
 #print(neural.net[0].weight.size())
 #print(neural.net[0].bias.size())
-print(neural.net)
-print(len(neural.net))
+#print(neural.net[0:5])#abscheiden des netzes
+#print(len(neural.net))
+#counter=1
+#new_nn=neural.net[counter:len(neural.net)]
+#new_input=neural.net[0:counter]#(get_data.inputs_training)
+
+
+#print(len(get_data.inputs_training))
+#print(len(get_data.inputs_training[0]))
+#print(neural.net(get_data.inputs_training))
+#print(new_nn)
+#print(new_input)
