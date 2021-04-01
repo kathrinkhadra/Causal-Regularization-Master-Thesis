@@ -75,6 +75,8 @@ class neural_network(object):
     def testing(self):
         self.net.eval()
         ypred = self.net(torch.from_numpy(self.inputs_test).detach())
+        print(ypred.shape)
+        print(self.net)
         loss_test = self.criterion(torch.from_numpy(self.target_test).clone().reshape(-1, 1),ypred)
         print(loss_test)
 
