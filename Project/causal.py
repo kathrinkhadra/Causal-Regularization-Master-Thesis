@@ -31,7 +31,7 @@ class causality(object):
                 #shapes are wrong############################
                 #print(new_input.detach().numpy().shape)
 
-                #self.ACE(covariance,mean,new_nn,new_input)
+                self.ACE(covariance,mean,new_nn,new_input)
                 #print("nn generating input")
                 #print(self.neural_network.net[0:counter])
                 #print("new_input shape")
@@ -39,30 +39,38 @@ class causality(object):
                 #print(mean)
                 #print(covariance)
 
-    def ACE(self,covariance,mean,neural_net,input_sample):
-        input_sample=input_sample.detach().numpy()
-        for indx in range(input_sample.shape[1]):
-            expectation_do_x = []
-            mean_vector=copy.deepcopy(mean)
-            #print(mean_vector)
-            #print(input_sample)
-            mean_vector[indx] = input_sample[indx]#problem 2D = new input and mean vector is not supposed to be
-            output=new_nn(input_sample) # does this make sense?
-            first_grads = torch.autograd.grad(output, input_sample, retain_graph=True, create_graph=True, only_inputs=True, allow_unused=False)
-            first_grad_shape = first_grads[0].data.size()
-            lower_order_grads = first_grads
-            for dim in range(len(mean)):
-                if dim==indx:
-                    continue #only executing loop if not same neuron
-                grad_mask = torch.zeros(first_grad_shape)
-                grad_mask[dim] = 1.0
+    def ACE(self,covariance,mean,neural_net,inputs):
+        torch.set_default_dtype(torch.float64)
+        for input_sample in inputs:
+            input_sample=input_sample.detach().numpy()
 
-                higher_order_grads = torch.autograd.grad(lower_order_grads, input_sample, grad_outputs=grad_mask, retain_graph=True, create_graph=True, only_inputs=True, allow_unused=False)
-                higher_order_grads_array = np.array(higher_order_grads[0].data)
+            for indx in range(len(input_sample)):
+                expectation_do_x = []
+                mean_vector=copy.deepcopy(mean)
+                #print(mean_vector)
+                #print(input_sample)
+                mean_vector[indx] = input_sample[indx]#problem 2D = new input and mean vector is not supposed to be
+                output=neural_net(torch.from_numpy(mean_vector)) # does this make sense?
+                input_tensor=torch.from_numpy(mean_vector).clone()
+                input_tensor.requires_grad=True
 
-                temp_cov = copy.deepcopy(covariance)
-                temp_cov[dim][indx] = 0.0
-                val += 0.5*np.sum(higher_order_grads_array*temp_cov[dim])
+                val = output.data.view(1).cpu().numpy()[0]
+                
+                first_grads = torch.autograd.grad(output, input_tensor, retain_graph=True, create_graph=True, only_inputs=True, allow_unused=False)#allow_unused=True
+                first_grad_shape = first_grads[0].data.size()
+                lower_order_grads = first_grads
+                for dim in range(len(mean)):
+                    if dim==indx:
+                        continue #only executing loop if not same neuron
+                    grad_mask = torch.zeros(first_grad_shape)
+                    grad_mask[dim] = 1.0
+
+                    higher_order_grads = torch.autograd.grad(lower_order_grads,input_tensor, grad_outputs=grad_mask, retain_graph=True, create_graph=True, only_inputs=True, allow_unused=False)#allow_unused=False
+                    higher_order_grads_array = np.array(higher_order_grads[0].data)
+
+                    temp_cov = copy.deepcopy(covariance)
+                    temp_cov[dim][indx] = 0.0
+                    val += 0.5*np.sum(higher_order_grads_array*temp_cov[dim])
 
 
             #average_causal_effects.append(val)
