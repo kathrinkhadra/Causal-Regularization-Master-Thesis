@@ -26,10 +26,16 @@ class neural_network(object):
             #nn.Linear(50,   50, bias = True), nn.ELU(),
             #nn.Linear(50,   50, bias = True), nn.Sigmoid(),
             #nn.Linear(50,   1)
+
             nn.Linear(dim, 50, bias = True), nn.ReLU(),
             nn.Linear(50,   100, bias = True), nn.ReLU(),
             nn.Linear(100,   50, bias = True), nn.ReLU(),
             nn.Linear(50,   1)
+
+            #nn.Linear(dim, 50, bias = True), nn.ReLU(),
+            #nn.Linear(50,   50, bias = True), nn.ReLU(),
+            #nn.Linear(50,   10, bias = True), nn.ReLU(),
+            #nn.Linear(10,   1)
         )
         self.criterion = nn.MSELoss()
         self.opt = torch.optim.Adam(self.net.parameters(), lr = self.learning_rate)

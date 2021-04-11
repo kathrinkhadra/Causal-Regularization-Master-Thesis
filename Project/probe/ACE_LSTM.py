@@ -19,12 +19,13 @@ for t in range(len(input_data)):
 
     first_grad_shape = first_grads[0].data.size()
     lower_order_grads = first_grads
-
+    
     for dimension in range(len(mean_vector)):
         if dimension == t:
             continue
         grad_mask = torch.zeros(first_grad_shape)
         grad_mask[dimension] = 1.0
+
 
         higher_order_grads = torch.autograd.grad(lower_order_grads, input_torchvar, grad_outputs=grad_mask, retain_graph=True, create_graph=True, only_inputs=True, allow_unused=False)
         higher_order_grads_array = np.array(higher_order_grads[0].data)
