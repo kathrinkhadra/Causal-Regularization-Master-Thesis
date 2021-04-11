@@ -19,7 +19,7 @@ for t in range(len(input_data)):
 
     first_grad_shape = first_grads[0].data.size()
     lower_order_grads = first_grads
-    
+
     for dimension in range(len(mean_vector)):
         if dimension == t:
             continue

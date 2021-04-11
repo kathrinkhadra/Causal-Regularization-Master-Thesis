@@ -7,9 +7,10 @@ import copy
 class causality(object):
     """docstring for causality."""
 
-    def __init__(self, neural_network):
+    def __init__(self, neural_network,new_inputs):
         super(causality, self).__init__()
         self.neural_network = neural_network
+        self.new_inputs=new_inputs
 
 
     def slicing_NN(self,input_sample):
@@ -23,32 +24,34 @@ class causality(object):
                 self.neural_network.net.eval()
                 new_nn=self.neural_network.net[counter:len(self.neural_network.net)]
                 new_nn.eval()
-                new_input=self.neural_network.net[0:counter](x_train_t)
-                covariance=np.cov(new_input.detach().numpy(),rowvar=False)
-                mean=np.array(np.mean(new_input.detach().numpy(), axis=0))#double check axis maybe more a axis of 1
+                self.new_inputs=self.neural_network.net[0:counter](x_train_t)
+                covariance=np.cov(self.new_inputs.detach().numpy(),rowvar=False)
+                mean=np.array(np.mean(self.new_inputs.detach().numpy(), axis=0))#double check axis maybe more a axis of 1
                 #print("mean shape")
                 #print(mean.shape)
                 #shapes are wrong############################
-                #print(new_input.detach().numpy().shape)
+                #print(self.new_inputs.detach().numpy().shape)
 
-                input_samples_ACE=self.ACE(covariance,mean,new_nn,new_input)
+                input_samples_ACE=self.ACE(covariance,mean,new_nn)
                 print("nn generating input")
                 print(self.neural_network.net[0:counter])
                 print("sliced NN")
                 print(new_nn)
 
-
-                #print("new_input shape")
-                #print(new_input.detach().numpy().shape)
+                self.plotting_ACE(input_samples_ACE)
+                #print("self.new_inputs shape")
+                #print(self.new_inputs.detach().numpy().shape)
                 #print(mean)
                 #print(covariance)
 
-    def ACE(self,covariance,mean,neural_net,inputs):
+    def ACE(self,covariance,mean,neural_net):
         torch.set_default_dtype(torch.float64)
         input_samples_ACE=[]
-        for input_sample in inputs:
+
+        for input_sample in self.new_inputs:
             input_sample=input_sample.detach().numpy()
             #print(input_sample)
+            average_causal_effects=[]
             for indx in range(len(input_sample)):
                 expectation_do_x = []
                 mean_vector=copy.deepcopy(mean)
@@ -61,6 +64,7 @@ class causality(object):
                 output=neural_net(input_tensor) # torch.from_numpy(mean_vector)
 
                 output = torch.nn.functional.sigmoid(output)
+                #output = torch.nn.functional.softmax(output)
 
                 val = output.data.view(1).cpu().numpy()[0]
                 #print("first Loop") #first Loop 0
@@ -90,13 +94,37 @@ class causality(object):
                 average_causal_effects.append(val)
 
 
-            average_causal_effects = np.array(average_causal_effects) - np.array(baseline_expectation_do_x)[:len(average_causal_effects)]
+            #average_causal_effects = np.array(average_causal_effects) - np.mean(np.array(average_causal_effects))
 
-        input_samples_ACE.append(average_causal_effects)
+            input_samples_ACE.append(np.array(average_causal_effects) - np.mean(np.array(average_causal_effects)))
+        #print(average_causal_effects)
 
         return input_samples_ACE
 
     def plotting_ACE(self,input_samples_ACE):
-        print(len(input_samples_ACE))
-        print(len(input_samples_ACE[0]))
+        input_samples=self.new_inputs.detach().numpy()
+        input_samples=input_samples.T
+        for i,causal_effects in enumerate(np.array(input_samples_ACE).T):
+            #print(i)
+            if i>14:
+                break
+            #print(causal_effects.shape)
+            #print()
+            plt.scatter(input_samples[i,:],causal_effects)
+            plt.xlabel('Interventional Value')
+            plt.ylabel('ACE')
+            plt.title('average_causal_effects_neuron_'+str(i))
+            plt.savefig('ACEplots/neuron'+str(i)+'.png')
+            plt.close()
+            plt.hist(causal_effects)
+            plt.xlabel('ACE')
+            plt.ylabel('Häufigkeit')
+            plt.title('histogram_average_causal_effects_neuron_'+str(i))
+            plt.savefig('ACEplots/histogram_neuron'+str(i)+'.png')
+            plt.close()
+        #print(len(input_samples_ACE))
+        #print(len(input_samples_ACE[0]))
+        print("DONE")
+        #print(len(inputs))
+        #print(len(inputs[0]))
         #check with sizes what we actually calculated
