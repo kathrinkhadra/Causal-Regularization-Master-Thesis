@@ -7,10 +7,11 @@ import copy
 class causality(object):
     """docstring for causality."""
 
-    def __init__(self, neural_network,new_inputs):
+    def __init__(self, neural_network,new_inputs,input_samples_ACE):
         super(causality, self).__init__()
         self.neural_network = neural_network
         self.new_inputs=new_inputs
+        self.input_samples_ACE=input_samples_ACE
 
 
     def slicing_NN(self,input_sample):
@@ -19,7 +20,8 @@ class causality(object):
         #print(input_sample.shape)
         x_train_t =torch.from_numpy(input_sample).clone()
         for counter,layer in enumerate(self.neural_network.net):
-            if counter%2==0 and counter<len(self.neural_network.net):
+            if counter%2==0 and counter<len(self.neural_network.net):#if counter==6:#
+
                 #print(counter)
                 self.neural_network.net.eval()
                 new_nn=self.neural_network.net[counter:len(self.neural_network.net)]
@@ -32,13 +34,17 @@ class causality(object):
                 #shapes are wrong############################
                 #print(self.new_inputs.detach().numpy().shape)
 
-                input_samples_ACE=self.ACE(covariance,mean,new_nn)
                 print("nn generating input")
                 print(self.neural_network.net[0:counter])
                 print("sliced NN")
                 print(new_nn)
 
-                self.plotting_ACE(input_samples_ACE)
+                self.ACE(covariance,mean,new_nn)
+
+
+                self.evaluating_ACE()
+                #if counter==0:
+                #    self.plotting_ACE()
                 #print("self.new_inputs shape")
                 #print(self.new_inputs.detach().numpy().shape)
                 #print(mean)
@@ -46,7 +52,7 @@ class causality(object):
 
     def ACE(self,covariance,mean,neural_net):
         torch.set_default_dtype(torch.float64)
-        input_samples_ACE=[]
+        self.input_samples_ACE=[]
 
         for input_sample in self.new_inputs:
             input_sample=input_sample.detach().numpy()
@@ -63,15 +69,21 @@ class causality(object):
 
                 output=neural_net(input_tensor) # torch.from_numpy(mean_vector)
 
-                output = torch.nn.functional.sigmoid(output)
+                #output = torch.nn.functional.sigmoid(output)
                 #output = torch.nn.functional.softmax(output)
 
                 val = output.data.view(1).cpu().numpy()[0]
                 #print("first Loop") #first Loop 0
                 #print(indx)
-                first_grads = torch.autograd.grad(output, input_tensor, retain_graph=True, create_graph=True, only_inputs=True, allow_unused=False)
+                first_grads = torch.autograd.grad(output, input_tensor, retain_graph=True, create_graph=True, only_inputs=True, allow_unused=True)#allow_unused=False
+                #first_grads=np.array(first_grads, dtype=float)
+                #print(first_grads)
+                #first_grads[0].data=torch.nan_to_num(first_grads[0].data)
+                #print(first_grads)
+                #first_grads=torch.tensor(first_grads)
                 first_grad_shape = first_grads[0].data.size()
                 lower_order_grads = first_grads
+
                 for dim in range(len(mean)):
                     if dim==indx:
                         continue #only executing loop if not same neuron
@@ -83,8 +95,14 @@ class causality(object):
                     #print(input_tensor)
                     #print("second Loop") #second Loop 1
                     #print(dim)
-                    higher_order_grads = torch.autograd.grad(lower_order_grads,input_tensor, grad_outputs=grad_mask, retain_graph=True, create_graph=True, only_inputs=True, allow_unused=False)#allow_unused=False
+                    higher_order_grads = torch.autograd.grad(lower_order_grads,input_tensor, grad_outputs=grad_mask, retain_graph=True, create_graph=True, only_inputs=True, allow_unused=True)#allow_unused=False
+                    #higher_order_grads=np.array(higher_order_grads, dtype=float)
+                    #print(higher_order_grads)
+                    #X=torch.nan_to_num(higher_order_grads[0].data)
+                    #print(X)
+                    #higher_order_grads=torch.tensor(higher_order_grads)
                     higher_order_grads_array = np.array(higher_order_grads[0].data)
+
 
                     temp_cov = copy.deepcopy(covariance)
                     temp_cov[dim][indx] = 0.0
@@ -96,15 +114,32 @@ class causality(object):
 
             #average_causal_effects = np.array(average_causal_effects) - np.mean(np.array(average_causal_effects))
 
-            input_samples_ACE.append(np.array(average_causal_effects) - np.mean(np.array(average_causal_effects)))
+            self.input_samples_ACE.append(np.array(average_causal_effects) - np.mean(np.array(average_causal_effects)))
         #print(average_causal_effects)
 
-        return input_samples_ACE
 
-    def plotting_ACE(self,input_samples_ACE):
+    def evaluating_ACE(self):
+        ACEs=np.array(self.input_samples_ACE).T
+        medians=np.median(ACEs, axis=1)
+        variances=np.var(ACEs, axis=1)
+        #print("median")
+        #print(medians[0])
+        #first_row=ACEs[0,:]
+        #print("firstrow")
+        #print(first_row)
+        #print("median first row")
+        #print(np.median(first_row))
+        #for i,causal_effects in enumerate(np.array(self.input_samples_ACE).T):
+    #        if i!=0:
+    #            break
+    #        print("causal effects")
+    #        print(causal_effects)
+
+
+    def plotting_ACE(self):
         input_samples=self.new_inputs.detach().numpy()
         input_samples=input_samples.T
-        for i,causal_effects in enumerate(np.array(input_samples_ACE).T):
+        for i,causal_effects in enumerate(np.array(self.input_samples_ACE).T):
             #print(i)
             if i>14:
                 break
@@ -122,8 +157,8 @@ class causality(object):
             plt.title('histogram_average_causal_effects_neuron_'+str(i))
             plt.savefig('ACEplots/histogram_neuron'+str(i)+'.png')
             plt.close()
-        #print(len(input_samples_ACE))
-        #print(len(input_samples_ACE[0]))
+        #print(len(self.input_samples_ACE))
+        #print(len(self.input_samples_ACE[0]))
         print("DONE")
         #print(len(inputs))
         #print(len(inputs[0]))
