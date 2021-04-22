@@ -19,7 +19,7 @@ class causality(object):
         #print(input_sample.shape)
         x_train_t =torch.from_numpy(input_sample).clone()
         for counter,layer in enumerate(self.neural_network.net):
-            if counter%2==0 and counter<len(self.neural_network.net):
+            if counter%2==0 and counter<len(self.neural_network.net)-1:
                 #print(counter)
                 self.neural_network.net.eval()
                 new_nn=self.neural_network.net[counter:len(self.neural_network.net)]
@@ -32,13 +32,14 @@ class causality(object):
                 #shapes are wrong############################
                 #print(self.new_inputs.detach().numpy().shape)
 
-                input_samples_ACE=self.ACE(covariance,mean,new_nn)
                 print("nn generating input")
                 print(self.neural_network.net[0:counter])
                 print("sliced NN")
                 print(new_nn)
+                input_samples_ACE=self.ACE(covariance,mean,new_nn)
 
-                self.plotting_ACE(input_samples_ACE)
+
+                #self.plotting_ACE(input_samples_ACE)
                 #print("self.new_inputs shape")
                 #print(self.new_inputs.detach().numpy().shape)
                 #print(mean)
@@ -63,7 +64,7 @@ class causality(object):
 
                 output=neural_net(input_tensor) # torch.from_numpy(mean_vector)
 
-                output = torch.nn.functional.sigmoid(output)
+                #output = torch.nn.functional.sigmoid(output)
                 #output = torch.nn.functional.softmax(output)
 
                 val = output.data.view(1).cpu().numpy()[0]
