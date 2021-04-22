@@ -19,7 +19,7 @@ class causality(object):
         #print(input_sample.shape)
         x_train_t =torch.from_numpy(input_sample).clone()
         for counter,layer in enumerate(self.neural_network.net):
-            if counter%2==0 and counter<len(self.neural_network.net):
+            if counter%2==0 and counter<len(self.neural_network.net)-1:
                 #print(counter)
                 self.neural_network.net.eval()
                 new_nn=self.neural_network.net[counter:len(self.neural_network.net)]
