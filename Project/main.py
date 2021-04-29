@@ -50,7 +50,7 @@ loss_training,test_loss_training=neural.training()
 #test neural net
 loss_test=neural.testing()
 
-causal_test=causal.causality(neural,0,0)
+causal_test=causal.causality(neural,0,0,0)
 
 causal_test.slicing_NN(get_data.inputs_training)#for us only training values as we are covering ACE in training not after training
 

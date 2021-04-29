@@ -27,6 +27,7 @@ class neural_network(object):
             #nn.Linear(50,   50, bias = True), nn.Sigmoid(),
             #nn.Linear(50,   1)
 
+            #realNN
             nn.Linear(dim, 50, bias = True), nn.ReLU(),
             nn.Linear(50,   100, bias = True), nn.ReLU(),
             nn.Linear(100,   50, bias = True), nn.ReLU(),
@@ -34,7 +35,16 @@ class neural_network(object):
 
             #nn.Linear(dim, 50, bias = True), nn.ReLU(),
             #nn.Linear(50,   50, bias = True), nn.ReLU(),
+            #nn.Linear(50,   50, bias = True), nn.ReLU(),
+            #nn.Linear(50,   50, bias = True), nn.ReLU(),
             #nn.Linear(50,   10, bias = True), nn.ReLU(),
+            #nn.Linear(10,   1)
+
+            #nn.Linear(dim, 50, bias = True), nn.Sigmoid(),
+            #nn.Linear(50,   50, bias = True), nn.Tanh(),
+            #nn.Linear(50,   10, bias = True), nn.Softmax(),
+            #nn.Linear(10,   50, bias = True), nn.ReLU(),
+            #nn.Linear(50,   10, bias = True), nn.Sigmoid(),
             #nn.Linear(10,   1)
         )
         self.criterion = nn.MSELoss()

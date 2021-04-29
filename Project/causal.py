@@ -7,11 +7,12 @@ import copy
 class causality(object):
     """docstring for causality."""
 
-    def __init__(self, neural_network,new_inputs,input_samples_ACE):
+    def __init__(self, neural_network,new_inputs,input_samples_ACE,counter):
         super(causality, self).__init__()
         self.neural_network = neural_network
         self.new_inputs=new_inputs
         self.input_samples_ACE=input_samples_ACE
+        self.counter=counter
 
 
     def slicing_NN(self,input_sample):
@@ -20,8 +21,8 @@ class causality(object):
         #print(input_sample.shape)
         x_train_t =torch.from_numpy(input_sample).clone()
         for counter,layer in enumerate(self.neural_network.net):
-            if counter%2==0 and counter<len(self.neural_network.net):#if counter==6:#
-
+            if counter%2==0 and counter<len(self.neural_network.net)-1:#if counter==6:#
+                self.counter=counter
                 #print(counter)
                 self.neural_network.net.eval()
                 new_nn=self.neural_network.net[counter:len(self.neural_network.net)]
@@ -53,8 +54,11 @@ class causality(object):
     def ACE(self,covariance,mean,neural_net):
         torch.set_default_dtype(torch.float64)
         self.input_samples_ACE=[]
-
+        first_orders_mean_array=[]
+        high_orders_mean_array=[]
         for input_sample in self.new_inputs:
+            first_orders_mean=[]
+            high_orders_mean=[]
             input_sample=input_sample.detach().numpy()
             #print(input_sample)
             average_causal_effects=[]
@@ -75,7 +79,7 @@ class causality(object):
                 val = output.data.view(1).cpu().numpy()[0]
                 #print("first Loop") #first Loop 0
                 #print(indx)
-                first_grads = torch.autograd.grad(output, input_tensor, retain_graph=True, create_graph=True, only_inputs=True, allow_unused=True)#allow_unused=False
+                first_grads = torch.autograd.grad(output, input_tensor, retain_graph=True, create_graph=True, only_inputs=True, allow_unused=False)#allow_unused=False
                 #first_grads=np.array(first_grads, dtype=float)
                 #print(first_grads)
                 #first_grads[0].data=torch.nan_to_num(first_grads[0].data)
@@ -83,7 +87,7 @@ class causality(object):
                 #first_grads=torch.tensor(first_grads)
                 first_grad_shape = first_grads[0].data.size()
                 lower_order_grads = first_grads
-
+                first_orders_mean.append(np.mean(np.array(first_grads[0].data)))
                 for dim in range(len(mean)):
                     if dim==indx:
                         continue #only executing loop if not same neuron
@@ -95,14 +99,14 @@ class causality(object):
                     #print(input_tensor)
                     #print("second Loop") #second Loop 1
                     #print(dim)
-                    higher_order_grads = torch.autograd.grad(lower_order_grads,input_tensor, grad_outputs=grad_mask, retain_graph=True, create_graph=True, only_inputs=True, allow_unused=True)#allow_unused=False
+                    higher_order_grads = torch.autograd.grad(lower_order_grads,input_tensor, grad_outputs=grad_mask, retain_graph=True, create_graph=True, only_inputs=True, allow_unused=False)#allow_unused=False
                     #higher_order_grads=np.array(higher_order_grads, dtype=float)
                     #print(higher_order_grads)
                     #X=torch.nan_to_num(higher_order_grads[0].data)
                     #print(X)
                     #higher_order_grads=torch.tensor(higher_order_grads)
                     higher_order_grads_array = np.array(higher_order_grads[0].data)
-
+                    high_orders_mean.append(np.mean(higher_order_grads_array))
 
                     temp_cov = copy.deepcopy(covariance)
                     temp_cov[dim][indx] = 0.0
@@ -113,15 +117,26 @@ class causality(object):
 
 
             #average_causal_effects = np.array(average_causal_effects) - np.mean(np.array(average_causal_effects))
-
+                first_orders_mean_array.append(first_orders_mean)
+                high_orders_mean_array.append(high_orders_mean)
             self.input_samples_ACE.append(np.array(average_causal_effects) - np.mean(np.array(average_causal_effects)))
         #print(average_causal_effects)
+
+            #self.plotting_derivatives(first_orders_mean_array, high_orders_mean_array)
 
 
     def evaluating_ACE(self):
         ACEs=np.array(self.input_samples_ACE).T
         medians=np.median(ACEs, axis=1)
         variances=np.var(ACEs, axis=1)
+        plus_border_mean=np.percentile(medians,80)
+        minus_border_mean=np.percentile(medians,20)
+        plus_border_variances=np.percentile(variances,80)
+        minus_border_variances=np.percentile(variances,20)
+        #point=np.median(medians)
+        #print(point)
+        #print(medians.shape)
+        #print(variances.shape)
         #print("median")
         #print(medians[0])
         #first_row=ACEs[0,:]
@@ -134,6 +149,33 @@ class causality(object):
     #            break
     #        print("causal effects")
     #        print(causal_effects)
+        #self.plotting_ACE_mean_var(medians,variances)
+
+    def plotting_ACE_mean_var(self,medians,variances):
+        plt.hist(medians)
+        #point=np.median(medians)
+        plt.annotate("mean", xy=(np.mean(medians),0),arrowprops = dict(facecolor='black', shrink=0.05))
+        #plt.annotate("border-", xy=(np.max(medians)-0.2*np.max(medians),0),arrowprops = dict(facecolor='black', shrink=0.05))
+        #plt.annotate("border+", xy=(np.min(medians)+0.2*np.min(medians),0),arrowprops = dict(facecolor='black', shrink=0.05))
+        plt.annotate("border+", xy=(np.percentile(medians,80),0),arrowprops = dict(facecolor='black', shrink=0.05))
+        plt.annotate("border-", xy=(np.percentile(medians,20),0),arrowprops = dict(facecolor='black', shrink=0.05))
+
+        #plt.xlabel('Neuron')
+        #plt.ylabel('Mean Value')
+        plt.title('Mean Values of Input Neurons')
+        plt.savefig('MeanVarPlots/mean_neuron_'+str(self.counter)+'.png')
+        plt.close()
+        plt.hist(variances)
+        plt.annotate("median", xy=(np.median(variances),0),arrowprops = dict(facecolor='black', shrink=0.05))
+        plt.annotate("border+", xy=(np.percentile(variances,80),0),arrowprops = dict(facecolor='black', shrink=0.05))
+        plt.annotate("border-", xy=(np.percentile(variances,20),0),arrowprops = dict(facecolor='black', shrink=0.05))
+        #plt.annotate("border-", xy=(np.max(variances)-0.2*np.max(variances),0),arrowprops = dict(facecolor='black', shrink=0.05))
+        #plt.annotate("border+", xy=(np.min(variances)+0.2*np.min(variances),0),arrowprops = dict(facecolor='black', shrink=0.05))
+        #plt.xlabel('Neuron')
+        #plt.ylabel('Var Value')
+        plt.title('Var Values of Input Neurons')
+        plt.savefig('MeanVarPlots/var_neuron_'+str(self.counter)+'.png')
+        plt.close()
 
 
     def plotting_ACE(self):
@@ -163,3 +205,17 @@ class causality(object):
         #print(len(inputs))
         #print(len(inputs[0]))
         #check with sizes what we actually calculated
+
+    def plotting_derivatives(self, first_orders_mean, high_orders_mean):
+        plt.plot(first_orders_mean)
+        plt.xlabel('Nr')
+        plt.ylabel('Dev value')
+        plt.title('first_orders_mean')
+        plt.savefig('DEVplots/first_orders_mean'+str(self.counter)+'.png')
+        plt.close()
+        plt.plot(high_orders_mean)
+        plt.xlabel('Nr')
+        plt.ylabel('Dev value')
+        plt.title('high_orders_mean')
+        plt.savefig('DEVplots/high_orders_mean'+str(self.counter)+'.png')
+        plt.close()
