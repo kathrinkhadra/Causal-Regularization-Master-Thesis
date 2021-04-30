@@ -50,10 +50,17 @@ loss_training,test_loss_training=neural.training()
 #test neural net
 loss_test=neural.testing()
 
-causal_test=causal.causality(neural,0,0,0)
+#causal_test=causal.causality(neural,0,0,0,0)
 
-causal_test.slicing_NN(get_data.inputs_training)#for us only training values as we are covering ACE in training not after training
+#causal_test.slicing_NN(get_data.inputs_training)#for us only training values as we are covering ACE in training not after training
 
+#print("final causality")
+#print(causal_test.final_causality)
+
+#print("shapes")
+#for row in causal_test.final_causality:
+#    element=np.array(row)
+#    print(len(row))
 #print(neural.net[0].weight.size())
 #print(neural.net[0].bias.size())
 #print(neural.net[0:5])#abscheiden des netzes

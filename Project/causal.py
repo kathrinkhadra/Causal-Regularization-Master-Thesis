@@ -7,21 +7,23 @@ import copy
 class causality(object):
     """docstring for causality."""
 
-    def __init__(self, neural_network,new_inputs,input_samples_ACE,counter):
+    def __init__(self, neural_network,new_inputs,input_samples_ACE,counter,final_causality):
         super(causality, self).__init__()
         self.neural_network = neural_network
         self.new_inputs=new_inputs
         self.input_samples_ACE=input_samples_ACE
         self.counter=counter
+        self.final_causality=final_causality
 
 
     def slicing_NN(self,input_sample):
         #slicing after the unlinearity needs to be done
         #y_train_t =torch.from_numpy(self.target_training).clone().reshape(-1, 1)
         #print(input_sample.shape)
+        self.final_causality=[]
         x_train_t =torch.from_numpy(input_sample).clone()
         for counter,layer in enumerate(self.neural_network.net):
-            if counter%2==0 and counter<len(self.neural_network.net)-1:#if counter==6:#
+            if counter%2==1 and counter<len(self.neural_network.net)-1 and counter!=0:#if counter==6:#
                 self.counter=counter
                 #print(counter)
                 self.neural_network.net.eval()
@@ -42,14 +44,18 @@ class causality(object):
 
                 self.ACE(covariance,mean,new_nn)
 
+                causality_update=self.evaluating_ACE()
 
-                self.evaluating_ACE()
+                self.final_causality.append(causality_update)
+
+                #self.final_causality.append(causality_update, dtype=object)
                 #if counter==0:
-                #    self.plotting_ACE()
+                #self.plotting_ACE()
                 #print("self.new_inputs shape")
                 #print(self.new_inputs.detach().numpy().shape)
                 #print(mean)
                 #print(covariance)
+        self.final_causality=np.array(self.final_causality,dtype=object)
 
     def ACE(self,covariance,mean,neural_net):
         torch.set_default_dtype(torch.float64)
@@ -133,6 +139,18 @@ class causality(object):
         minus_border_mean=np.percentile(medians,20)
         plus_border_variances=np.percentile(variances,80)
         minus_border_variances=np.percentile(variances,20)
+
+        #medians[medians>=plus_border_mean]=0
+        #medians[medians<plus_border_mean]=1
+        #medians[medians<=minus_border_mean]=0
+        #medians[medians>minus_border_mean]=1
+        #print("get causality")
+        #print(plus_border_mean)
+        #print(minus_border_mean)
+        #print(medians)
+
+        causality_update = [0 if med>=plus_border_mean or med<=minus_border_mean else 1 for med in medians]
+        #print(medians)
         #point=np.median(medians)
         #print(point)
         #print(medians.shape)
@@ -150,6 +168,7 @@ class causality(object):
     #        print("causal effects")
     #        print(causal_effects)
         #self.plotting_ACE_mean_var(medians,variances)
+        return causality_update
 
     def plotting_ACE_mean_var(self,medians,variances):
         plt.hist(medians)
