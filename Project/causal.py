@@ -50,7 +50,7 @@ class causality(object):
 
                 #self.final_causality.append(causality_update, dtype=object)
                 #if counter==0:
-                self.plotting_ACE()
+                #self.plotting_ACE()
                 #print("self.new_inputs shape")
                 #print(self.new_inputs.detach().numpy().shape)
                 #print(mean)
@@ -135,10 +135,13 @@ class causality(object):
         ACEs=np.array(self.input_samples_ACE).T
         medians=np.median(ACEs, axis=1)
         variances=np.var(ACEs, axis=1)
-        plus_border_mean=np.percentile(medians,80)
-        minus_border_mean=np.percentile(medians,20)
-        plus_border_variances=np.percentile(variances,80)
-        minus_border_variances=np.percentile(variances,20)
+        #plus_border_mean=np.percentile(medians,80)
+        #minus_border_mean=np.percentile(medians,20)
+        #plus_border_variances=np.percentile(variances,80)
+        #minus_border_variances=np.percentile(variances,20)
+        #np.max(medians)
+        #np.min(medians)
+
 
         #medians[medians>=plus_border_mean]=0
         #medians[medians<plus_border_mean]=1
@@ -149,7 +152,10 @@ class causality(object):
         #print(minus_border_mean)
         #print(medians)
 
-        causality_update = [0 if med>=plus_border_mean or med<=minus_border_mean else 1 for med in medians]
+
+        #causality_update = [0 if med>=plus_border_mean or med<=minus_border_mean else 1 for med in medians]
+
+        causality_update = [0 if med<0 else 1 for med in medians]
         #print(medians)
         #point=np.median(medians)
         #print(point)

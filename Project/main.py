@@ -59,6 +59,24 @@ if causality_on==0:
     print("final causality")
     print(causal_test.final_causality)
 
+if causality_on==1:
+    learning_rate=.0005
+    epochs=450
+    neural_controll=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,0)
+
+    #build neural net, define optimizer and loss
+    neural_controll.model(get_data.inputs)
+
+    #train neural net
+    loss_training,test_loss_training=neural_controll.training()
+
+    #plot training performance
+    #neural.testing_training(loss_training,test_loss_training,'training_performance.png')
+
+    #test neural net
+    loss_test=neural_controll.testing()
+
+
 #print("shapes")
 #for row in causal_test.final_causality:
 #    element=np.array(row)
