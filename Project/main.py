@@ -36,7 +36,8 @@ get_data.splitting_data_noshift()
 #####################Neural Net
 learning_rate=.0005
 epochs=450
-neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test)
+causality_on=0
+neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on)
 
 #build neural net, define optimizer and loss
 neural.model(get_data.inputs)
@@ -50,12 +51,13 @@ loss_training,test_loss_training=neural.training()
 #test neural net
 loss_test=neural.testing()
 
-#causal_test=causal.causality(neural,0,0,0,0)
+if causality_on==0:
+    causal_test=causal.causality(neural,0,0,0,0)
 
-#causal_test.slicing_NN(get_data.inputs_training)#for us only training values as we are covering ACE in training not after training
+    causal_test.slicing_NN(get_data.inputs_training)#for us only training values as we are covering ACE in training not after training
 
-#print("final causality")
-#print(causal_test.final_causality)
+    print("final causality")
+    print(causal_test.final_causality)
 
 #print("shapes")
 #for row in causal_test.final_causality:

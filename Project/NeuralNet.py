@@ -3,11 +3,12 @@ import torch.nn as nn
 import numpy  as np
 import matplotlib.pyplot as plt
 import causal
+import copy
 
 class neural_network(object):
     """docstring for neural_network."""
 
-    def __init__(self, learning_rate,net,criterion,opt,epochs,inputs_training,target_training,inputs_test,target_test):
+    def __init__(self, learning_rate,net,criterion,opt,epochs,inputs_training,target_training,inputs_test,target_test,causality_on):
         super(neural_network, self).__init__()
         self.learning_rate = learning_rate
         self.net=net
@@ -18,6 +19,7 @@ class neural_network(object):
         self.target_training=target_training
         self.inputs_test=inputs_test
         self.target_test=target_test
+        self.causality_on=causality_on
 
     def model(self,inputs):
         torch.set_default_dtype(torch.float64)
@@ -61,7 +63,7 @@ class neural_network(object):
         test_loss_training=[]
         for i in range(self.epochs):
 
-            placeholderNet=self.net
+            placeholderNet=copy.deepcopy(self.net)
             placeholderNet.eval()
 
             self.net.train()
@@ -81,6 +83,8 @@ class neural_network(object):
             if i > 0 and i % 10 == 0:
                 print('Epoch %d, loss = %g' % (i, loss))
 
+
+
             #print("weight experiment")
 
             #print(len(self.net[0].weight.grad))
@@ -97,26 +101,24 @@ class neural_network(object):
             #print(len(self.net[2].weight[0]))
             #print(self.net[0].weight.detach().numpy().shape)
 
-            self.selection_weights(placeholderNet)
+            if self.causality_on==1:
+                self.update_weights_bias(placeholderNet)
 
 
 
         return loss_training,test_loss_training
 
 
-    def selection_weights(self,placeholderNet):
+    def update_weights_bias(self,placeholderNet):
         causal_binary = self.ACE_execution()
         #self.net[2].weight
         for indx,binary in enumerate(causal_binary):
             #i=indx*2
             #print(i)
             #print(indx)
-
-            weight_update=np.multiply(self.net[indx*2].weight.detach().numpy(), np.array(binary)[:, np.newaxis])
-            inverted_binary=1-np.array(binary)
-            weighted_keep=np.multiply(placeholderNet[indx*2].weight.detach().numpy(), inverted_binary[:, np.newaxis])
-
-            new_weights=weight_update+weighted_keep
+            new_bias=self.selection_bias(placeholderNet,indx,binary)
+            new_weights=self.selection_weights(placeholderNet,indx,binary)
+            self.overwrite_weights_bias(placeholderNet,indx,new_weights,new_bias)
 
             #print("shape weights new")
             #print(self.net[indx*2].weight.detach().numpy().shape)
@@ -128,8 +130,65 @@ class neural_network(object):
             #print(weighted_keep.shape)
             #print("shape weights final")
             #print(new_weights.shape)
-    #def overwrite_weights(self):
-    #self.net[0].weight=torch.nn.Parameter(torch.from_numpy(np.array(0)))
+
+    def selection_bias(self,placeholderNet,indx,binary):
+
+        bias_update=np.multiply(self.net[indx*2].bias.detach().numpy(), np.array(binary))
+        inverted_binary=1-np.array(binary)
+        bias_keep=np.multiply(placeholderNet[indx*2].bias.detach().numpy(), inverted_binary)
+
+        new_bias=bias_update+bias_keep
+
+        #print("shape bias net")
+        #print(self.net[indx*2].bias.detach().numpy().shape)
+        #print("bias_update")
+        #print(bias_update.shape)
+        #print("new_bias")
+        #print(new_bias.shape)
+        #print("bias net")
+        #print(self.net[indx*2].bias.detach().numpy())
+        #print("binary")
+        #print(binary)
+        #print("bias_update")
+        #print(bias_update)
+
+        #print("bias placeholderNet")
+        #print(placeholderNet[indx*2].bias.detach().numpy())
+        #print("new_bias")
+        #print(new_bias)
+
+        return new_bias
+
+
+    def selection_weights(self,placeholderNet,indx,binary):
+
+        weight_update=np.multiply(self.net[indx*2].weight.detach().numpy(), np.array(binary)[:, np.newaxis])
+        inverted_binary=1-np.array(binary)
+        weighted_keep=np.multiply(placeholderNet[indx*2].weight.detach().numpy(), inverted_binary[:, np.newaxis])
+
+        new_weights=weight_update+weighted_keep
+
+        #print("shape weights net")
+        #print(self.net[indx*2].weight.detach().numpy().shape)
+        #print("weight_update")
+        #print(weight_update.shape)
+        #print("new_weights")
+        #print(new_weights.shape)
+        #print("weight net")
+        #print(self.net[indx*2].weight.detach().numpy())
+        #print("binary")
+        #print(binary)
+        #print("weight_update")
+        #print(weight_update)
+        #print("new_weights")
+        #print(new_weights)
+
+        return new_weights
+
+
+    def overwrite_weights_bias(self,placeholderNet,indx,new_weights,new_bias):
+        self.net[indx*2].weight=torch.nn.Parameter(torch.from_numpy(new_weights))
+        self.net[indx*2].bias=torch.nn.Parameter(torch.from_numpy(new_bias))
 
     def ACE_execution(self):
         causal_test=causal.causality(self,0,0,0,0)
