@@ -36,7 +36,7 @@ get_data.splitting_data_noshift()
 #####################Neural Net
 learning_rate=.0005
 epochs=450
-causality_on=0
+causality_on=1
 neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on)
 
 #build neural net, define optimizer and loss
