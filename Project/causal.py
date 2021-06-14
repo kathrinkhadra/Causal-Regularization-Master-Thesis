@@ -135,6 +135,8 @@ class causality(object):
         ACEs=np.array(self.input_samples_ACE).T
         medians=np.median(ACEs, axis=1)
         variances=np.var(ACEs, axis=1)
+        print("--------------------ACEshape-------------------------")
+        print(ACEs.shape)
         #plus_border_mean=np.percentile(medians,80)
         #minus_border_mean=np.percentile(medians,20)
         #plus_border_variances=np.percentile(variances,80)
