@@ -46,7 +46,7 @@ neural.model(get_data.inputs)
 loss_training,test_loss_training=neural.training()
 
 #plot training performance
-#neural.testing_training(loss_training,test_loss_training,'training_performance.png')
+neural.testing_training(loss_training,test_loss_training,'training_performance.png')
 
 #test neural net
 loss_test=neural.testing()
@@ -71,7 +71,7 @@ if causality_on==1:
     loss_training,test_loss_training=neural_controll.training()
 
     #plot training performance
-    #neural.testing_training(loss_training,test_loss_training,'training_performance.png')
+    neural.testing_training(loss_training,test_loss_training,'training_performance.png')
 
     #test neural net
     loss_test=neural_controll.testing()

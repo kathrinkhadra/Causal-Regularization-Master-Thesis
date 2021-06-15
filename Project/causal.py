@@ -37,10 +37,10 @@ class causality(object):
                 #shapes are wrong############################
                 #print(self.new_inputs.detach().numpy().shape)
 
-                print("nn generating input")
-                print(self.neural_network.net[0:counter])
-                print("sliced NN")
-                print(new_nn)
+                #print("nn generating input")
+                #print(self.neural_network.net[0:counter])
+                #print("sliced NN")
+                #print(new_nn)
 
                 self.ACE(covariance,mean,new_nn)
 
@@ -135,8 +135,8 @@ class causality(object):
         ACEs=np.array(self.input_samples_ACE).T
         medians=np.median(ACEs, axis=1)
         variances=np.var(ACEs, axis=1)
-        print("--------------------ACEshape-------------------------")
-        print(ACEs.shape)
+        #print("--------------------ACEshape-------------------------")
+        #print(ACEs.shape)
         #plus_border_mean=np.percentile(medians,80)
         #minus_border_mean=np.percentile(medians,20)
         #plus_border_variances=np.percentile(variances,80)

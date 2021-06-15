@@ -1,3 +1,4 @@
+
 import torch
 import torch.nn as nn
 import numpy  as np
@@ -108,6 +109,15 @@ class neural_network(object):
 
         return loss_training,test_loss_training
 
+    def my_loss(target,output):
+
+        loss = self.criterion(target,output) + self.ACE_regularitzation(target,output)
+
+        return loss
+
+    def ACE_regularitzation(self,target,output):
+        value=-x
+        return value
 
     def update_weights_bias(self,placeholderNet):
         causal_binary = self.ACE_execution()
@@ -203,7 +213,9 @@ class neural_network(object):
         plt.plot(test[300:])
         plt.xlabel('Actual value of training set')
         plt.ylabel('Prediction')
+        plt.legend(loc='upper right')
         plt.savefig(figure_name)
+        plt.close
 
     def testing(self):
         self.net.eval()
