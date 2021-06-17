@@ -69,7 +69,11 @@ class neural_network(object):
 
             self.net.train()
             y_hat = self.net(x_train_t)
-            loss = self.criterion(y_train_t,self.net(x_train_t))
+            #loss = self.criterion(y_train_t,self.net(x_train_t))
+            if self.causality_on==1:
+                loss=self.my_loss(y_train_t,self.net(x_train_t))
+            else:
+                loss = self.criterion(y_train_t,self.net(x_train_t))
             loss_training.append(loss.item())
             stepsave.append(i)
             loss.backward()
@@ -81,8 +85,9 @@ class neural_network(object):
             ypred = self.net(torch.from_numpy(self.inputs_test).detach())
             loss_test = self.criterion(torch.from_numpy(self.target_test).clone().reshape(-1, 1),ypred)
             test_loss_training.append(loss_test)
-            if i > 0 and i % 10 == 0:
-                print('Epoch %d, loss = %g' % (i, loss))
+            #print("one done")
+            #if i > 0 and i % 10 == 0:
+            print('Epoch %d, loss = %g' % (i, loss))
 
 
 
@@ -102,22 +107,32 @@ class neural_network(object):
             #print(len(self.net[2].weight[0]))
             #print(self.net[0].weight.detach().numpy().shape)
 
-            if self.causality_on==1:
-                self.update_weights_bias(placeholderNet)
+            #if self.causality_on==1:
+            #    self.update_weights_bias(placeholderNet)
 
 
 
         return loss_training,test_loss_training
 
-    def my_loss(target,output):
+    def my_loss(self,target,output):
+        #a=self.criterion(target,output)
+        #print(self.criterion(target,output)) #50 samples = 50 a
+        #value=self.ACE_regularitzation(target,output)
 
-        loss = self.criterion(target,output) + self.ACE_regularitzation(target,output)
+        loss = self.criterion(target,output) + torch.tensor(self.ACE_regularitzation(target,output))
 
         return loss
 
     def ACE_regularitzation(self,target,output):
-        value=-x
+        mean,variance = self.ACE_function()
+        mean=np.concatenate(mean, axis=None)
+        value=-np.mean(mean)
         return value
+
+    def ACE_function(self):
+        causal_regularization=causal.causality(self,0,0,0,0,0,0)
+        causal_regularization.slicing_NN(self.inputs_training)
+        return causal_regularization.means, causal_regularization.variances
 
     def update_weights_bias(self,placeholderNet):
         causal_binary = self.ACE_execution()
@@ -201,21 +216,22 @@ class neural_network(object):
         self.net[indx*2].bias=torch.nn.Parameter(torch.from_numpy(new_bias))
 
     def ACE_execution(self):
-        causal_test=causal.causality(self,0,0,0,0)
+        causal_test=causal.causality(self,0,0,0,0,0,0)
         causal_test.slicing_NN(self.inputs_training)
         return causal_test.final_causality
+
 
     def testing_training(self,loss_training,test_loss_training,figure_name):
         sl =np.array(loss_training)
         test=np.array(test_loss_training)
 
-        plt.plot(sl[300:])
-        plt.plot(test[300:])
+        plt.plot(sl[300:], label="training loss")
+        plt.plot(test[300:], label="validation loss")
         plt.xlabel('Actual value of training set')
         plt.ylabel('Prediction')
         plt.legend(loc='upper right')
         plt.savefig(figure_name)
-        plt.close
+        plt.close()
 
     def testing(self):
         self.net.eval()

@@ -52,7 +52,7 @@ neural.testing_training(loss_training,test_loss_training,'training_performance.p
 loss_test=neural.testing()
 
 if causality_on==0:
-    causal_test=causal.causality(neural,0,0,0,0)
+    causal_test=causal.causality(neural,0,0,0,0,0,0)
 
     causal_test.slicing_NN(get_data.inputs_training)#for us only training values as we are covering ACE in training not after training
 
@@ -71,7 +71,7 @@ if causality_on==1:
     loss_training,test_loss_training=neural_controll.training()
 
     #plot training performance
-    neural.testing_training(loss_training,test_loss_training,'training_performance.png')
+    neural_controll.testing_training(loss_training,test_loss_training,'training_performance_control.png')
 
     #test neural net
     loss_test=neural_controll.testing()
