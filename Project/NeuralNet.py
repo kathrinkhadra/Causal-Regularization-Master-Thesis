@@ -9,7 +9,7 @@ import copy
 class neural_network(object):
     """docstring for neural_network."""
 
-    def __init__(self, learning_rate,net,criterion,opt,epochs,inputs_training,target_training,inputs_test,target_test,causality_on):
+    def __init__(self, learning_rate,net,criterion,opt,epochs,inputs_training,target_training,inputs_test,target_test,causality_on,txt_name,epoch):
         super(neural_network, self).__init__()
         self.learning_rate = learning_rate
         self.net=net
@@ -21,6 +21,8 @@ class neural_network(object):
         self.inputs_test=inputs_test
         self.target_test=target_test
         self.causality_on=causality_on
+        self.txt_name=txt_name
+        self.epoch=epoch
 
     def model(self,inputs):
         torch.set_default_dtype(torch.float64)
@@ -63,6 +65,7 @@ class neural_network(object):
         stepsave = []
         test_loss_training=[]
         for i in range(self.epochs):
+            self.epoch=i
 
             placeholderNet=copy.deepcopy(self.net)
             placeholderNet.eval()
@@ -106,11 +109,14 @@ class neural_network(object):
             #self.net[0].weight=torch.nn.Parameter(torch.from_numpy(np.array(0)))
             #print(len(self.net[2].weight[0]))
             #print(self.net[0].weight.detach().numpy().shape)
-
+            if self.causality_on==0:
+                self.ACE_function()
             #if self.causality_on==1:
             #    self.update_weights_bias(placeholderNet)
 
-
+        f = open(self.txt_name, 'a')
+        f.write('loss_training='+str(loss_training)+'\n\n')
+        f.write('test_loss_training='+str(test_loss_training)+'\n\n')
 
         return loss_training,test_loss_training
 
@@ -130,8 +136,8 @@ class neural_network(object):
         return value
 
     def ACE_function(self):
-        causal_regularization=causal.causality(self,0,0,0,0,0,0)
-        causal_regularization.slicing_NN(self.inputs_training)
+        causal_regularization=causal.causality(self,0,0,0,0,0,0,self.txt_name)
+        causal_regularization.slicing_NN(self.inputs_training,self.epoch)
         return causal_regularization.means, causal_regularization.variances
 
     def update_weights_bias(self,placeholderNet):
@@ -216,8 +222,8 @@ class neural_network(object):
         self.net[indx*2].bias=torch.nn.Parameter(torch.from_numpy(new_bias))
 
     def ACE_execution(self):
-        causal_test=causal.causality(self,0,0,0,0,0,0)
-        causal_test.slicing_NN(self.inputs_training)
+        causal_test=causal.causality(self,0,0,0,0,0,0,self.txt_name)
+        causal_test.slicing_NN(self.inputs_training,self.epoch)
         return causal_test.final_causality
 
 

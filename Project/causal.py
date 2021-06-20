@@ -7,7 +7,7 @@ import copy
 class causality(object):
     """docstring for causality."""
 
-    def __init__(self, neural_network,new_inputs,input_samples_ACE,counter,final_causality,mean, variances):
+    def __init__(self, neural_network,new_inputs,input_samples_ACE,counter,final_causality,mean, variances,txt_name):
         super(causality, self).__init__()
         self.neural_network = neural_network
         self.new_inputs=new_inputs
@@ -16,12 +16,15 @@ class causality(object):
         self.final_causality=final_causality
         self.means=mean
         self.variances=variances
+        self.txt_name=txt_name
 
 
-    def slicing_NN(self,input_sample):
+    def slicing_NN(self,input_sample,iteration):
         #slicing after the unlinearity needs to be done
         #y_train_t =torch.from_numpy(self.target_training).clone().reshape(-1, 1)
         #print(input_sample.shape)
+        self.txt_name=self.txt_name.replace(".txt", "")
+        self.txt_name=self.txt_name+'_ACEvalues.txt'
         self.final_causality=[]
         self.means=[]
         self.variances=[]
@@ -64,6 +67,16 @@ class causality(object):
         self.final_causality=np.array(self.final_causality,dtype=object)
         self.means=np.array(self.means,dtype=object)
         self.variances=np.array(self.variances,dtype=object)
+
+        if iteration% 10 == 0:
+            f = open(self.txt_name, 'a')
+            f.write('-----------------------------------------------ITERATION'+str(iteration)+'-----------------------------------------------\n\n')
+            f.write('final_causality='+str(self.final_causality)+'\n\n')
+            f.write('means='+str(self.means)+'\n\n')
+            f.write('mean_overall='+str(np.mean(np.concatenate(self.means, axis=None)))+'\n\n')
+
+            #f.write('variances='+str(self.variances)+'\n\n')
+            #f.write('-----------------------------------------------ITERATION-----------------------------------------------\n\n')
 
     def ACE(self,covariance,mean,neural_net):
         torch.set_default_dtype(torch.float64)
@@ -137,7 +150,11 @@ class causality(object):
         #print(average_causal_effects)
 
             #self.plotting_derivatives(first_orders_mean_array, high_orders_mean_array)
-
+        ACE_txt_name=self.txt_name
+        ACE_txt_name=ACE_txt_name.replace("_ACEvalues.txt", "")
+        ACE_txt_name=ACE_txt_name+'_DETAILEDVALUES.txt'
+        f = open(ACE_txt_name, 'a')
+        f.write('input_samples_ACE_'+str(self.counter)+'='+str(self.input_samples_ACE)+'\n\n')
 
     def evaluating_ACE(self):
         ACEs=np.array(self.input_samples_ACE).T
