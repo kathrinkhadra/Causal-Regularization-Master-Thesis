@@ -14,15 +14,15 @@ test_loss=0.0105
 #print(np.array(x_axis).shape)
 index=0
 
-#plt.plot(np.array(x_axis)[index:],np.array(ACE_loss)[index:], label="training loss with ACE")
-#plt.plot(np.array(x_axis)[index:],np.array(loss)[index:], label="training loss without ACE")
-#plt.plot(450,test_loss, marker='o', label="test loss without ACE")
-#plt.plot(450,ACE_test_loss, marker='o', label="test loss with ACE")
-#plt.xlabel('Actual value of training set')
-#plt.ylabel('Prediction')
-#plt.legend(loc='upper right')
-#plt.savefig("ACE_training_test_comparison.png")
-#plt.close()
+plt.plot(np.array(x_axis)[index:],np.array(ACE_loss)[index:], label="training loss with ACE")
+plt.plot(np.array(x_axis)[index:],np.array(loss)[index:], label="training loss without ACE")
+plt.plot(450,ACE_test_loss, marker='o', label="test loss with ACE")
+plt.plot(450,test_loss, marker='o', label="test loss without ACE")
+plt.xlabel('Actual value of training set')
+plt.ylabel('Prediction')
+plt.legend(loc='upper right')
+plt.savefig("ACE_training_test_comparison.png")
+plt.close()
 
 means=[[ 1.14590369e-03,  4.29754896e-04, -2.32663406e-04, -2.32663406e-04,
        -2.32663406e-04, -1.36855090e-03, -1.88624535e-03,  1.03072269e-02,
@@ -75,9 +75,9 @@ means=[[ 1.14590369e-03,  4.29754896e-04, -2.32663406e-04, -2.32663406e-04,
        -1.77880172e-04, -1.77880172e-04]]
 
 #for mean in means:
-plt.plot(0,7.275121119625292e-06,marker='o')
+#plt.plot(0,7.275121119625292e-06,marker='o')
 
-plt.show()
+#plt.show()
 
 #f = open("results.txt", 'a')
 
