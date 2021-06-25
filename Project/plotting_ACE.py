@@ -11,7 +11,7 @@ ACEvalue_noACE=[-7.322148910593939e-07,-3.8739720894121615e-06,7.813118742804049
 #plt.plot(x_axis,ACEvalue_withACE, label="ACE with ACE regularization")
 #plt.plot(x_axis,ACEvalue_noACE, label="ACE without regularization")
 #plt.xlabel('Training epoch')
-#plt.ylabel('Average causal effect')
+#plt.ylabel('Average causal effect (ACE)')
 #plt.legend(loc='upper right')
 #plt.savefig('ACE_entwicklung.png')
 
@@ -21,12 +21,12 @@ loss_training_withACE=[0.0809984138582825, 0.07685479342400947, 0.07314180506074
 
 x_axis=np.arange(1, 451)
 
-#plt.plot(x_axis,loss_training_withACE, label="Training loss with ACE regularization")
-#plt.plot(x_axis,loss_training_noACE, label="Training loss  without regularization")
-#plt.plot(450,0.0719, marker='o', label="Test loss with ACE")
-#plt.plot(450,0.0775, marker='o', label="Test loss without ACE")
+#plt.plot(x_axis,loss_training_withACE, label="Training MSE with ACE regularization")
+#plt.plot(x_axis,loss_training_noACE, label="Training MSE  without regularization")
+#plt.plot(450,0.0719, marker='o', label="Test MSE with ACE")
+#plt.plot(450,0.0775, marker='o', label="Test MSE without ACE")
 #plt.xlabel('Training epoch')
-#plt.ylabel('Training loss')
+#plt.ylabel('Mean Square Error (MSE)')
 #plt.legend(loc='upper right')
 #plt.savefig('Training_entwicklung.png')
 

@@ -9,7 +9,7 @@ import copy
 class neural_network(object):
     """docstring for neural_network."""
 
-    def __init__(self, learning_rate,net,criterion,opt,epochs,inputs_training,target_training,inputs_test,target_test,causality_on,txt_name,epoch):
+    def __init__(self, learning_rate,net,criterion,opt,epochs,inputs_training,target_training,inputs_test,target_test,causality_on,txt_name,epoch,factor):
         super(neural_network, self).__init__()
         self.learning_rate = learning_rate
         self.net=net
@@ -23,6 +23,7 @@ class neural_network(object):
         self.causality_on=causality_on
         self.txt_name=txt_name
         self.epoch=epoch
+        self.factor=factor
 
     def model(self,inputs):
         torch.set_default_dtype(torch.float64)
@@ -62,6 +63,7 @@ class neural_network(object):
         #dataset = TensorDataset(torch.from_numpy(inputs_training).detach().clone(), torch.from_numpy(y_train).reshape(-1,1).detach().clone())
         #loader = DataLoader(dataset=dataset, batch_size=128, shuffle=True)
         loss_training = []
+        loss_control_training_MSE=[]
         stepsave = []
         test_loss_training=[]
         for i in range(self.epochs):
@@ -92,6 +94,9 @@ class neural_network(object):
             #if i > 0 and i % 10 == 0:
             print('Epoch %d, loss = %g' % (i, loss))
 
+            if self.causality_on==1:
+                loss_control_training_MSE.append(self.criterion(y_train_t,self.net(x_train_t)))
+
 
 
             #print("weight experiment")
@@ -117,6 +122,7 @@ class neural_network(object):
         f = open(self.txt_name, 'a')
         f.write('loss_training='+str(loss_training)+'\n\n')
         f.write('test_loss_training='+str(test_loss_training)+'\n\n')
+        f.write('loss_control_training_MSE='+str(loss_control_training_MSE)+'\n\n')
 
         return loss_training,test_loss_training
 
@@ -124,8 +130,7 @@ class neural_network(object):
         #a=self.criterion(target,output)
         #print(self.criterion(target,output)) #50 samples = 50 a
         #value=self.ACE_regularitzation(target,output)
-
-        loss = self.criterion(target,output) + torch.tensor(self.ACE_regularitzation(target,output))
+        loss = self.criterion(target,output) + self.factor*torch.tensor(self.ACE_regularitzation(target,output))
 
         return loss
 

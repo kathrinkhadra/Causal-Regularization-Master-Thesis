@@ -150,11 +150,11 @@ class causality(object):
         #print(average_causal_effects)
 
             #self.plotting_derivatives(first_orders_mean_array, high_orders_mean_array)
-        ACE_txt_name=self.txt_name
-        ACE_txt_name=ACE_txt_name.replace("_ACEvalues.txt", "")
-        ACE_txt_name=ACE_txt_name+'_DETAILEDVALUES.txt'
-        f = open(ACE_txt_name, 'a')
-        f.write('input_samples_ACE_'+str(self.counter)+'='+str(self.input_samples_ACE)+'\n\n')
+        #ACE_txt_name=self.txt_name
+        #ACE_txt_name=ACE_txt_name.replace("_ACEvalues.txt", "")
+        #ACE_txt_name=ACE_txt_name+'_DETAILEDVALUES.txt'
+        #f = open(ACE_txt_name, 'a')
+        #f.write('input_samples_ACE_'+str(self.counter)+'='+str(self.input_samples_ACE)+'\n\n')
 
     def evaluating_ACE(self):
         ACEs=np.array(self.input_samples_ACE).T
