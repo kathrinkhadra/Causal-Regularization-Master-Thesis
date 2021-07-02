@@ -79,23 +79,24 @@ class neural_network(object):
                 loss=self.my_loss(y_train_t,self.net(x_train_t))
             else:
                 loss = self.criterion(y_train_t,self.net(x_train_t))
+            self.net.train()
             loss_training.append(loss.item())
             stepsave.append(i)
+            self.opt.zero_grad()
             loss.backward()
             self.opt.step()
-            self.opt.zero_grad()
             #y_hat_class = (y_hat.detach().numpy())
             #accuracy = np.sum(self.y_train.reshape(-1,1)== y_hat_class )/len(self.target_training)
             self.net.eval()
             ypred = self.net(torch.from_numpy(self.inputs_test).detach())
             loss_test = self.criterion(torch.from_numpy(self.target_test).clone().reshape(-1, 1),ypred)
-            test_loss_training.append(loss_test)
+            test_loss_training.append(loss_test.item())
             #print("one done")
             #if i > 0 and i % 10 == 0:
             print('Epoch %d, loss = %g' % (i, loss))
 
             if self.causality_on==1:
-                loss_control_training_MSE.append(self.criterion(y_train_t,self.net(x_train_t)))
+                loss_control_training_MSE.append(self.criterion(y_train_t,self.net(x_train_t)).item())
 
 
 
@@ -118,11 +119,13 @@ class neural_network(object):
                 self.ACE_function()
             #if self.causality_on==1:
             #    self.update_weights_bias(placeholderNet)
-
+            #print(loss_training)
+            #print(test_loss_training)
+            #print(loss_control_training_MSE)
         f = open(self.txt_name, 'a')
         f.write('loss_training='+str(loss_training)+'\n\n')
         f.write('test_loss_training='+str(test_loss_training)+'\n\n')
-        f.write('loss_control_training_MSE='+str(loss_control_training_MSE)+'\n\n')
+        f.write('loss_control_training_MSE='+str(np.array(loss_control_training_MSE))+'\n\n')
 
         return loss_training,test_loss_training
 
