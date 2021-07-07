@@ -116,6 +116,7 @@ class neural_network(object):
             #print(len(self.net[2].weight[0]))
             #print(self.net[0].weight.detach().numpy().shape)
             if self.causality_on==0:
+                self.net.eval()
                 self.ACE_function()
             #if self.causality_on==1:
             #    self.update_weights_bias(placeholderNet)
@@ -125,7 +126,7 @@ class neural_network(object):
         f = open(self.txt_name, 'a')
         f.write('loss_training='+str(loss_training)+'\n\n')
         f.write('test_loss_training='+str(test_loss_training)+'\n\n')
-        f.write('loss_control_training_MSE='+str(np.array(loss_control_training_MSE))+'\n\n')
+        f.write('loss_control_training_MSE='+str(loss_control_training_MSE)+'\n\n')
 
         return loss_training,test_loss_training
 

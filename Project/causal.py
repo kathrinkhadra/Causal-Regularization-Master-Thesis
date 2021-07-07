@@ -30,7 +30,7 @@ class causality(object):
         self.variances=[]
         x_train_t =torch.from_numpy(input_sample).clone()
         for counter,layer in enumerate(self.neural_network.net):
-            if counter%2==1 and counter<len(self.neural_network.net)-1 and counter!=0:#if counter==6:#
+            if (counter%2==1 and counter<len(self.neural_network.net)-1) or counter==0:#FOR DROPOUT#counter%2==1 and counter<len(self.neural_network.net)-1 and counter!=0:#
                 self.counter=counter
                 #print(counter)
                 self.neural_network.net.eval()

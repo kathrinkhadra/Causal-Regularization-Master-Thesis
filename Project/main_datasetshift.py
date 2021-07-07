@@ -48,7 +48,7 @@ if causality_on==1:
     f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
     f.close
 
-    neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on,txt_file,0,10000)
+    neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on,txt_file,0,1000)
 
     #build neural net, define optimizer and loss
     neural.model(get_data.inputs)
@@ -75,7 +75,7 @@ f.close
 
 learning_rate=.0005
 epochs=450
-neural_controll=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,0,txt_file,0,10000)
+neural_controll=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,0,txt_file,0,1000)
 
 #build neural net, define optimizer and loss
 neural_controll.model(get_data.inputs)
