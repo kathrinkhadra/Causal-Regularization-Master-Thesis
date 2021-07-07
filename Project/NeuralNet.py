@@ -9,7 +9,7 @@ import copy
 class neural_network(object):
     """docstring for neural_network."""
 
-    def __init__(self, learning_rate,net,criterion,opt,epochs,inputs_training,target_training,inputs_test,target_test,causality_on,txt_name,epoch,factor):
+    def __init__(self, learning_rate,net,criterion,opt,epochs,inputs_training,target_training,inputs_test,target_test,causality_on,txt_name,epoch,factor,ACE_value):
         super(neural_network, self).__init__()
         self.learning_rate = learning_rate
         self.net=net
@@ -24,6 +24,7 @@ class neural_network(object):
         self.txt_name=txt_name
         self.epoch=epoch
         self.factor=factor
+        self.ACE_value=ACE_value
 
     def model(self,inputs):
         torch.set_default_dtype(torch.float64)
@@ -66,6 +67,7 @@ class neural_network(object):
         loss_control_training_MSE=[]
         stepsave = []
         test_loss_training=[]
+        ACE_values=[]
         for i in range(self.epochs):
             self.epoch=i
 
@@ -98,7 +100,7 @@ class neural_network(object):
             if self.causality_on==1:
                 loss_control_training_MSE.append(self.criterion(y_train_t,self.net(x_train_t)).item())
 
-
+            ACE_values.append(self.ACE_value)
 
             #print("weight experiment")
 
@@ -127,6 +129,7 @@ class neural_network(object):
         f.write('loss_training='+str(loss_training)+'\n\n')
         f.write('test_loss_training='+str(test_loss_training)+'\n\n')
         f.write('loss_control_training_MSE='+str(loss_control_training_MSE)+'\n\n')
+        f.write('ACE_values='+str(ACE_values)+'\n\n')
 
         return loss_training,test_loss_training
 
@@ -141,6 +144,7 @@ class neural_network(object):
     def ACE_regularitzation(self,target,output):
         mean,variance = self.ACE_function()
         mean=np.concatenate(mean, axis=None)
+        self.ACE_value=mean
         value=-np.mean(mean)
         return value
 
