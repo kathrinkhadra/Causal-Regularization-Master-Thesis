@@ -100,7 +100,7 @@ class neural_network(object):
             if self.causality_on==1:
                 loss_control_training_MSE.append(self.criterion(y_train_t,self.net(x_train_t)).item())
 
-            ACE_values.append(self.ACE_value)
+
 
             #print("weight experiment")
 
@@ -119,7 +119,10 @@ class neural_network(object):
             #print(self.net[0].weight.detach().numpy().shape)
             if self.causality_on==0:
                 self.net.eval()
-                self.ACE_function()
+                mean=self.ACE_regularitzation(y_train_t,self.net(x_train_t))
+                self.ACE_value=-mean
+
+            ACE_values.append(self.ACE_value)
             #if self.causality_on==1:
             #    self.update_weights_bias(placeholderNet)
             #print(loss_training)
@@ -144,7 +147,7 @@ class neural_network(object):
     def ACE_regularitzation(self,target,output):
         mean,variance = self.ACE_function()
         mean=np.concatenate(mean, axis=None)
-        self.ACE_value=mean
+        self.ACE_value=np.mean(mean)
         value=-np.mean(mean)
         return value
 
