@@ -122,7 +122,8 @@ class neural_network(object):
                 mean=self.ACE_regularitzation(y_train_t,self.net(x_train_t))
                 self.ACE_value=-mean
 
-            ACE_values.append(self.ACE_value)
+            if i % 10 == 0:
+                ACE_values.append(self.ACE_value)
             #if self.causality_on==1:
             #    self.update_weights_bias(placeholderNet)
             #print(loss_training)
