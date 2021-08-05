@@ -1,0 +1,7 @@
+ environment location: /home/ga96tum/miniconda3/envs/cnn
+
+ conda create --name cnn
+
+ conda activate cnn
+
+ run script

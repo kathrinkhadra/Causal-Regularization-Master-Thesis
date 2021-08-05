@@ -129,16 +129,24 @@ plt.close()
 
 x_axis=[1,2,3,4,5]
 my_xticks = ['Factor 0.1','Factor 1','Factor 10','Factor 100','Factor 1000']
-with_ACE_test_MSE=[test_MSE_withACE_factor01,test_MSE_withACE_factor1,test_MSE_withACE_factor10,test_MSE_withACE_factor100,test_MSE_withACE_factor1000]
-without_ACE_test_MSE=[test_MSE_noACE_factor01,test_MSE_noACE_factor1,test_MSE_noACE_factor100,test_MSE_noACE_factor1000]
+means_with_ACE_test_MSE=[np.mean(test_MSE_withACE_factor01),np.mean(test_MSE_withACE_factor1),np.mean(test_MSE_withACE_factor10),np.mean(test_MSE_withACE_factor100),np.mean(test_MSE_withACE_factor1000)]
+var_with_ACE_test_MSE=[np.var(test_MSE_withACE_factor01),np.var(test_MSE_withACE_factor1),np.var(test_MSE_withACE_factor10),np.var(test_MSE_withACE_factor100),np.var(test_MSE_withACE_factor1000)]
+without_ACE_test_MSE=[test_MSE_noACE_factor01,test_MSE_noACE_factor1,[test_MSE_noACE_factor10,test_MSE_noACE_factor10],[test_MSE_noACE_factor100,test_MSE_noACE_factor100],[test_MSE_noACE_factor1000,test_MSE_noACE_factor1000]]
+
+print(without_ACE_test_MSE)
+#without_ACE_test_MSE = [x for sublist in without_ACE_test_MSE for x in sublist]
+without_ACE_test_MSE=np.array(without_ACE_test_MSE).flatten()
+print(without_ACE_test_MSE)
+#print(without_ACE_test_MSE.ravel())
 
 var=np.var(without_ACE_test_MSE)
 mean=np.mean(without_ACE_test_MSE)
 without_ACE_test_MSE=[mean,mean,mean,mean,mean]
 
 plt.xticks(x_axis, my_xticks)
-plt.plot(x_axis,with_ACE_test_MSE, marker='o', markersize=2,label="With ACE")
+#plt.plot(x_axis,with_ACE_test_MSE, marker='o', markersize=2,label="With ACE")
 #plt.plot(x_axis,without_ACE_test_MSE, marker='o', label="Without ACE")
+plt.errorbar(x_axis, means_with_ACE_test_MSE, yerr=var_with_ACE_test_MSE, linestyle='-', marker='s', markersize=2, label="With ACE")
 plt.errorbar(x_axis, without_ACE_test_MSE, yerr=var, linestyle='--', marker='s', markersize=2, label="Without ACE")
 plt.xlabel('Factor')
 plt.ylabel('Mean Square Error (MSE)')
