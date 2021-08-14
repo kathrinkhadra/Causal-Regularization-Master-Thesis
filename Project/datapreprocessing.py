@@ -35,14 +35,14 @@ class Dataprep(object):
         self.data_preprocessing()
         self.inputs_training, self.inputs_test, self.target_training, self.target_test = train_test_split(self.inputs, self.target , test_size=self.test_size, random_state=0)
 
-    def dataset_shift(self):
+    def dataset_shift(self,rand):
 
         self.data_preprocessing()
         sample_sizes=self.inputs.shape[0]
         sample_sizes=self.target.shape[0]
 
         indice=round(sample_sizes*0.1)-1
-        rand=369
+        #rand=369#400,432
         finalindices=sample_sizes-indice
 
         self.inputs_training=self.inputs[rand:indice+rand,:]
