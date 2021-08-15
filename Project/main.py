@@ -5,6 +5,7 @@ from sklearn.preprocessing import MinMaxScaler
 import numpy  as np
 import sklearn
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 import torch
 import torch.nn as nn
@@ -28,6 +29,13 @@ print(np.abs(np.mean(get_data.target_test)-np.mean(get_data.target_training)))
 print(np.abs(np.var(get_data.inputs_test)-np.var(get_data.inputs_training)))
 print(np.abs(np.var(get_data.target_test)-np.var(get_data.target_training)))
 
+#for ind in range(get_data.inputs_test.shape[1]):
+#    sns.distplot(get_data.inputs_test[:,ind], hist=True, kde=True, bins=int(180/5), color = 'darkblue', hist_kws={'edgecolor':'black'},kde_kws={'linewidth': 2})
+#    sns.distplot(get_data.inputs_training[:,ind], hist=True, kde=True, bins=int(180/5), color = 'lightblue', hist_kws={'edgecolor':'black'},kde_kws={'linewidth': 2})
+#    plt.title('Histogram Feature '+str(ind))
+#    plt.savefig('FeatureHist/noshift/'+str(ind)+'.png')
+#    plt.close()
+
 #print(get_data.inputs_test.shape)
 #print(get_data.inputs_training.shape)
 #print(get_data.target_training.shape)
@@ -44,7 +52,7 @@ print(np.abs(np.var(get_data.target_test)-np.var(get_data.target_training)))
 #0.028048193168648296
 print("shift")
 ####with datasetshift
-x=[0:490]
+x=[369,433,394,41,243]#np.arange(390,410)
 input_mean_array=[]
 target_mean_array=[]
 input_var_array=[]
@@ -63,14 +71,31 @@ for i in x:
     input_var=np.abs(np.var(get_data.inputs_test)-np.var(get_data.inputs_training))
     target_var=np.abs(np.var(get_data.target_test)-np.var(get_data.target_training))
 
+    print(np.mean(get_data.inputs_training))
+    print(input_mean)
+    #print(get_data.inputs_training.shape)
+
+    for ind in range(get_data.inputs_test.shape[1]):
+    #    plt.hist([get_data.inputs_test[:,ind],get_data.inputs_training[:,ind]])
+    #    plt.hist(get_data.inputs_training[:,ind])
+        sns.distplot(get_data.inputs_test[:,ind], hist=True, kde=False, bins=int(180/5), color = 'darkblue', hist_kws={'edgecolor':'black'},kde_kws={'linewidth': 2})
+        sns.distplot(get_data.inputs_training[:,ind], hist=True, kde=False, bins=int(180/5), color = 'blue', hist_kws={'edgecolor':'black'},kde_kws={'linewidth': 2})
+        plt.title('Histogram Feature '+str(ind))
+        plt.savefig('FeatureHist/'+str(i)+'/'+str(ind)+'.png')
+        plt.close()
+
+    #print(i)
+    #print(input_mean)
+    #print(input_var)
+    #print("------------------")
     input_mean_array.append(input_mean)
     target_mean_array.append(target_mean)
     input_var_array.append(input_var)
     target_var_array.append(input_var)
 
-i=np.argmax(input_mean_array)
+#i=np.argmax(input_mean_array)
 
-print(i)
+#print(i)
 
 #####################Neural Net
 learning_rate=.0005

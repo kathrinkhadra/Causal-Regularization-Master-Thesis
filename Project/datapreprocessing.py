@@ -42,7 +42,7 @@ class Dataprep(object):
         sample_sizes=self.target.shape[0]
 
         indice=round(sample_sizes*0.1)-1
-        #rand=369#400,432
+        #rand=369#433,394,41,243
         finalindices=sample_sizes-indice
 
         self.inputs_training=self.inputs[rand:indice+rand,:]

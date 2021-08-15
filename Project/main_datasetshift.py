@@ -27,7 +27,7 @@ get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 #print(get_data.target_test.shape)
 
 ####with datasetshift
-get_data.dataset_shift()
+get_data.dataset_shift(433)#41,243,394,369
 #print(get_data.inputs_test.shape)
 #print(get_data.inputs_training.shape)
 #print(get_data.target_training.shape)
@@ -37,6 +37,7 @@ get_data.dataset_shift()
 learning_rate=.0005
 epochs=450
 causality_on=1
+factor=1000
 
 print("CAUSAL NN START")
 
@@ -48,7 +49,7 @@ if causality_on==1:
     f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
     f.close
 
-    neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on,txt_file,0,10,0)
+    neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on,txt_file,0,factor,0)
 
     #build neural net, define optimizer and loss
     neural.model(get_data.inputs)
