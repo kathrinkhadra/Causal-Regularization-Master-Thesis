@@ -27,7 +27,7 @@ get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 #print(get_data.target_test.shape)
 
 ####with datasetshift
-get_data.dataset_shift(433)#41,243,394,369
+get_data.dataset_shift(369)#41,243,394,433
 #print(get_data.inputs_test.shape)
 #print(get_data.inputs_training.shape)
 #print(get_data.target_training.shape)
@@ -37,7 +37,7 @@ get_data.dataset_shift(433)#41,243,394,369
 learning_rate=.0005
 epochs=450
 causality_on=1
-factor=1000
+factor=10
 
 print("CAUSAL NN START")
 
