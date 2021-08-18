@@ -37,7 +37,7 @@ get_data.dataset_shift(369)#41,243,394,433
 learning_rate=.0005
 epochs=450
 causality_on=1
-factor=10
+factor=100
 
 print("CAUSAL NN START")
 
