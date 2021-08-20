@@ -27,7 +27,7 @@ get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 #print(get_data.target_test.shape)
 
 ####with datasetshift
-get_data.dataset_shift(369)#41,243,394,433
+get_data.dataset_shift(369)#41,243,394,433,369
 #print(get_data.inputs_test.shape)
 #print(get_data.inputs_training.shape)
 #print(get_data.target_training.shape)
