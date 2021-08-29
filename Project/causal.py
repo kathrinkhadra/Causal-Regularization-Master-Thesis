@@ -78,18 +78,49 @@ class causality(object):
             #f.write('variances='+str(self.variances)+'\n\n')
             #f.write('-----------------------------------------------ITERATION-----------------------------------------------\n\n')
 
+    def unique_values(self):
+        values=[]
+        indices=[]
+        print(self.new_inputs.shape[1])
+        for indx in range(self.new_inputs.shape[1]):
+            #if indx==1:
+            #    print(self.new_inputs.detach().numpy()[:,indx])
+            val,indi=np.unique(self.new_inputs.detach().numpy()[:,indx], return_index=True)
+            values.append(np.array(val))
+            indices.append(np.array(indi))
+            #print(len(indices))
+        #print(indices)
+        return np.array(values,dtype=object),indices#.T
+
     def ACE(self,covariance,mean,neural_net):
         torch.set_default_dtype(torch.float64)
         self.input_samples_ACE=[]
         first_orders_mean_array=[]
         high_orders_mean_array=[]
-        for input_sample in self.new_inputs:
+        unique_values, unique_indices=self.unique_values()
+        #print("size unique_indices")
+        #print(len(unique_indices))
+
+
+        inv_value_counter=0
+        for index_input, input_sample in enumerate(self.new_inputs):
+
             first_orders_mean=[]
             high_orders_mean=[]
             input_sample=input_sample.detach().numpy()
             #print(input_sample)
             average_causal_effects=[]
             for indx in range(len(input_sample)):
+
+                if index_input not in unique_indices[indx]:
+                    #print("True")
+                    average_causal_effects.append(np.nan)
+                    continue
+
+
+
+
+
                 expectation_do_x = []
                 mean_vector=copy.deepcopy(mean)
                 #print(mean_vector)
@@ -116,6 +147,7 @@ class causality(object):
                 lower_order_grads = first_grads
                 first_orders_mean.append(np.mean(np.array(first_grads[0].data)))
                 for dim in range(len(mean)):
+                    #print(len(mean))
                     if dim==indx:
                         continue #only executing loop if not same neuron
                     grad_mask = torch.zeros(first_grad_shape)
@@ -146,7 +178,16 @@ class causality(object):
             #average_causal_effects = np.array(average_causal_effects) - np.mean(np.array(average_causal_effects))
                 first_orders_mean_array.append(first_orders_mean)
                 high_orders_mean_array.append(high_orders_mean)
-            self.input_samples_ACE.append(np.array(average_causal_effects) - np.mean(np.array(average_causal_effects)))
+            average_causal_effects=np.array(average_causal_effects)
+            #print(average_causal_effects)
+            #print(average_causal_effects[~np.isnan(average_causal_effects)])
+            #print(np.mean(average_causal_effects[~np.isnan(average_causal_effects)]))
+            #print("--------------------")
+            self.input_samples_ACE.append(average_causal_effects - np.mean(average_causal_effects[~np.isnan(average_causal_effects)]))
+            #
+        #print(inv_value_counter)
+        #print(len(self.input_samples_ACE))
+        #print(len(self.input_samples_ACE[0]))
         #print(average_causal_effects)
 
             #self.plotting_derivatives(first_orders_mean_array, high_orders_mean_array)
@@ -157,9 +198,26 @@ class causality(object):
         #f.write('input_samples_ACE_'+str(self.counter)+'='+str(self.input_samples_ACE)+'\n\n')
 
     def evaluating_ACE(self):
-        ACEs=np.array(self.input_samples_ACE).T
-        medians=np.median(ACEs, axis=1)
-        variances=np.var(ACEs, axis=1)
+        #print(self.input_samples_ACE)
+        #print(len(self.input_samples_ACE[2]))
+        #print(len(self.input_samples_ACE[8]))
+        ACEs=np.array(self.input_samples_ACE,dtype=float).T
+        #print(ACEs)
+        #print(ACEs.shape)
+        #ACEs=[np.array(sample[~np.isnan(sample)],dtype=float) for sample in ACEs]#sample[~np.isnan(sample)]]
+        #print(ACEs)
+        #ACEs=np.array(ACEs)
+        #ACEs=np.concatenate(ACEs, axis=1)
+        #ACEs=ACEs[:, ~np.isnan(ACEs).any(axis=0)]
+        #ACEs = np.ma.array(ACEs, mask=np.isnan(ACEs))
+        #print(ACEs)
+        #print(ACEs.shape)
+        medians=[np.median(ace[~np.isnan(ace)]) for ace in ACEs]
+        medians=np.array(medians,dtype=float)
+        variances=[np.var(ace[~np.isnan(ace)]) for ace in ACEs]#np.var(ACEs, axis=1)
+        variances=np.array(variances,dtype=float)
+        print(medians.shape)
+        print(variances.shape)
         #print("--------------------ACEshape-------------------------")
         #print(ACEs.shape)
         #plus_border_mean=np.percentile(medians,80)
