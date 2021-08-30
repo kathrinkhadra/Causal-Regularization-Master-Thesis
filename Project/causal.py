@@ -81,7 +81,7 @@ class causality(object):
     def unique_values(self):
         values=[]
         indices=[]
-        print(self.new_inputs.shape[1])
+        #print(self.new_inputs.shape[1])
         for indx in range(self.new_inputs.shape[1]):
             #if indx==1:
             #    print(self.new_inputs.detach().numpy()[:,indx])
@@ -100,6 +100,7 @@ class causality(object):
         unique_values, unique_indices=self.unique_values()
         #print("size unique_indices")
         #print(len(unique_indices))
+        #print(unique_indices)
 
 
         inv_value_counter=0
@@ -204,6 +205,8 @@ class causality(object):
         ACEs=np.array(self.input_samples_ACE,dtype=float).T
         #print(ACEs)
         #print(ACEs.shape)
+
+
         #ACEs=[np.array(sample[~np.isnan(sample)],dtype=float) for sample in ACEs]#sample[~np.isnan(sample)]]
         #print(ACEs)
         #ACEs=np.array(ACEs)
@@ -216,8 +219,8 @@ class causality(object):
         medians=np.array(medians,dtype=float)
         variances=[np.var(ace[~np.isnan(ace)]) for ace in ACEs]#np.var(ACEs, axis=1)
         variances=np.array(variances,dtype=float)
-        print(medians.shape)
-        print(variances.shape)
+        #print(medians.shape)
+        #print(variances.shape)
         #print("--------------------ACEshape-------------------------")
         #print(ACEs.shape)
         #plus_border_mean=np.percentile(medians,80)

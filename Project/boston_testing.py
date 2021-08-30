@@ -31,7 +31,7 @@ for indx in range(inputs.shape[1]):
     #print(indi)
     #val,c=np.unique(inputs[:,indx], return_counts=True)
     #dup=val[c > 1]
-indices=np.array(indices).T
+#indices=np.array(indices).T
 
 print(indices[0])
 #print(indices.shape)
@@ -42,24 +42,24 @@ print(indices[6])
 
 
 
+#print(np.nan-50)
 
 
 
 
 
+#def unique_values(self):
+#    values=[]
+#    indices=[]
+#    for indx in range(self.new_inputs.shape[1]):
+#        val,indi=np.unique(self.new_inputs[:,indx], return_index=True)
+#        values.append(np.array(val))
+#        indices.append(np.array(indi))
+#    return np.array(values),np.array(indices).T
 
-def unique_values(self):
-    values=[]
-    indices=[]
-    for indx in range(self.new_inputs.shape[1]):
-        val,indi=np.unique(self.new_inputs[:,indx], return_index=True)
-        values.append(np.array(val))
-        indices.append(np.array(indi))
-    return np.array(values),np.array(indices).T
 
+#if index_input in indices[indx]:
+#    continue
+#    print("True")
 
-if index_input in indices[indx]:
-    continue
-    print("True")
-
-for index_input, input_sample in enumerate(self.new_inputs):
+#for index_input, input_sample in enumerate(self.new_inputs):
