@@ -141,15 +141,15 @@ class neural_network(object):
         #a=self.criterion(target,output)
         #print(self.criterion(target,output)) #50 samples = 50 a
         #value=self.ACE_regularitzation(target,output)
-        loss = self.criterion(target,output) + self.factor*torch.tensor(self.ACE_regularitzation(target,output))
+        loss = self.criterion(target,output) + self.factor*self.ACE_regularitzation(target,output)#torch.tensor(self.ACE_regularitzation(target,output))
 
         return loss
 
     def ACE_regularitzation(self,target,output):
         mean,variance = self.ACE_function()
-        mean=np.concatenate(mean, axis=None)
-        self.ACE_value=np.mean(mean)
-        value=-np.mean(mean)
+        #mean=np.concatenate(mean, axis=None)
+        self.ACE_value=torch.mean(mean)
+        value=-torch.mean(mean)
         return value
 
     def ACE_function(self):

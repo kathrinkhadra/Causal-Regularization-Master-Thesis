@@ -37,34 +37,39 @@ get_data.dataset_shift(369)#41,243,394,433,369
 learning_rate=.0005
 epochs=450
 causality_on=1
-factor=1000
-
-print("CAUSAL NN START")
+factors=[0.1,1,10,100,1000]
 
 if causality_on==1:
+    for factor in factors:
 
-    txt_file="results_datasetshift_regularization_withACE.txt"
+        print("CAUSAL NN START")
 
-    f = open(txt_file, 'a')
-    f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
-    f.close
+        txt_file=str(factor)+"_results_datasetshift_regularization_withACE.txt"
 
-    neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on,txt_file,0,factor,0)
+        f = open(txt_file, 'a')
+        f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
+        f.close
 
-    #build neural net, define optimizer and loss
-    neural.model(get_data.inputs)
+        neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on,txt_file,0,factor,0)
 
-    #train neural net
-    loss_training,test_loss_training=neural.training()
+        #build neural net, define optimizer and loss
+        neural.model(get_data.inputs)
 
-    #plot training performance
-    #neural.testing_training(loss_training,test_loss_training,'training_performance.png')
+        #train neural net
+        loss_training,test_loss_training=neural.training()
 
-    #test neural net
-    loss_test_causality=neural.testing()
-    f = open(txt_file, 'a')
-    f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
-    f.close
+        #plot training performance
+        #neural.testing_training(loss_training,test_loss_training,'training_performance.png')
+
+        #test neural net
+        loss_test_causality=neural.testing()
+        f = open(txt_file, 'a')
+        f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
+        f.close
+
+        print("factor")
+        print(factor)
+        print("Done")
 
 
 if True:
