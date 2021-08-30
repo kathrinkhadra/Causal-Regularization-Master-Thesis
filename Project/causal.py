@@ -38,9 +38,14 @@ class causality(object):
                 new_nn.eval()
                 self.new_inputs=self.neural_network.net[0:counter](x_train_t)
                 covariance=np.cov(self.new_inputs.detach().numpy(),rowvar=False)
-                mean=np.array(np.mean(self.new_inputs.detach().numpy(), axis=0))#double check axis maybe more a axis of 1
+                #print(covariance)
+                #covariance=torch.cov(self.new_inputs,rowvar=False)
+                #mean=np.array(np.mean(self.new_inputs.detach().numpy(), axis=0))#double check axis maybe more a axis of 1
+                #print(mean)
+                mean=torch.mean(self.new_inputs, axis=0)
                 #print("mean shape")
-                #print(mean.shape)
+                #print(mean)
+                #print(covariance)
                 #shapes are wrong############################
                 #print(self.new_inputs.detach().numpy().shape)
 
@@ -64,16 +69,19 @@ class causality(object):
                 #print(self.new_inputs.detach().numpy().shape)
                 #print(mean)
                 #print(covariance)
-        self.final_causality=np.array(self.final_causality,dtype=object)
-        self.means=np.array(self.means,dtype=object)
-        self.variances=np.array(self.variances,dtype=object)
+        print(self.means)
+        #self.final_causality=torch.cat(self.final_causality)
+        self.means=torch.cat(self.means,dim=0)
+        print(self.means)
+        self.variances=torch.cat(self.variances,dim=0)
+        print(self.variances)
 
         if iteration% 10 == 0:
             f = open(self.txt_name, 'a')
             f.write('-----------------------------------------------ITERATION'+str(iteration)+'-----------------------------------------------\n\n')
             f.write('final_causality='+str(self.final_causality)+'\n\n')
             f.write('means='+str(self.means)+'\n\n')
-            f.write('mean_overall='+str(np.mean(np.concatenate(self.means, axis=None)))+'\n\n')
+            f.write('mean_overall='+str(torch.mean(torch.cat(self.means, axis=None)))+'\n\n')
 
             #f.write('variances='+str(self.variances)+'\n\n')
             #f.write('-----------------------------------------------ITERATION-----------------------------------------------\n\n')
@@ -108,14 +116,15 @@ class causality(object):
 
             first_orders_mean=[]
             high_orders_mean=[]
-            input_sample=input_sample.detach().numpy()
+            #input_sample=input_sample.detach().numpy()
             #print(input_sample)
             average_causal_effects=[]
             for indx in range(len(input_sample)):
+                #print(len(input_sample))
 
                 if index_input not in unique_indices[indx]:
                     #print("True")
-                    average_causal_effects.append(np.nan)
+                    average_causal_effects.append(float("nan"))
                     continue
 
 
@@ -123,19 +132,20 @@ class causality(object):
 
 
                 expectation_do_x = []
-                mean_vector=copy.deepcopy(mean)
+                mean_vector=mean.clone().detach()
                 #print(mean_vector)
                 #print(input_sample)
                 mean_vector[indx] = input_sample[indx]#problem 2D = new input and mean vector is not supposed to be
-                input_tensor=torch.from_numpy(mean_vector).clone()
+                input_tensor=mean_vector.clone().detach()
                 input_tensor.requires_grad=True
 
                 output=neural_net(input_tensor) # torch.from_numpy(mean_vector)
 
                 #output = torch.nn.functional.sigmoid(output)
                 #output = torch.nn.functional.softmax(output)
-
-                val = output.data.view(1).cpu().numpy()[0]
+                #print(output[0].data)
+                val = output.data#output.data.view(1).cpu().numpy()[0]
+                #print(output.data.view(1).cpu().numpy()[0])
                 #print("first Loop") #first Loop 0
                 #print(indx)
                 first_grads = torch.autograd.grad(output, input_tensor, retain_graph=True, create_graph=True, only_inputs=True, allow_unused=False)#allow_unused=False
@@ -146,7 +156,7 @@ class causality(object):
                 #first_grads=torch.tensor(first_grads)
                 first_grad_shape = first_grads[0].data.size()
                 lower_order_grads = first_grads
-                first_orders_mean.append(np.mean(np.array(first_grads[0].data)))
+                first_orders_mean.append(torch.mean(first_grads[0].data))#np.array(
                 for dim in range(len(mean)):
                     #print(len(mean))
                     if dim==indx:
@@ -165,12 +175,12 @@ class causality(object):
                     #X=torch.nan_to_num(higher_order_grads[0].data)
                     #print(X)
                     #higher_order_grads=torch.tensor(higher_order_grads)
-                    higher_order_grads_array = np.array(higher_order_grads[0].data)
-                    high_orders_mean.append(np.mean(higher_order_grads_array))
+                    higher_order_grads_array = higher_order_grads[0].data#np.array()
+                    high_orders_mean.append(torch.mean(higher_order_grads_array))
 
                     temp_cov = copy.deepcopy(covariance)
                     temp_cov[dim][indx] = 0.0
-                    val += 0.5*np.sum(higher_order_grads_array*temp_cov[dim])
+                    val += 0.5*torch.sum(higher_order_grads_array*temp_cov[dim])
 
 
                 average_causal_effects.append(val)
@@ -179,12 +189,16 @@ class causality(object):
             #average_causal_effects = np.array(average_causal_effects) - np.mean(np.array(average_causal_effects))
                 first_orders_mean_array.append(first_orders_mean)
                 high_orders_mean_array.append(high_orders_mean)
-            average_causal_effects=np.array(average_causal_effects)
+            #average_causal_effects=np.array(average_causal_effects)
+            average_causal_effects=torch.tensor(average_causal_effects)
             #print(average_causal_effects)
+            #print(average_causal_effects[~torch.any(average_causal_effects.isnan(),dim=0)])
+            #print(average_causal_effects[~torch.isnan(average_causal_effects)])
             #print(average_causal_effects[~np.isnan(average_causal_effects)])
             #print(np.mean(average_causal_effects[~np.isnan(average_causal_effects)]))
             #print("--------------------")
-            self.input_samples_ACE.append(average_causal_effects - np.mean(average_causal_effects[~np.isnan(average_causal_effects)]))
+
+            self.input_samples_ACE.append(average_causal_effects - torch.mean(average_causal_effects[~torch.isnan(average_causal_effects)]))#average_causal_effects[~np.isnan(average_causal_effects)]
             #
         #print(inv_value_counter)
         #print(len(self.input_samples_ACE))
@@ -199,10 +213,10 @@ class causality(object):
         #f.write('input_samples_ACE_'+str(self.counter)+'='+str(self.input_samples_ACE)+'\n\n')
 
     def evaluating_ACE(self):
-        #print(self.input_samples_ACE)
+        #print(torch.stack(self.input_samples_ACE))
         #print(len(self.input_samples_ACE[2]))
         #print(len(self.input_samples_ACE[8]))
-        ACEs=np.array(self.input_samples_ACE,dtype=float).T
+        ACEs=torch.stack(self.input_samples_ACE).T
         #print(ACEs)
         #print(ACEs.shape)
 
@@ -215,12 +229,17 @@ class causality(object):
         #ACEs = np.ma.array(ACEs, mask=np.isnan(ACEs))
         #print(ACEs)
         #print(ACEs.shape)
-        medians=[np.median(ace[~np.isnan(ace)]) for ace in ACEs]
-        medians=np.array(medians,dtype=float)
-        variances=[np.var(ace[~np.isnan(ace)]) for ace in ACEs]#np.var(ACEs, axis=1)
-        variances=np.array(variances,dtype=float)
-        #print(medians.shape)
-        #print(variances.shape)
+        #for ace in ACEs:
+        #    print(ace[~torch.isnan(ace)])
+        #    print(torch.median(ace[~torch.isnan(ace)]))
+        medians=[torch.median(ace[~torch.isnan(ace)]) for ace in ACEs]
+        medians=torch.stack(medians)
+        variances=[torch.var(ace[~torch.isnan(ace)]) for ace in ACEs]#np.var(ACEs, axis=1)
+        variances=torch.stack(variances)
+        #print(variances)
+        variances[variances != variances]=0
+        print(medians.data.size())
+        print(variances.data.size())
         #print("--------------------ACEshape-------------------------")
         #print(ACEs.shape)
         #plus_border_mean=np.percentile(medians,80)
