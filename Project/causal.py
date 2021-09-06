@@ -18,6 +18,12 @@ class causality(object):
         self.variances=variances
         self.txt_name=txt_name
 
+    def cov(self,tensor, rowvar=True, bias=False):
+        """Estimate a covariance matrix (np.cov)"""
+        tensor = tensor if rowvar else tensor.transpose(-1, -2)
+        tensor = tensor - tensor.mean(dim=-1, keepdim=True)
+        factor = 1 / (tensor.shape[-1] - int(not bool(bias)))
+        return factor * tensor @ tensor.transpose(-1, -2).conj()
 
     def slicing_NN(self,input_sample,iteration):
         #slicing after the unlinearity needs to be done
@@ -37,7 +43,11 @@ class causality(object):
                 new_nn=self.neural_network.net[counter:len(self.neural_network.net)]
                 new_nn.eval()
                 self.new_inputs=self.neural_network.net[0:counter](x_train_t)
-                covariance=np.cov(self.new_inputs.detach().numpy(),rowvar=False)
+                self.neural_network.net.train()
+                #new_nn.train()
+                #print(self.new_inputs)
+                #covariance=torch.tensor(np.cov(self.new_inputs.detach().numpy(),rowvar=False))
+                covariance=self.cov(self.new_inputs,rowvar=False)
                 #print(covariance)
                 #covariance=torch.cov(self.new_inputs,rowvar=False)
                 #mean=np.array(np.mean(self.new_inputs.detach().numpy(), axis=0))#double check axis maybe more a axis of 1
@@ -93,12 +103,18 @@ class causality(object):
         for indx in range(self.new_inputs.shape[1]):
             #if indx==1:
             #    print(self.new_inputs.detach().numpy()[:,indx])
-            val,indi=np.unique(self.new_inputs.detach().numpy()[:,indx], return_index=True)
-            values.append(np.array(val))
-            indices.append(np.array(indi))
+            #val,indi=np.unique(self.new_inputs.detach().numpy()[:,indx], return_index=True)
+            #values.append(np.array(val))
+            #indices.append(np.array(indi))
+            val,inv = torch.unique(self.new_inputs[:,indx], sorted=True, return_inverse=True)
+            indi = torch.arange(inv.size(0), dtype=inv.dtype, device=inv.device)
+            inv, indi = inv.flip([0]), indi.flip([0])
+            indi = inv.new_empty(val.size(0)).scatter_(0, inv, indi)
+            values.append(val)
+            indices.append(indi)
             #print(len(indices))
         #print(indices)
-        return np.array(values,dtype=object),indices#.T
+        return values,indices#np.array(values,dtype=object),indices#.T
 
     def ACE(self,covariance,mean,neural_net):
         torch.set_default_dtype(torch.float64)
@@ -178,7 +194,7 @@ class causality(object):
                     higher_order_grads_array = higher_order_grads[0].data#np.array()
                     high_orders_mean.append(torch.mean(higher_order_grads_array))
 
-                    temp_cov = copy.deepcopy(covariance)
+                    temp_cov = covariance.clone().detach()
                     temp_cov[dim][indx] = 0.0
                     val += 0.5*torch.sum(higher_order_grads_array*temp_cov[dim])
 
