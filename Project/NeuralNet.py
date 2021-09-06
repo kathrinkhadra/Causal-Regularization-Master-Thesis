@@ -127,6 +127,8 @@ class neural_network(object):
             if i % 10 == 0:
                 ACE_values.append(np.array(self.ACE_value))
                 variances.append(np.array(self.variance))
+                #print(ACE_values)
+                #print(np.mean(variances))
             #if self.causality_on==1:
             #    self.update_weights_bias(placeholderNet)
             #print(loss_training)
@@ -135,8 +137,9 @@ class neural_network(object):
         f = open(self.txt_name, 'a')
         f.write('loss_training='+str(loss_training)+'\n\n')
         f.write('test_loss_training='+str(test_loss_training)+'\n\n')
-        f.write('loss_control_training_MSE='+str(loss_control_training_MSE)+'\n\n')
         f.write('variances='+str(variances)+'\n\n')
+        f.write('loss_control_training_MSE='+str(loss_control_training_MSE)+'\n\n')
+        f.write('variances='+str(np.mean(variances))+'\n\n')
         f.write('ACE_values='+str(ACE_values)+'\n\n')
 
         return loss_training,test_loss_training

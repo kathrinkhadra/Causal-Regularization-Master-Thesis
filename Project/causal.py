@@ -232,7 +232,7 @@ class causality(object):
             #print(np.mean(average_causal_effects[~np.isnan(average_causal_effects)]))
             #print("--------------------")
 
-            self.input_samples_ACE.append(average_causal_effects - torch.mean(average_causal_effects[~torch.isnan(average_causal_effects)]))#average_causal_effects[~np.isnan(average_causal_effects)]
+            self.input_samples_ACE.append(average_causal_effects - torch.mean(average_causal_effects))#[~torch.isnan(average_causal_effects)]#average_causal_effects[~np.isnan(average_causal_effects)]
             #
         #print(inv_value_counter)
         #print(len(self.input_samples_ACE))
@@ -267,9 +267,9 @@ class causality(object):
         #for ace in ACEs:
         #    print(ace[~torch.isnan(ace)])
         #    print(torch.median(ace[~torch.isnan(ace)]))
-        medians=[torch.median(ace[~torch.isnan(ace)]) for ace in ACEs]
+        medians=[torch.median(ace) for ace in ACEs]#[~torch.isnan(ace)]
         medians=torch.stack(medians)
-        variances=[torch.var(ace[~torch.isnan(ace)]) for ace in ACEs]#np.var(ACEs, axis=1)
+        variances=[torch.var(ace) for ace in ACEs]#np.var(ACEs, axis=1)#[~torch.isnan(ace)]
         variances=torch.stack(variances)
         #print(variances)
         variances[variances != variances]=0
