@@ -159,12 +159,12 @@ def main():
 
     a=torch.tensor([[-1.2360, -0.2942, -0.1222,  0.8475],[ 1.1949, -1.1127, -2.2379, -0.6702],[ 1.5717, -0.9207,  0.1297, -1.8768],[-0.6172,  1.0036, -0.6060, -0.2432]])
     #print(torch.max(a, 1))
-    print(torch.max(a, 0).values)
-    print(torch.min(a, 0).values)
+    #print(torch.max(a, 0).values)
+    #print(torch.min(a, 0).values)
 
-    feature=[torch.linspace(min,torch.max(a, 0).values[ind],50) for ind,min in enumerate(torch.min(a, 0).values)]
-    feature=torch.stack(feature)
-    print(feature)
+    feature=torch.stack([torch.linspace(min,torch.max(a, 0).values[ind],50) for ind,min in enumerate(torch.min(a, 0).values)])
+    #feature=torch.stack(feature)
+    #print(feature)
     #print(len(feature))
     feature=torch.transpose(feature,0,1)
     print(feature)

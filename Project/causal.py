@@ -116,19 +116,37 @@ class causality(object):
         #print(indices)
         return values,indices#np.array(values,dtype=object),indices#.T
 
+    def get_input_samples(self):
+        #inv_value=[]
+        #for ind,min in enumerate(torch.min(self.new_inputs, 0).values):
+        #    print(ind)
+        #    print(min)
+        #    print(torch.max(self.new_inputs, 0).values[ind])
+        #    inv_value.append(torch.linspace(min.data,torch.max(self.new_inputs, 0).values[ind].data,50))
+
+        #inv_value=torch.stack(inv_value)
+        inv_value=torch.stack([torch.linspace(min.data,torch.max(self.new_inputs, 0).values[ind].data,50) for ind,min in enumerate(torch.min(self.new_inputs, 0).values)])
+        #print(inv_value)
+        return torch.transpose(inv_value,0,1)
+
     def ACE(self,covariance,mean,neural_net):
         torch.set_default_dtype(torch.float64)
         self.input_samples_ACE=[]
         first_orders_mean_array=[]
         high_orders_mean_array=[]
-        unique_values, unique_indices=self.unique_values()
+        inv_values=self.get_input_samples()
+        #print(inv_values[:,1])
+        #print(len(inv_values[0]))
+        #print(self.new_inputs[:,1])
+        #print(len(self.new_inputs[0]))
+        #unique_values, unique_indices=self.unique_values()
         #print("size unique_indices")
         #print(len(unique_indices))
         #print(unique_indices)
 
 
         inv_value_counter=0
-        for index_input, input_sample in enumerate(self.new_inputs):
+        for index_input, input_sample in enumerate(inv_values):#self.new_inputs
 
             first_orders_mean=[]
             high_orders_mean=[]
@@ -138,10 +156,10 @@ class causality(object):
             for indx in range(len(input_sample)):
                 #print(len(input_sample))
 
-                if index_input not in unique_indices[indx]:
+                #if index_input not in unique_indices[indx]:
                     #print("True")
-                    average_causal_effects.append(float("nan"))
-                    continue
+                #    average_causal_effects.append(float("nan"))
+                #    continue
 
 
 
@@ -233,8 +251,9 @@ class causality(object):
         #print(len(self.input_samples_ACE[2]))
         #print(len(self.input_samples_ACE[8]))
         ACEs=torch.stack(self.input_samples_ACE).T
-        #print(ACEs)
-        #print(ACEs.shape)
+        #print("ACEs")
+        #print(len(ACEs))
+        #print(len(ACEs[0]))
 
 
         #ACEs=[np.array(sample[~np.isnan(sample)],dtype=float) for sample in ACEs]#sample[~np.isnan(sample)]]
