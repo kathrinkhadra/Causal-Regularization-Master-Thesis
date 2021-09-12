@@ -144,7 +144,7 @@ class causality(object):
         #print(len(unique_indices))
         #print(unique_indices)
 
-
+        store_ACEs=[]
         inv_value_counter=0
         for index_input, input_sample in enumerate(inv_values):#self.new_inputs
 
@@ -232,9 +232,29 @@ class causality(object):
             #print(np.mean(average_causal_effects[~np.isnan(average_causal_effects)]))
             #print("--------------------")
 
-            self.input_samples_ACE.append(average_causal_effects - torch.mean(average_causal_effects))#[~torch.isnan(average_causal_effects)]#average_causal_effects[~np.isnan(average_causal_effects)]
+            #print(average_causal_effects)
+
+            store_ACEs.append(average_causal_effects)
+
+            #[~torch.isnan(average_causal_effects)]#average_causal_effects[~np.isnan(average_causal_effects)]
             #
         #print(inv_value_counter)
+        store_ACEs=torch.stack(store_ACEs).T
+        means=torch.mean(store_ACEs,1)
+        #print(store_ACEs)
+        #print(len(store_ACEs))
+        #print(len(store_ACEs[0]))
+        #print(means)
+        self.input_samples_ACE=[ace - means[indx] for indx, ace in enumerate(store_ACEs)]
+
+        #for indx,ace in enumerate(store_ACEs):
+        #    print("ace")
+        #    print(ace)
+        #    print("mean")
+        #    print(means[indx])
+        #    print(ace - means[indx])
+        #    self.input_samples_ACE.append()
+        #print(self.input_samples_ACE)
         #print(len(self.input_samples_ACE))
         #print(len(self.input_samples_ACE[0]))
         #print(average_causal_effects)
@@ -250,7 +270,7 @@ class causality(object):
         #print(torch.stack(self.input_samples_ACE))
         #print(len(self.input_samples_ACE[2]))
         #print(len(self.input_samples_ACE[8]))
-        ACEs=torch.stack(self.input_samples_ACE).T
+        ACEs=torch.stack(self.input_samples_ACE)#.T
         #print("ACEs")
         #print(len(ACEs))
         #print(len(ACEs[0]))
@@ -267,12 +287,13 @@ class causality(object):
         #for ace in ACEs:
         #    print(ace[~torch.isnan(ace)])
         #    print(torch.median(ace[~torch.isnan(ace)]))
-        medians=[torch.median(ace) for ace in ACEs]#[~torch.isnan(ace)]
+        medians=[torch.absolute(torch.median(ace)) for ace in ACEs]#[~torch.isnan(ace)]
         medians=torch.stack(medians)
         variances=[torch.var(ace) for ace in ACEs]#np.var(ACEs, axis=1)#[~torch.isnan(ace)]
         variances=torch.stack(variances)
         #print(variances)
         variances[variances != variances]=0
+        #print(variances)
         #print(medians.data.size())
         #print(variances.data.size())
         #print("--------------------ACEshape-------------------------")
