@@ -100,6 +100,8 @@ def cov(tensor, rowvar=True, bias=False):
 
 def main():
 
+    print(torch.absolute(torch.tensor(-1.20702163e-06)))
+
     boston = load_boston()
     inputs,target   = (boston.data, boston.target)
     scaler = MinMaxScaler(feature_range=(0, 1))

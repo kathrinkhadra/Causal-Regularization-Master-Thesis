@@ -125,7 +125,7 @@ class neural_network(object):
                 self.ACE_value=-mean
 
             if i % 10 == 0:
-                ACE_values.append(int(self.ACE_value.data))
+                ACE_values.append(float(self.ACE_value.data))
                 variances.append(np.array(self.variance))
                 #print(ACE_values)
                 #print(np.mean(variances))
