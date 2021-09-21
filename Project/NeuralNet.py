@@ -57,7 +57,7 @@ class neural_network(object):
             #nn.Linear(10,   1)
         )
         self.criterion = nn.MSELoss()
-        self.opt = torch.optim.Adam(self.net.parameters(), lr = self.learning_rate)
+        self.opt = torch.optim.Adam(self.net.parameters(), lr = self.learning_rate, weight_decay=self.factor)
 
     def training(self):
         y_train_t =torch.from_numpy(self.target_training).clone().reshape(-1, 1)

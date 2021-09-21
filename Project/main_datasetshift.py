@@ -16,10 +16,12 @@ import causal
 
 ######################preprocessing data
 test_size=0.9
+
+datasets=[]
 get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 
 ###no dataset_shift
-#get_data.splitting_data_noshift()
+#datasets.append(get_data.splitting_data_noshift())
 
 #print(get_data.inputs_test.shape)
 #print(get_data.inputs_training.shape)
@@ -27,7 +29,9 @@ get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 #print(get_data.target_test.shape)
 
 ####with datasetshift
-get_data.dataset_shift(369)#41,243,394,433,369
+splits=[41,394,433,369]
+#for split in splits:
+#    datasets.append(get_data.dataset_shift(split))#41,243,394,433,369
 #print(get_data.inputs_test.shape)
 #print(get_data.inputs_training.shape)
 #print(get_data.target_training.shape)
@@ -36,11 +40,13 @@ get_data.dataset_shift(369)#41,243,394,433,369
 #####################Neural Net
 learning_rate=.0005
 epochs=450
-causality_on=1
-factors=[0.1,1,10,100,1000]
+causality_on=0
+factor=0.0001#np.linspace(0,0.4,10)#[0.1,1,10,100,1000]
 
-if causality_on==1:
-    for factor in factors:
+if causality_on==0:
+    for split in splits:
+
+        get_data.dataset_shift(split)
 
         print("CAUSAL NN START")
 
@@ -76,7 +82,7 @@ if causality_on==1:
         torch.cuda.empty_cache()
 
 
-if True:
+if False:
     print("NORMAL NN START")
 
     txt_file="results_datasetshift_regularization_noACE.txt"
