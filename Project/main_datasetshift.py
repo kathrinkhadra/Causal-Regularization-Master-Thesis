@@ -41,12 +41,13 @@ splits=[41,394,433,369]
 learning_rate=.0005
 epochs=450
 causality_on=0
-factor=0.0001#np.linspace(0,0.4,10)#[0.1,1,10,100,1000]
-
+#factor_list=[0.000000001,0.00000001,0.0000001,0.000001,0.00001,0.001]#[1e-05]#[0.000000001,0.0000001,0.00001,0.001,0.00000001,0.000001]#np.linspace(0,0.4,10)#[0.1,1,10,100,1000]
+#print(factor_list)
+factors=[0.0001,0.0000001,1e-05,1e-08]
 if causality_on==0:
-    for split in splits:
+    for indx,factor in enumerate(factors):
 
-        get_data.dataset_shift(split)
+        get_data.dataset_shift(splits[indx])
 
         print("CAUSAL NN START")
 
