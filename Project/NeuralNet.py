@@ -57,7 +57,7 @@ class neural_network(object):
             #nn.Linear(10,   1)
         )
         self.criterion = nn.MSELoss()
-        self.opt = torch.optim.Adam(self.net.parameters(), lr = self.learning_rate, weight_decay=self.factor)
+        self.opt = torch.optim.Adam(self.net.parameters(), lr = self.learning_rate)
 
     def training(self):
         y_train_t =torch.from_numpy(self.target_training).clone().reshape(-1, 1)
@@ -79,10 +79,12 @@ class neural_network(object):
             self.net.train()
             y_hat = self.net(x_train_t)
             #loss = self.criterion(y_train_t,self.net(x_train_t))
+            all_linear1_params = torch.cat([x.view(-1) for x in self.net.parameters()])
+            l1_regularization = self.factor * torch.norm(all_linear1_params, 1)
             if self.causality_on==1:
                 loss=self.my_loss(y_train_t,self.net(x_train_t))
             else:
-                loss = self.criterion(y_train_t,self.net(x_train_t))
+                loss = self.criterion(y_train_t,self.net(x_train_t))+l1_regularization
             self.net.train()
             loss_training.append(loss.item())
             stepsave.append(i)
