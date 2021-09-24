@@ -30,7 +30,7 @@ get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 
 ####with datasetshift
 splits=[41,394,433,369]
-split=369
+#split=369
 #for split in splits:
 #    datasets.append(get_data.dataset_shift(split))#41,243,394,433,369
 #print(get_data.inputs_test.shape)
@@ -42,7 +42,7 @@ split=369
 learning_rate=.0005
 epochs=450
 causality_on=0
-factor_list=[1e-13,1e-12,1e-11,1e-10,0.000000001,0.00000001,0.0000001,0.000001,0.00001,0.001]#[0.1,1,10,100,1000]#np.linspace(0,0.4,10)#[1e-09,1e-10,1e-11,1e-12]#
+#factor_list=[1e-13,1e-12,1e-11,1e-10,0.000000001,0.00000001,0.0000001,0.000001,0.00001,0.001]#[0.1,1,10,100,1000]#np.linspace(0,0.4,10)#[1e-09,1e-10,1e-11,1e-12]#
 #print(factor_list)
 
 factors=[0.000000001,1e-09,1e-13,1e-13]
@@ -53,7 +53,7 @@ if causality_on==0:
 
         print("CAUSAL NN START")
 
-        txt_file=str(factor)+"_results_datasetshift_regularization_withACE.txt"
+        txt_file=str(splits[indx])+"_results_datasetshift_regularization_withACE.txt"
 
         f = open(txt_file, 'a')
         f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')

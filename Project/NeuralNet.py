@@ -121,12 +121,12 @@ class neural_network(object):
             #self.net[0].weight=torch.nn.Parameter(torch.from_numpy(np.array(0)))
             #print(len(self.net[2].weight[0]))
             #print(self.net[0].weight.detach().numpy().shape)
-            if False:#self.causality_on==0:
+            if self.causality_on==0:
                 self.net.eval()
                 mean=self.ACE_regularitzation(y_train_t,self.net(x_train_t))
                 self.ACE_value=-mean
 
-            if False:#i % 10 == 0:
+            if i % 10 == 0:
                 ACE_values.append(float(self.ACE_value.data))
                 variances.append(np.array(self.variance))
                 #print(ACE_values)
