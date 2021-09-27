@@ -83,7 +83,7 @@ class causality(object):
         #self.final_causality=torch.cat(self.final_causality)
         self.means=torch.cat(self.means,dim=0)
         #print(self.means)
-        self.variances=torch.cat(self.variances,dim=0)
+        self.variances=torch.var(torch.cat(self.variances,dim=0))
         #print(self.variances)
 
         if iteration% 10 == 0:
@@ -293,6 +293,10 @@ class causality(object):
         variances=torch.stack(variances)
         #print(variances)
         variances[variances != variances]=0
+
+
+        variances=[torch.median(ace) for ace in ACEs]#np.var(ACEs, axis=1)#[~torch.isnan(ace)]
+        variances=torch.stack(variances)
         #print(variances)
         #print(medians.data.size())
         #print(variances.data.size())
