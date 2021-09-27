@@ -115,23 +115,23 @@ x_axis=[10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,2
 #plt.plot(x_axis,ACEvalue_noACE_factor1000, label="No ACE")
 
 plt.plot(x_axis, np.mean(ACEvalue_withACE_factor10, axis=0), label="Factor 10")
-plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor10, axis=0)-np.var(ACEvalue_withACE_factor10, axis=0), np.mean(ACEvalue_withACE_factor10, axis=0)+np.var(ACEvalue_withACE_factor10, axis=0), edgecolor='#CC4F1B', facecolor='#FF9848')
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor10, axis=0)-np.var(ACEvalue_withACE_factor10, axis=0), np.mean(ACEvalue_withACE_factor10, axis=0)+np.var(ACEvalue_withACE_factor10, axis=0),  facecolor='#DCDCDC')
 
 plt.plot(x_axis, np.mean(ACEvalue_withACE_factor1, axis=0), label="Factor 1")
-plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor1, axis=0)-np.var(ACEvalue_withACE_factor1, axis=0), np.mean(ACEvalue_withACE_factor1, axis=0)+np.var(ACEvalue_withACE_factor1, axis=0), edgecolor='#CC4F1B', facecolor='#FF9848')
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor1, axis=0)-np.var(ACEvalue_withACE_factor1, axis=0), np.mean(ACEvalue_withACE_factor1, axis=0)+np.var(ACEvalue_withACE_factor1, axis=0),  facecolor='#DCDCDC')
 
 plt.plot(x_axis, np.mean(ACEvalue_withACE_factor01, axis=0), label="Factor 0.1")
-plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor01, axis=0)-np.var(ACEvalue_withACE_factor01, axis=0), np.mean(ACEvalue_withACE_factor01, axis=0)+np.var(ACEvalue_withACE_factor01, axis=0), edgecolor='#CC4F1B', facecolor='#FF9848')
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor01, axis=0)-np.var(ACEvalue_withACE_factor01, axis=0), np.mean(ACEvalue_withACE_factor01, axis=0)+np.var(ACEvalue_withACE_factor01, axis=0),  facecolor='#DCDCDC')
 
 plt.plot(x_axis, np.mean(ACEvalue_withACE_factor100, axis=0), label="Factor 100")
-plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor100, axis=0)-np.var(ACEvalue_withACE_factor100, axis=0), np.mean(ACEvalue_withACE_factor100, axis=0)+np.var(ACEvalue_withACE_factor100, axis=0), edgecolor='#CC4F1B', facecolor='#FF9848')
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor100, axis=0)-np.var(ACEvalue_withACE_factor100, axis=0), np.mean(ACEvalue_withACE_factor100, axis=0)+np.var(ACEvalue_withACE_factor100, axis=0),  facecolor='#DCDCDC')
 
 plt.plot(x_axis, np.mean(ACEvalue_withACE_factor1000, axis=0), label="Factor 1000")
-plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor1000, axis=0)-np.var(ACEvalue_withACE_factor1000, axis=0), np.mean(ACEvalue_withACE_factor1000, axis=0)+np.var(ACEvalue_withACE_factor1000, axis=0), edgecolor='#CC4F1B', facecolor='#FF9848')
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor1000, axis=0)-np.var(ACEvalue_withACE_factor1000, axis=0), np.mean(ACEvalue_withACE_factor1000, axis=0)+np.var(ACEvalue_withACE_factor1000, axis=0),  facecolor='#DCDCDC')
 
 
 plt.plot(x_axis, mean_noACE, label="Without ACE")
-plt.fill_between(x_axis, mean_noACE-var_noACE, mean_noACE+var_noACE, edgecolor='#CC4F1B', facecolor='#FF9848')
+plt.fill_between(x_axis, mean_noACE-var_noACE, mean_noACE+var_noACE,  facecolor='#DCDCDC')
 
 
 plt.xlabel('Training epoch')
@@ -147,10 +147,10 @@ plt.close()
 
 x_axis=[1,2,3,4,5]
 my_xticks = ['Factor 0.1','Factor 1','Factor 10','Factor 100','Factor 1000']
-means_with_ACE_test_MSE=[np.mean(test_MSE_withACE_factor01),np.mean(test_MSE_withACE_factor1),np.mean(test_MSE_withACE_factor10),np.mean(test_MSE_withACE_factor100),np.mean(test_MSE_withACE_factor1000)]
-var_with_ACE_test_MSE=[np.var(test_MSE_withACE_factor01),np.var(test_MSE_withACE_factor1),np.var(test_MSE_withACE_factor10),np.var(test_MSE_withACE_factor100),np.var(test_MSE_withACE_factor1000)]
+means_with_ACE_test_MSE=np.array([np.mean(test_MSE_withACE_factor01),np.mean(test_MSE_withACE_factor1),np.mean(test_MSE_withACE_factor10),np.mean(test_MSE_withACE_factor100),np.mean(test_MSE_withACE_factor1000)])
+var_with_ACE_test_MSE=np.array([np.var(test_MSE_withACE_factor01),np.var(test_MSE_withACE_factor1),np.var(test_MSE_withACE_factor10),np.var(test_MSE_withACE_factor100),np.var(test_MSE_withACE_factor1000)])
 #without_ACE_test_MSE=[test_MSE_noACE_factor01,test_MSE_noACE_factor1,[test_MSE_noACE_factor10,test_MSE_noACE_factor10],[test_MSE_noACE_factor100,test_MSE_noACE_factor100],[test_MSE_noACE_factor1000,test_MSE_noACE_factor1000]]
-
+#print(var_with_ACE_test_MSE)
 #print(without_ACE_test_MSE)
 #without_ACE_test_MSE = [x for sublist in without_ACE_test_MSE for x in sublist]
 #without_ACE_test_MSE=np.array(without_ACE_test_MSE).flatten()
@@ -167,10 +167,10 @@ plt.xticks(x_axis, my_xticks)
 #plt.errorbar(x_axis, means_with_ACE_test_MSE, yerr=var_with_ACE_test_MSE, linestyle='-', marker='s', markersize=2, label="With ACE")
 #plt.errorbar(x_axis, without_ACE_test_MSE, yerr=var, linestyle='--', marker='s', markersize=2, label="Without ACE")
 plt.plot(x_axis, without_ACE_test_MSE, label="Without ACE")
-plt.fill_between(x_axis, without_ACE_test_MSE-var, without_ACE_test_MSE+var, edgecolor='#CC4F1B', facecolor='#FF9848')
+plt.fill_between(x_axis, without_ACE_test_MSE-var, without_ACE_test_MSE+var,  facecolor='#DCDCDC')
 
 plt.plot(x_axis, means_with_ACE_test_MSE, label="With ACE")
-
+plt.fill_between(x_axis, means_with_ACE_test_MSE-var_with_ACE_test_MSE, means_with_ACE_test_MSE+var_with_ACE_test_MSE,  facecolor='#DCDCDC')
 
 
 plt.xlabel('Factor')

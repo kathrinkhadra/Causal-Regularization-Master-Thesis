@@ -66,11 +66,11 @@ class causality(object):
 
                 self.ACE(covariance,mean,new_nn)
 
-                causality_update, medians, variances=self.evaluating_ACE()
+                causality_update, medians, mean_variances=self.evaluating_ACE()
 
                 self.final_causality.append(causality_update)
                 self.means.append(medians)
-                self.variances.append(variances)
+                self.variances.append(mean_variances)
 
                 #self.final_causality.append(causality_update, dtype=object)
                 #if counter==0:
@@ -80,10 +80,12 @@ class causality(object):
                 #print(mean)
                 #print(covariance)
         #print(self.means)
+        #print(self.variances)
         #self.final_causality=torch.cat(self.final_causality)
+        #print(self.variances)
         self.means=torch.cat(self.means,dim=0)
         #print(self.means)
-        self.variances=torch.cat(self.variances,dim=0)
+        self.variances=torch.var(torch.cat(self.variances,dim=0))
         #print(self.variances)
 
         if iteration% 10 == 0:
@@ -291,6 +293,9 @@ class causality(object):
         medians=torch.stack(medians)
         variances=[torch.var(ace) for ace in ACEs]#np.var(ACEs, axis=1)#[~torch.isnan(ace)]
         variances=torch.stack(variances)
+
+        variances_mean=[torch.median(ace) for ace in ACEs]
+        variances_mean=torch.stack(variances_mean)
         #print(variances)
         variances[variances != variances]=0
         #print(variances)
@@ -337,7 +342,7 @@ class causality(object):
     #        print("causal effects")
     #        print(causal_effects)
         #self.plotting_ACE_mean_var(medians,variances)
-        return causality_update, medians, variances
+        return causality_update, medians, variances_mean
 
     def plotting_ACE_mean_var(self,medians,variances):
         plt.hist(medians)
