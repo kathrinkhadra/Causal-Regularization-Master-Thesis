@@ -128,7 +128,7 @@ class neural_network(object):
                 ACE_values.append(float(self.ACE_value.data))
                 variances.append(float(self.variance))
                 #print(ACE_values)
-                print(variances)
+                #print(variances)
             #if self.causality_on==1:
             #    self.update_weights_bias(placeholderNet)
             #print(loss_training)
