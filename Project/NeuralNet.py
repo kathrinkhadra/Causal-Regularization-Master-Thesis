@@ -62,6 +62,7 @@ class neural_network(object):
     def training(self):
         y_train_t =torch.from_numpy(self.target_training).clone().reshape(-1, 1)
         x_train_t =torch.from_numpy(self.inputs_training).clone()
+        self.inputs_training=torch.from_numpy(self.inputs_training).clone()
         #dataset = TensorDataset(torch.from_numpy(inputs_training).detach().clone(), torch.from_numpy(y_train).reshape(-1,1).detach().clone())
         #loader = DataLoader(dataset=dataset, batch_size=128, shuffle=True)
         loss_training = []
@@ -81,6 +82,7 @@ class neural_network(object):
             #loss = self.criterion(y_train_t,self.net(x_train_t))
             if self.causality_on==1:
                 loss=self.my_loss(y_train_t,self.net(x_train_t))
+                #loss = torch.tensor(loss, requires_grad = True)
             else:
                 loss = self.criterion(y_train_t,self.net(x_train_t))
             self.net.train()
@@ -150,8 +152,8 @@ class neural_network(object):
         #a=self.criterion(target,output)
         #print(self.criterion(target,output)) #50 samples = 50 a
         #value=self.ACE_regularitzation(target,output)
-        loss = self.criterion(target,output) + self.factor*self.ACE_regularitzation(target,output)#torch.tensor(self.ACE_regularitzation(target,output))
-
+        loss = -self.factor*torch.tensor(self.ACE_regularitzation(target,output), requires_grad = True)#torch.tensor(self.ACE_regularitzation(target,output))
+        #self.criterion(target,output) +
         return loss
 
     def ACE_regularitzation(self,target,output):

@@ -34,16 +34,24 @@ class causality(object):
         self.final_causality=[]
         self.means=[]
         self.variances=[]
-        x_train_t =torch.from_numpy(input_sample).clone()
+        x_train_t = input_sample#torch.from_numpy(input_sample).clone()
         for counter,layer in enumerate(self.neural_network.net):
+            #self.new_inputs=torch.tensor(0.0)
+            #self.new_inputs.requires_grad=True
             if (counter%2==1 and counter<len(self.neural_network.net)-1) or counter==0:#FOR DROPOUT#counter%2==1 and counter<len(self.neural_network.net)-1 and counter!=0:#
                 self.counter=counter
                 #print(counter)
-                self.neural_network.net.eval()
+                #self.neural_network.net.train()
+                #self.neural_network.net.eval()
                 new_nn=self.neural_network.net[counter:len(self.neural_network.net)]
-                new_nn.eval()
-                self.new_inputs=self.neural_network.net[0:counter](x_train_t)
-                self.neural_network.net.train()
+                placeholder_nn=self.neural_network.net[0:counter]
+                #print(new_nn.parameters.requires_grad)
+                #new_nn.eval()
+                #self.new_inputs=torch.tensor(self.neural_network.net[0:counter](x_train_t), requires_grad=True)#create_graph=True)#
+                self.new_inputs=placeholder_nn(x_train_t)
+                print(placeholder_nn)
+                print(self.new_inputs)
+                #self.neural_network.net.train()
                 #new_nn.train()
                 #print(self.new_inputs)
                 #covariance=torch.tensor(np.cov(self.new_inputs.detach().numpy(),rowvar=False))
@@ -52,7 +60,13 @@ class causality(object):
                 #covariance=torch.cov(self.new_inputs,rowvar=False)
                 #mean=np.array(np.mean(self.new_inputs.detach().numpy(), axis=0))#double check axis maybe more a axis of 1
                 #print(mean)
+                ##print(counter)
+                #self.new_inputs.requires_grad=True
+                #self.new_inputs=torch.tensor(self.new_inputs.data, requires_grad=True)
                 mean=torch.mean(self.new_inputs, axis=0)
+                #print(mean.requires_grad)
+                #mean.requires_grad=True
+                #mean.requires_grad=True
                 #print("mean shape")
                 #print(mean)
                 #print(covariance)
@@ -168,14 +182,16 @@ class causality(object):
 
 
                 expectation_do_x = []
-                mean_vector=mean.clone().detach()
+                mean_vector=mean.clone()#.detach()
                 #print(mean_vector)
                 #print(input_sample)
                 mean_vector[indx] = input_sample[indx]#problem 2D = new input and mean vector is not supposed to be
-                input_tensor=mean_vector.clone().detach()
-                input_tensor.requires_grad=True
+                input_tensor=mean_vector.clone()#.detach()
+                #print(input_tensor.requires_grad)
 
                 output=neural_net(input_tensor) # torch.from_numpy(mean_vector)
+                print(output)
+                print(neural_net)
 
                 #output = torch.nn.functional.sigmoid(output)
                 #output = torch.nn.functional.softmax(output)
@@ -214,7 +230,7 @@ class causality(object):
                     higher_order_grads_array = higher_order_grads[0].data#np.array()
                     high_orders_mean.append(torch.mean(higher_order_grads_array))
 
-                    temp_cov = covariance.clone().detach()
+                    temp_cov = covariance.clone()#.detach()
                     temp_cov[dim][indx] = 0.0
                     val += 0.5*torch.sum(higher_order_grads_array*temp_cov[dim])
 
@@ -372,8 +388,8 @@ class causality(object):
 
 
     def plotting_ACE(self):
-        input_samples=self.new_inputs.detach().numpy()
-        input_samples=input_samples.T
+        #input_samples=self.new_inputs.detach().numpy()
+        #input_samples=input_samples.T
         for i,causal_effects in enumerate(np.array(self.input_samples_ACE).T):
             #print(i)
             if i>14:

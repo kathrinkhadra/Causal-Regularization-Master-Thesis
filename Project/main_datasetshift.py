@@ -34,10 +34,10 @@ get_data.dataset_shift(41)#41,243,394,433,369
 #print(get_data.target_test.shape)
 
 #####################Neural Net
-learning_rate=.0005
+learning_rate=0.1#.0005
 epochs=450
 causality_on=1
-factors=[0.1,1,10,100,1000]
+factors=[1000000]#[0.1,1,10,100,1000]
 
 if causality_on==1:
     for factor in factors:
