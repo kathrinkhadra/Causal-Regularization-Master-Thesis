@@ -31,16 +31,22 @@ class neural_network(object):
         torch.set_default_dtype(torch.float64)
         dim = inputs.shape[1]
         self.net = nn.Sequential(
-            #nn.Linear(dim, 50, bias = True), nn.ELU(),
-            #nn.Linear(50,   50, bias = True), nn.ELU(),
+        #realNN
+            #nn.Linear(dim, 50, bias = True), nn.Sigmoid(),
+            #nn.Linear(50,   50, bias = True), nn.Sigmoid(),
             #nn.Linear(50,   50, bias = True), nn.Sigmoid(),
             #nn.Linear(50,   1)
 
-            #realNN
-            nn.Linear(dim, 50, bias = True), nn.Sigmoid(),#nn.ReLU(),
-            nn.Linear(50,   100, bias = True), nn.Sigmoid(),#nn.ReLU(),
-            nn.Linear(100,   50, bias = True), nn.Sigmoid(),#nn.ReLU(),
-            nn.Linear(50,   1)
+            nn.Linear(dim, 5, bias = True), nn.Sigmoid(),
+            nn.Linear(5,   10, bias = True), nn.Sigmoid(),
+            #nn.Linear(50,   50, bias = True), nn.Sigmoid(),
+            nn.Linear(10,   1)
+
+
+            #nn.Linear(dim, 50, bias = True), nn.Sigmoid(),#nn.ReLU(),
+            #nn.Linear(50,   100, bias = True), nn.Sigmoid(),#nn.ReLU(),
+            #nn.Linear(100,   50, bias = True), nn.Sigmoid(),#nn.ReLU(),
+            #nn.Linear(50,   1)
 
             #nn.Linear(dim, 50, bias = True), nn.ReLU(),
             #nn.Linear(50,   50, bias = True), nn.ReLU(),
@@ -62,7 +68,7 @@ class neural_network(object):
     def training(self):
         y_train_t =torch.from_numpy(self.target_training).clone().reshape(-1, 1)
         x_train_t =torch.from_numpy(self.inputs_training).clone()
-        self.inputs_training=torch.from_numpy(self.inputs_training).clone()
+        self.inputs_training=torch.tensor(torch.from_numpy(self.inputs_training).clone(), requires_grad=True)
         #dataset = TensorDataset(torch.from_numpy(inputs_training).detach().clone(), torch.from_numpy(y_train).reshape(-1,1).detach().clone())
         #loader = DataLoader(dataset=dataset, batch_size=128, shuffle=True)
         loss_training = []
@@ -71,6 +77,9 @@ class neural_network(object):
         test_loss_training=[]
         ACE_values=[]
         variances=[]
+        loss_training_doc=[]
+        test_loss_training_doc=[]
+        loss_control_training_MSE_doc=[]
         for i in range(self.epochs):
             self.epoch=i
 
@@ -130,6 +139,9 @@ class neural_network(object):
                 ACE_values.append(float(self.ACE_value.data))
                 #print(self.variance)
                 variances.append(float(self.variance))
+                loss_training_doc.append(loss.item())
+                test_loss_training_doc.append(loss_test.item())
+                loss_control_training_MSE_doc.append(self.criterion(y_train_t,self.net(x_train_t)).item())
                 #print(variances)
                 #print(ACE_values)
                 #print(np.mean(variances))
@@ -139,10 +151,10 @@ class neural_network(object):
             #print(test_loss_training)
             #print(loss_control_training_MSE)
         f = open(self.txt_name, 'a')
-        f.write('loss_training='+str(loss_training)+'\n\n')
-        f.write('test_loss_training='+str(test_loss_training)+'\n\n')
+        f.write('loss_training='+str(loss_training_doc)+'\n\n')
+        f.write('test_loss_training='+str(test_loss_training_doc)+'\n\n')
         #f.write('variances='+str(variances)+'\n\n')
-        f.write('loss_control_training_MSE='+str(loss_control_training_MSE)+'\n\n')
+        f.write('loss_control_training_MSE='+str(loss_control_training_MSE_doc)+'\n\n')
         f.write('variances='+str(variances)+'\n\n')
         f.write('ACE_values='+str(ACE_values)+'\n\n')
 
@@ -152,8 +164,8 @@ class neural_network(object):
         #a=self.criterion(target,output)
         #print(self.criterion(target,output)) #50 samples = 50 a
         #value=self.ACE_regularitzation(target,output)
-        loss = -self.factor*torch.tensor(self.ACE_regularitzation(target,output), requires_grad = True)#torch.tensor(self.ACE_regularitzation(target,output))
-        #self.criterion(target,output) +
+        loss =  self.criterion(target,output) +self.factor*self.ACE_regularitzation(target,output)#torch.tensor(self.ACE_regularitzation(target,output), requires_grad = True))
+        #
         return loss
 
     def ACE_regularitzation(self,target,output):
@@ -161,6 +173,7 @@ class neural_network(object):
         #mean=np.concatenate(mean, axis=None)
         self.ACE_value=torch.mean(mean)
         value=-torch.mean(mean)
+        #print(value)
         return value
 
     def ACE_function(self):

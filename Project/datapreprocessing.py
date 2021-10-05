@@ -50,3 +50,33 @@ class Dataprep(object):
 
         self.target_training=self.target[rand:indice+rand]
         self.target_test=np.concatenate((self.target[:rand],self.target[indice+rand:]))
+
+    def target_shift(self,rand):
+        self.data_preprocessing()
+
+        sorter=self.target.argsort()
+        self.target=self.target[sorter]
+        #print(self.inputs.shape)
+        #print(self.target.shape)
+        #print(self.target)
+        self.inputs=self.inputs[sorter,:]
+        #sorted_arrays = [x for _,x in sorted(zip(self.inputs,self.target))]
+
+        #sorted_pairs = sorted(zip(self.inputs, self.target))
+
+        #tuples = zip(*sorted_pairs)
+
+        #self.inputs, self.target = [list(tuple) for tuple in  tuples]
+
+        sample_sizes=self.inputs.shape[0]
+        sample_sizes=self.target.shape[0]
+
+        indice=round(sample_sizes*0.1)-1
+        #rand=369#433,394,41,243
+        finalindices=sample_sizes-indice
+
+        self.inputs_training=self.inputs[:rand,:]#self.inputs[rand:indice+rand,:]
+        self.inputs_test=self.inputs[rand:sample_sizes,:]#np.concatenate((self.inputs[:rand,:],self.inputs[indice+rand:,:]))
+
+        self.target_training=self.target[:rand]#self.target[rand:indice+rand]
+        self.target_test=self.target[rand:sample_sizes]#np.concatenate((self.target[:rand],self.target[indice+rand:]))

@@ -2,6 +2,8 @@ from sklearn.datasets import load_boston
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPRegressor
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mutual_info_score
+from sklearn.metrics import normalized_mutual_info_score
 import numpy  as np
 import sklearn
 import matplotlib.pyplot as plt
@@ -21,23 +23,54 @@ get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 ###no dataset_shift
 #get_data.splitting_data_noshift()
 
-#print(get_data.inputs_test.shape)
+
 #print(get_data.inputs_training.shape)
 #print(get_data.target_training.shape)
 #print(get_data.target_test.shape)
 
 ####with datasetshift
-get_data.dataset_shift(41)#41,243,394,433,369
+#get_data.dataset_shift(368)#41,243,394,433,369
+#433-> Covariate shift in feature (2,3,4,10) here mutual information was 0
+#394 -> Covariate shift in feature (5,6,7,13)
+#369 -> Covariate shift in feature (2,3)
+
+get_data.target_shift(50)
+
+
+
+#print(get_data.inputs_training.shape)
 #print(get_data.inputs_test.shape)
+#print(get_data.target_training.shape)
+#print(get_data.target_test.shape)
+
+#print(np.mean(get_data.inputs_test)-np.mean(get_data.inputs_training))
+#print(np.mean(get_data.target_test)-np.mean(get_data.target_training))
+#a, inputs_test, b, target_test = train_test_split(get_data.inputs_test, get_data.target_test , test_size=50, random_state=0)
+#print(target_test)
+#print(get_data.target_training)
+#print(normalized_mutual_info_score(target_test,get_data.target_training,average_method='arithmetic'))
+#for i in range(13):
+    #print(inputs_test[:,i].shape)
+    #print(get_data.inputs_training[:,i].shape)
+#    print(normalized_mutual_info_score(inputs_test[:,i],get_data.inputs_training[:,i],average_method='arithmetic'))
+#mutual_score=[]
+#for i in range(450):
+#    get_data.target_shift(i)
+#    a, inputs_test, b, target_test = train_test_split(get_data.inputs_test, get_data.target_test , test_size=50, random_state=0)
+#    mutual_score.append(normalized_mutual_info_score(target_test,get_data.target_training,average_method='arithmetic'))
+
+
+#print(np.argmin(mutual_score))
 #print(get_data.inputs_training.shape)
 #print(get_data.target_training.shape)
 #print(get_data.target_test.shape)
 
+
 #####################Neural Net
-learning_rate=0.1#.0005
+learning_rate=.0005
 epochs=450
 causality_on=1
-factors=[1000000]#[0.1,1,10,100,1000]
+factors=[0.1,1,10,100,1000]
 
 if causality_on==1:
     for factor in factors:

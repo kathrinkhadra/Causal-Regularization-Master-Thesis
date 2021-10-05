@@ -49,8 +49,8 @@ class causality(object):
                 #new_nn.eval()
                 #self.new_inputs=torch.tensor(self.neural_network.net[0:counter](x_train_t), requires_grad=True)#create_graph=True)#
                 self.new_inputs=placeholder_nn(x_train_t)
-                print(placeholder_nn)
-                print(self.new_inputs)
+                #print(placeholder_nn)
+                #print(self.new_inputs)
                 #self.neural_network.net.train()
                 #new_nn.train()
                 #print(self.new_inputs)
@@ -190,13 +190,13 @@ class causality(object):
                 #print(input_tensor.requires_grad)
 
                 output=neural_net(input_tensor) # torch.from_numpy(mean_vector)
-                print(output)
-                print(neural_net)
+                #print(output)
+                #print(neural_net)
 
                 #output = torch.nn.functional.sigmoid(output)
                 #output = torch.nn.functional.softmax(output)
                 #print(output[0].data)
-                val = output.data#output.data.view(1).cpu().numpy()[0]
+                val = output#output.data#output.data.view(1).cpu().numpy()[0]
                 #print(output.data.view(1).cpu().numpy()[0])
                 #print("first Loop") #first Loop 0
                 #print(indx)
@@ -208,7 +208,7 @@ class causality(object):
                 #first_grads=torch.tensor(first_grads)
                 first_grad_shape = first_grads[0].data.size()
                 lower_order_grads = first_grads
-                first_orders_mean.append(torch.mean(first_grads[0].data))#np.array(
+                #first_orders_mean.append(torch.mean(first_grads[0].data))#np.array(
                 for dim in range(len(mean)):
                     #print(len(mean))
                     if dim==indx:
@@ -227,13 +227,16 @@ class causality(object):
                     #X=torch.nan_to_num(higher_order_grads[0].data)
                     #print(X)
                     #higher_order_grads=torch.tensor(higher_order_grads)
-                    higher_order_grads_array = higher_order_grads[0].data#np.array()
-                    high_orders_mean.append(torch.mean(higher_order_grads_array))
+                    #higher_order_grads_array = higher_order_grads[0].data#np.array()
+                    #print(higher_order_grads)
+                    high_orders_mean.append(torch.mean(higher_order_grads[0]))#_array
+                    #print(high_orders_mean)
 
                     temp_cov = covariance.clone()#.detach()
                     temp_cov[dim][indx] = 0.0
-                    val += 0.5*torch.sum(higher_order_grads_array*temp_cov[dim])
-
+                    #print(temp_cov)
+                    val += 0.5*torch.sum(higher_order_grads[0]*temp_cov[dim])
+                    #print(val)
 
                 average_causal_effects.append(val)
 
@@ -241,8 +244,15 @@ class causality(object):
             #average_causal_effects = np.array(average_causal_effects) - np.mean(np.array(average_causal_effects))
                 first_orders_mean_array.append(first_orders_mean)
                 high_orders_mean_array.append(high_orders_mean)
+                #print("FIRST LOOP")
+                #print(len(average_causal_effects))
+                #print(len(average_causal_effects[0]))
             #average_causal_effects=np.array(average_causal_effects)
-            average_causal_effects=torch.tensor(average_causal_effects)
+            average_causal_effects=torch.stack(average_causal_effects)
+            #print("average_causal_effects")
+            #print(len(average_causal_effects))
+            #print(len(average_causal_effects[0]))
+
             #print(average_causal_effects)
             #print(average_causal_effects[~torch.any(average_causal_effects.isnan(),dim=0)])
             #print(average_causal_effects[~torch.isnan(average_causal_effects)])
@@ -257,14 +267,29 @@ class causality(object):
             #[~torch.isnan(average_causal_effects)]#average_causal_effects[~np.isnan(average_causal_effects)]
             #
         #print(inv_value_counter)
-        store_ACEs=torch.stack(store_ACEs).T
+        #print("store_ACEs")
+        #print(len(store_ACEs))
+        #print(len(store_ACEs[0]))
+        #print("store_ACEs")
+        #print(store_ACEs)
+        store_ACEs=torch.squeeze(torch.stack(store_ACEs)).T
+        #print("store_ACEs")
+        #print(store_ACEs.shape)
+        #print(len(store_ACEs[0]))
         means=torch.mean(store_ACEs,1)
+        #print("means")
+        #print(len(means))
+        #print(len(means[0]))
         #print(store_ACEs)
         #print(len(store_ACEs))
         #print(len(store_ACEs[0]))
         #print(means)
         self.input_samples_ACE=[ace - means[indx] for indx, ace in enumerate(store_ACEs)]
+        #print("input_samples_ACE")
+        #print(len(self.input_samples_ACE))
+        #print(len(self.input_samples_ACE[0]))
 
+        #print(self.input_samples_ACE)
         #for indx,ace in enumerate(store_ACEs):
         #    print("ace")
         #    print(ace)
@@ -289,6 +314,7 @@ class causality(object):
         #print(len(self.input_samples_ACE[2]))
         #print(len(self.input_samples_ACE[8]))
         ACEs=torch.stack(self.input_samples_ACE)#.T
+        #print(ACEs)
         #print("ACEs")
         #print(len(ACEs))
         #print(len(ACEs[0]))
@@ -307,12 +333,13 @@ class causality(object):
         #    print(torch.median(ace[~torch.isnan(ace)]))
         medians=[torch.absolute(torch.median(ace)) for ace in ACEs]#[~torch.isnan(ace)]
         medians=torch.stack(medians)
+        #print()
         variances=[torch.var(ace) for ace in ACEs]#np.var(ACEs, axis=1)#[~torch.isnan(ace)]
         variances=torch.stack(variances)
 
         variances_mean=[torch.median(ace) for ace in ACEs]
         variances_mean=torch.stack(variances_mean)
-        #print(variances)
+        #print(medians)
         variances[variances != variances]=0
         #print(variances)
         #print(medians.data.size())
