@@ -32,15 +32,15 @@ class neural_network(object):
         dim = inputs.shape[1]
         self.net = nn.Sequential(
         #realNN
-            #nn.Linear(dim, 50, bias = True), nn.Sigmoid(),
+            nn.Linear(dim, 50, bias = True), nn.Sigmoid(),
+            nn.Linear(50,   50, bias = True), nn.Sigmoid(),
             #nn.Linear(50,   50, bias = True), nn.Sigmoid(),
-            #nn.Linear(50,   50, bias = True), nn.Sigmoid(),
-            #nn.Linear(50,   1)
+            nn.Linear(50,   1)
 
-            nn.Linear(dim, 5, bias = True), nn.Sigmoid(),
-            nn.Linear(5,   10, bias = True), nn.Sigmoid(),
+            #nn.Linear(dim, 5, bias = True), nn.Sigmoid(),
+            #nn.Linear(5,   10, bias = True), nn.Sigmoid(),
             #nn.Linear(50,   50, bias = True), nn.Sigmoid(),
-            nn.Linear(10,   1)
+            #nn.Linear(10,   1)
 
 
             #nn.Linear(dim, 50, bias = True), nn.Sigmoid(),#nn.ReLU(),
