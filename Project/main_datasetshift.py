@@ -29,7 +29,7 @@ get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 #print(get_data.target_test.shape)
 
 ####with datasetshift
-splits=[41,394,433,369]
+splits=[394,433,369]
 #for split in splits:
 #    datasets.append(get_data.dataset_shift(split))#41,243,394,433,369
 #print(get_data.inputs_test.shape)
@@ -45,9 +45,10 @@ causality_on=0
 #print(factor_list)
 factors=[0.0001,0.0000001,1e-05,1e-08]
 if causality_on==0:
-    for indx,factor in enumerate(factors):
+    for indx,factor in enumerate(factor_list):
 
-        get_data.dataset_shift(splits[indx])
+        #get_data.dataset_shift(splits[indx])
+        get_data.target_shift(50)
 
         print("CAUSAL NN START")
 
@@ -81,6 +82,9 @@ if causality_on==0:
         del neural.net
         del neural
         torch.cuda.empty_cache()
+
+        #get_data.target_shift(50)
+
 
 
 if False:
