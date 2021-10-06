@@ -23,6 +23,8 @@ get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 ###no dataset_shift
 #datasets.append(get_data.splitting_data_noshift())
 
+get_data.target_shift(50)
+
 #print(get_data.inputs_test.shape)
 #print(get_data.inputs_training.shape)
 #print(get_data.target_training.shape)
