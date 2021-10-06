@@ -49,7 +49,7 @@ causality_on=0
 
 factors=[1e-10,1e-13,1e-13]
 if causality_on==0:
-    for indx,factor in enumerate(factor):
+    for indx,factor in enumerate(factors):
 
         get_data.dataset_shift(splits[indx])
         #get_data.splitting_data_noshift()
