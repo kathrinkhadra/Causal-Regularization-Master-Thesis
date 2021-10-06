@@ -89,7 +89,7 @@ if causality_on==0:
     factor=1e-15
     print("CAUSAL NN START")
 
-    txt_file=str(splits[indx])+"_results_datasetshift_regularization_withACE.txt"#splits[indx]
+    txt_file=str(50)+"_results_datasetshift_regularization_withACE.txt"#splits[indx]
 
     f = open(txt_file, 'a')
     f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
@@ -124,7 +124,7 @@ if causality_on==0:
     factor=1e-15
     print("CAUSAL NN START")
 
-    txt_file=str(splits[indx])+"_results_datasetshift_regularization_withACE.txt"#splits[indx]
+    txt_file=str(0)+"_results_datasetshift_regularization_withACE.txt"#splits[indx]
 
     f = open(txt_file, 'a')
     f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
