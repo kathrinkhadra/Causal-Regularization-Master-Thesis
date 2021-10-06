@@ -23,7 +23,7 @@ get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 ###no dataset_shift
 #datasets.append(get_data.splitting_data_noshift())
 
-get_data.target_shift(50)
+#get_data.target_shift(50)
 
 #print(get_data.inputs_test.shape)
 #print(get_data.inputs_training.shape)
@@ -31,7 +31,7 @@ get_data.target_shift(50)
 #print(get_data.target_test.shape)
 
 ####with datasetshift
-splits=[41,394,433,369]
+splits=[394,433,369]
 #split=369
 #for split in splits:
 #    datasets.append(get_data.dataset_shift(split))#41,243,394,433,369
@@ -44,18 +44,19 @@ splits=[41,394,433,369]
 learning_rate=.0005
 epochs=450
 causality_on=0
-#factor_list=[1e-13,1e-12,1e-11,1e-10,0.000000001,0.00000001,0.0000001,0.000001,0.00001,0.001]#[0.1,1,10,100,1000]#np.linspace(0,0.4,10)#[1e-09,1e-10,1e-11,1e-12]#
+#factor_list=[1e-13,1e-12,1e-11,1e-10,0.000000001,0.00000001,0.0000001,0.000001,0.00001,0.001,0.01]#[0.1,1,10,100,1000]#[1e-09,1e-10,1e-11,1e-12]#np.linspace(0,0.1,10)#
 #print(factor_list)
 
-factors=[0.000000001,1e-09,1e-13,1e-13]
+factors=[1e-10,1e-13,1e-13]
 if causality_on==0:
-    for indx,factor in enumerate(factors):
+    for indx,factor in enumerate(factor):
 
         get_data.dataset_shift(splits[indx])
+        #get_data.splitting_data_noshift()
 
         print("CAUSAL NN START")
 
-        txt_file=str(splits[indx])+"_results_datasetshift_regularization_withACE.txt"
+        txt_file=str(factor)+"_results_datasetshift_regularization_withACE.txt"#str(splits[indx])+"_results_datasetshift_regularization_withACE.txt"
 
         f = open(txt_file, 'a')
         f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
@@ -86,6 +87,76 @@ if causality_on==0:
         del neural
         torch.cuda.empty_cache()
 
+    get_data.target_shift(50)
+    factor=1e-13
+    print("CAUSAL NN START")
+
+    txt_file=str(factor)+"_results_datasetshift_regularization_withACE.txt"#str(splits[indx])+"_results_datasetshift_regularization_withACE.txt"
+
+    f = open(txt_file, 'a')
+    f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
+    f.close
+
+    neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on,txt_file,0,factor,0,[])
+
+    #build neural net, define optimizer and loss
+    neural.model(get_data.inputs)
+
+    #train neural net
+    loss_training,test_loss_training=neural.training()
+
+    #plot training performance
+    #neural.testing_training(loss_training,test_loss_training,'training_performance.png')
+
+    #test neural net
+    loss_test_causality=neural.testing()
+    f = open(txt_file, 'a')
+    f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
+    f.close
+
+    print("factor")
+    print(factor)
+    print("Done")
+
+    del neural.net
+    del neural
+    torch.cuda.empty_cache()
+
+
+    get_data.splitting_data_noshift()
+    factor=1e-13
+    print("CAUSAL NN START")
+
+    txt_file=str(factor)+"_results_datasetshift_regularization_withACE.txt"#str(splits[indx])+"_results_datasetshift_regularization_withACE.txt"
+
+    f = open(txt_file, 'a')
+    f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
+    f.close
+
+    neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on,txt_file,0,factor,0,[])
+
+    #build neural net, define optimizer and loss
+    neural.model(get_data.inputs)
+
+    #train neural net
+    loss_training,test_loss_training=neural.training()
+
+    #plot training performance
+    #neural.testing_training(loss_training,test_loss_training,'training_performance.png')
+
+    #test neural net
+    loss_test_causality=neural.testing()
+    f = open(txt_file, 'a')
+    f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
+    f.close
+
+    print("factor")
+    print(factor)
+    print("Done")
+
+    del neural.net
+    del neural
+    torch.cuda.empty_cache()
 
 if False:
     print("NORMAL NN START")

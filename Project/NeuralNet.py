@@ -32,15 +32,15 @@ class neural_network(object):
         dim = inputs.shape[1]
         self.net = nn.Sequential(
         #realNN
-            #nn.Linear(dim, 50, bias = True), nn.Sigmoid(),
+            nn.Linear(dim, 50, bias = True), nn.Sigmoid(),
+            nn.Linear(50,   50, bias = True), nn.Sigmoid(),
             #nn.Linear(50,   50, bias = True), nn.Sigmoid(),
-            #nn.Linear(50,   50, bias = True), nn.Sigmoid(),
-            #nn.Linear(50,   1)
+            nn.Linear(50,   1)
 
-            nn.Linear(dim, 5, bias = True), nn.Sigmoid(),
-            nn.Linear(5,   10, bias = True), nn.Sigmoid(),
+            #nn.Linear(dim, 5, bias = True), nn.Sigmoid(),
+            #nn.Linear(5,   10, bias = True), nn.Sigmoid(),
             #nn.Linear(50,   50, bias = True), nn.Sigmoid(),
-            nn.Linear(10,   1)
+            #nn.Linear(10,   1)
 
 
             #nn.Linear(dim, 50, bias = True), nn.Sigmoid(),#nn.ReLU(),
@@ -135,13 +135,13 @@ class neural_network(object):
             #print(self.net[0].weight.detach().numpy().shape)
             if self.causality_on==0:
                 self.net.eval()
-                mean=self.ACE_regularitzation(y_train_t,self.net(x_train_t))
-                self.ACE_value=-mean
+                #mean=self.ACE_regularitzation(y_train_t,self.net(x_train_t))
+                #self.ACE_value=-mean
 
             if i % 10 == 0:
-                ACE_values.append(float(self.ACE_value.data))
+                #ACE_values.append(float(self.ACE_value.data))
                 #print(self.variance)
-                variances.append(float(self.variance))
+                #variances.append(float(self.variance))
                 loss_training_doc.append(loss.item())
                 test_loss_training_doc.append(loss_test.item())
                 loss_control_training_MSE_doc.append(self.criterion(y_train_t,self.net(x_train_t)).item())
