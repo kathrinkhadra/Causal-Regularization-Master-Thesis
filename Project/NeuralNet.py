@@ -32,10 +32,15 @@ class neural_network(object):
         dim = inputs.shape[1]
         self.net = nn.Sequential(
         #realNN
-            nn.Linear(dim, 50, bias = True), nn.Sigmoid(),
-            nn.Linear(50,   50, bias = True), nn.Sigmoid(),
+            #nn.Linear(dim, 50, bias = True), nn.Sigmoid(),
             #nn.Linear(50,   50, bias = True), nn.Sigmoid(),
-            nn.Linear(50,   1)
+            #nn.Linear(50,   50, bias = True), nn.Sigmoid(),
+            #nn.Linear(50,   1)
+
+            nn.Linear(dim, 20, bias = True), nn.Sigmoid(),
+            nn.Linear(20,   20, bias = True), nn.Sigmoid(),
+            #nn.Linear(50,   50, bias = True), nn.Sigmoid(),
+            nn.Linear(20,   1)
 
             #nn.Linear(dim, 5, bias = True), nn.Sigmoid(),
             #nn.Linear(5,   10, bias = True), nn.Sigmoid(),
@@ -82,6 +87,7 @@ class neural_network(object):
         loss_control_training_MSE_doc=[]
         for i in range(self.epochs):
             self.epoch=i
+            self.opt.zero_grad()
 
             placeholderNet=copy.deepcopy(self.net)
             placeholderNet.eval()
@@ -97,7 +103,6 @@ class neural_network(object):
             self.net.train()
             loss_training.append(loss.item())
             stepsave.append(i)
-            self.opt.zero_grad()
             loss.backward()
             self.opt.step()
             #y_hat_class = (y_hat.detach().numpy())
