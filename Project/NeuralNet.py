@@ -82,6 +82,7 @@ class neural_network(object):
         loss_control_training_MSE_doc=[]
         for i in range(self.epochs):
             self.epoch=i
+            self.opt.zero_grad()
 
             placeholderNet=copy.deepcopy(self.net)
             placeholderNet.eval()
@@ -100,7 +101,6 @@ class neural_network(object):
             self.net.train()
             loss_training.append(loss.item())
             stepsave.append(i)
-            self.opt.zero_grad()
             loss.backward()
             self.opt.step()
             #y_hat_class = (y_hat.detach().numpy())
