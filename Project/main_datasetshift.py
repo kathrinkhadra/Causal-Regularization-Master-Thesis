@@ -56,7 +56,7 @@ if causality_on==0:
 
         print("CAUSAL NN START")
 
-        txt_file=str(splits[indx])+"_results_datasetshift_regularization_withACE.txt"
+        txt_file=str(splits[indx])+str(factor_ace)+"_results_datasetshift_regularization_withACE.txt"
 
         f = open(txt_file, 'a')
         f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
@@ -75,6 +75,12 @@ if causality_on==0:
 
         #test neural net
         loss_test_causality=neural.testing()
+
+        PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+
+        #torch.save(neural.net.state_dict()﻿,PATH)
+        torch.save(neural.net.state_dict(),PATH)
+
         f = open(txt_file, 'a')
         f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
         f.close
@@ -91,7 +97,7 @@ if causality_on==0:
     factor=1e-13
     print("CAUSAL NN START")
 
-    txt_file=str(50)+"_results_datasetshift_regularization_withACE.txt"
+    txt_file=str(50)+str(factor_ace)+"_results_datasetshift_regularization_withACE.txt"
 
     f = open(txt_file, 'a')
     f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
@@ -110,6 +116,12 @@ if causality_on==0:
 
     #test neural net
     loss_test_causality=neural.testing()
+
+    PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+
+    #torch.save(neural.net.state_dict()﻿,PATH)
+    torch.save(neural.net.state_dict(),PATH)
+
     f = open(txt_file, 'a')
     f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
     f.close
@@ -127,7 +139,7 @@ if causality_on==0:
     factor=1e-13
     print("CAUSAL NN START")
 
-    txt_file=str(0)+"_results_datasetshift_regularization_withACE.txt"
+    txt_file=str(0)+str(factor_ace)+"_results_datasetshift_regularization_withACE.txt"
 
     f = open(txt_file, 'a')
     f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
@@ -146,6 +158,12 @@ if causality_on==0:
 
     #test neural net
     loss_test_causality=neural.testing()
+
+    PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+
+    #torch.save(neural.net.state_dict()﻿,PATH)
+    torch.save(neural.net.state_dict(),PATH)
+
     f = open(txt_file, 'a')
     f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
     f.close
