@@ -51,13 +51,56 @@ factors=[1e-10,1e-13,1e-13]
 factors_ace=[0.00001,0.0001,0.001,0.01,0.1,1,10,100]
 if causality_on==0:
     for indx,factor in enumerate(factors):
+        for factor_ace in factors_ace:
 
-        get_data.dataset_shift(splits[indx])
-        #get_data.splitting_data_noshift()
+            get_data.dataset_shift(splits[indx])
+            #get_data.splitting_data_noshift()
 
+            print("CAUSAL NN START")
+
+            txt_file=str(splits[indx])+str(factor_ace)+"_results_datasetshift_regularization_withACE.txt"
+
+            f = open(txt_file, 'a')
+            f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
+            f.close
+
+            neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on,txt_file,0,factor,0,[])
+
+            #build neural net, define optimizer and loss
+            neural.model(get_data.inputs)
+
+            #train neural net
+            loss_training,test_loss_training=neural.training()
+
+            #plot training performance
+            #neural.testing_training(loss_training,test_loss_training,'training_performance.png')
+
+            #test neural net
+            #loss_test_causality=neural.testing()
+
+            PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+
+            #torch.save(neural.net.state_dict()﻿,PATH)
+            torch.save(neural.net.state_dict(),PATH)
+
+            f = open(txt_file, 'a')
+            f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
+            f.close
+
+            print("factor")
+            print(factor)
+            print("Done")
+
+            del neural.net
+            del neural
+            torch.cuda.empty_cache()
+
+    for factor_ace in factors_ace:
+        get_data.target_shift(50)
+        factor=1e-13
         print("CAUSAL NN START")
 
-        txt_file=str(splits[indx])+str(factor_ace)+"_results_datasetshift_regularization_withACE.txt"
+        txt_file=str(50)+str(factor_ace)+"_results_datasetshift_regularization_withACE.txt"
 
         f = open(txt_file, 'a')
         f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
@@ -75,9 +118,9 @@ if causality_on==0:
         #neural.testing_training(loss_training,test_loss_training,'training_performance.png')
 
         #test neural net
-        #loss_test_causality=neural.testing()
+        loss_test_causality=neural.testing()
 
-        #PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+        PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
 
         #torch.save(neural.net.state_dict()﻿,PATH)
         torch.save(neural.net.state_dict(),PATH)
@@ -94,88 +137,48 @@ if causality_on==0:
         del neural
         torch.cuda.empty_cache()
 
-    get_data.target_shift(50)
-    factor=1e-13
-    print("CAUSAL NN START")
+    for factor_ace in factors_ace:
 
-    txt_file=str(50)+str(factor_ace)+"_results_datasetshift_regularization_withACE.txt"
+        get_data.splitting_data_noshift()
+        factor=1e-13
+        print("CAUSAL NN START")
 
-    f = open(txt_file, 'a')
-    f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
-    f.close
+        txt_file=str(0)+str(factor_ace)+"_results_datasetshift_regularization_withACE.txt"
 
-    neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on,txt_file,0,factor,0,[])
+        f = open(txt_file, 'a')
+        f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
+        f.close
 
-    #build neural net, define optimizer and loss
-    neural.model(get_data.inputs)
+        neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on,txt_file,0,factor,0,[])
 
-    #train neural net
-    loss_training,test_loss_training=neural.training()
+        #build neural net, define optimizer and loss
+        neural.model(get_data.inputs)
 
-    #plot training performance
-    #neural.testing_training(loss_training,test_loss_training,'training_performance.png')
+        #train neural net
+        loss_training,test_loss_training=neural.training()
 
-    #test neural net
-    loss_test_causality=neural.testing()
+        #plot training performance
+        #neural.testing_training(loss_training,test_loss_training,'training_performance.png')
 
-    #PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+        #test neural net
+        loss_test_causality=neural.testing()
 
-    #torch.save(neural.net.state_dict()﻿,PATH)
-    #torch.save(neural.net.state_dict(),PATH)
+        PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
 
-    f = open(txt_file, 'a')
-    f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
-    f.close
+        #torch.save(neural.net.state_dict()﻿,PATH)
+        torch.save(neural.net.state_dict(),PATH)
 
-    print("factor")
-    print(factor)
-    print("Done")
+        f = open(txt_file, 'a')
+        f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
+        f.close
 
-    del neural.net
-    del neural
-    torch.cuda.empty_cache()
+        print("factor")
+        print(factor)
+        print("Done")
 
-
-    get_data.splitting_data_noshift()
-    factor=1e-13
-    print("CAUSAL NN START")
-
-    txt_file=str(0)+str(factor_ace)+"_results_datasetshift_regularization_withACE.txt"
-
-    f = open(txt_file, 'a')
-    f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
-    f.close
-
-    neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on,txt_file,0,factor,0,[])
-
-    #build neural net, define optimizer and loss
-    neural.model(get_data.inputs)
-
-    #train neural net
-    loss_training,test_loss_training=neural.training()
-
-    #plot training performance
-    #neural.testing_training(loss_training,test_loss_training,'training_performance.png')
-
-    #test neural net
-    loss_test_causality=neural.testing()
-
-    #PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
-
-    #torch.save(neural.net.state_dict()﻿,PATH)
-    #torch.save(neural.net.state_dict(),PATH)
-
-    f = open(txt_file, 'a')
-    f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
-    f.close
-
-    print("factor")
-    print(factor)
-    print("Done")
-
-    del neural.net
-    del neural
-    torch.cuda.empty_cache()
+        del neural.net
+        del neural
+        torch.cuda.empty_cache()
 
 if False:
     print("NORMAL NN START")

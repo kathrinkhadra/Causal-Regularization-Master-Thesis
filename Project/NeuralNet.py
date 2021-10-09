@@ -94,7 +94,7 @@ class neural_network(object):
             l1_regularization = self.factor * torch.norm(all_linear1_params, 1)
 
             if self.causality_on==1:
-                loss=self.my_loss(y_train_t,self.net(x_train_t))
+                loss=self.my_loss(y_train_t,self.net(x_train_t))+l1_regularization
                 #loss = torch.tensor(loss, requires_grad = True)
             else:
                 loss = self.criterion(y_train_t,self.net(x_train_t))+l1_regularization
