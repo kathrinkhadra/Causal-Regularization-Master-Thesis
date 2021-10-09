@@ -97,9 +97,10 @@ if causality_on==1:
         #test neural net
         loss_test_causality=neural.testing()
 
-        PATH=str(factor)+'_model.pth'﻿
+        PATH=str(factor)+"_model.pth"
 
-        torch.save(neural.net.state_dict(﻿)﻿, PATH)
+        #torch.save(neural.net.state_dict()﻿,PATH)
+        torch.save(neural.net.state_dict(),PATH)
 
         f = open(txt_file, 'a')
         f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')

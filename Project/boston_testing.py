@@ -3,6 +3,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 import numpy as np
 import torch
+import NeuralNet
 
 
 def cov_old(m, rowvar=False, inplace=False):
@@ -171,7 +172,29 @@ def main():
     feature=torch.transpose(feature,0,1)
     print(feature)
 if __name__ == "__main__":
-    main()
+    #main()
+    learning_rate=.0005
+    epochs=450
+    causality_on=1
+    factor=0.00001
+    inputs=np.arange(26).reshape((2,13))
+    print(inputs.shape[1])
+
+    neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,0,0,0,0,causality_on,0,0,factor,0,[])
+
+    neural.model(inputs)
+
+    for params in neural.net.parameters():
+        print(params)
+
+
+    neural.net.load_state_dict(torch.load('1e-05_model.pth'), strict=False)
+
+    print("loaded model")
+    for params in neural.net.parameters():
+        print(params)
+
+
 
     #tensor=[torch.tensor([ 0.0001,  0.0016,  0.0016, -0.0078,  0.0005, -0.0010,  0.0013, -0.0006,
     #         0.0016,  0.0016,  0.0016,  0.0006,  0.0003]), torch.tensor([-7.5046e-05, -8.3345e-05, -7.5046e-05, -7.3819e-05, -6.0660e-05,
