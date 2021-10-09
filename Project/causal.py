@@ -367,7 +367,7 @@ class causality(object):
 
         #causality_update = [0 if med>=plus_border_mean or med<=minus_border_mean else 1 for med in medians]
 
-        causality_update = [0 if med<0 else 1 for med in medians]
+        causality_update = [-1 if med<0 else 1 for med in medians]
         #print(medians)
         #point=np.median(medians)
         #print(point)

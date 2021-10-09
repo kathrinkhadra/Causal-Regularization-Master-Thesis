@@ -70,7 +70,7 @@ get_data.dataset_shift(394)#41,243,394,433,369
 learning_rate=.0005
 epochs=450
 causality_on=1
-factors=[0.001,0.01,0.1,1,10,100]
+factors=[0.00001,0.0001,0.001,0.01,0.1,1,10,100]
 
 if causality_on==1:
     for factor in factors:
@@ -96,6 +96,11 @@ if causality_on==1:
 
         #test neural net
         loss_test_causality=neural.testing()
+
+        PATH=str(factor)+'_model.pth'﻿
+
+        torch.save(neural.net.state_dict(﻿)﻿, PATH)
+
         f = open(txt_file, 'a')
         f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
         f.close
