@@ -74,6 +74,11 @@ if causality_on==0:
 
         #test neural net
         loss_test_causality=neural.testing()
+
+        #loss_test_causality=neural.testing()
+
+        #PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+
         f = open(txt_file, 'a')
         f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
         f.close
@@ -109,6 +114,11 @@ if causality_on==0:
 
     #test neural net
     loss_test_causality=neural.testing()
+
+    #loss_test_causality=neural.testing()
+
+    #PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+
     f = open(txt_file, 'a')
     f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
     f.close
@@ -144,6 +154,11 @@ if causality_on==0:
 
     #test neural net
     loss_test_causality=neural.testing()
+
+    #loss_test_causality=neural.testing()
+
+    #PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+
     f = open(txt_file, 'a')
     f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
     f.close
