@@ -78,6 +78,7 @@ if causality_on==0:
         #loss_test_causality=neural.testing()
 
         #PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+        #torch.save(neural.net.state_dict(),PATH)
 
         f = open(txt_file, 'a')
         f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
@@ -118,6 +119,7 @@ if causality_on==0:
     #loss_test_causality=neural.testing()
 
     #PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+    #torch.save(neural.net.state_dict(),PATH)
 
     f = open(txt_file, 'a')
     f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
@@ -158,6 +160,7 @@ if causality_on==0:
     #loss_test_causality=neural.testing()
 
     #PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+    #torch.save(neural.net.state_dict(),PATH)
 
     f = open(txt_file, 'a')
     f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
