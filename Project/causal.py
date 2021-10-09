@@ -141,7 +141,8 @@ class causality(object):
         #    inv_value.append(torch.linspace(min.data,torch.max(self.new_inputs, 0).values[ind].data,50))
 
         #inv_value=torch.stack(inv_value)
-        inv_value=torch.stack([torch.linspace(min.data,torch.max(self.new_inputs, 0).values[ind].data,50) for ind,min in enumerate(torch.min(self.new_inputs, 0).values)])
+        number_of_inv=10
+        inv_value=torch.stack([torch.linspace(min.data,torch.max(self.new_inputs, 0).values[ind].data,number_of_inv) for ind,min in enumerate(torch.min(self.new_inputs, 0).values)])
         #print(inv_value)
         return torch.transpose(inv_value,0,1)
 

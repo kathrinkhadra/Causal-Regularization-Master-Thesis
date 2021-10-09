@@ -21,7 +21,7 @@ test_size=0.9
 get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 
 ###no dataset_shift
-get_data.splitting_data_noshift()
+#get_data.splitting_data_noshift()
 
 
 #print(get_data.inputs_training.shape)
@@ -29,7 +29,7 @@ get_data.splitting_data_noshift()
 #print(get_data.target_test.shape)
 
 ####with datasetshift
-#get_data.dataset_shift(369)#41,243,394,433,369
+get_data.dataset_shift(394)#41,243,394,433,369
 #433-> Covariate shift in feature (2,3,4,10) here mutual information was 0
 #394 -> Covariate shift in feature (5,6,7,13)
 #369 -> Covariate shift in feature (2,3)
@@ -70,7 +70,7 @@ get_data.splitting_data_noshift()
 learning_rate=.0005
 epochs=450
 causality_on=1
-factors=[0.1,1,10,100,1000]
+factors=[0.001,0.01,0.1,1,10,100]
 
 if causality_on==1:
     for factor in factors:
