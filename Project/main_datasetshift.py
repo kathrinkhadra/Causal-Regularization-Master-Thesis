@@ -48,6 +48,7 @@ causality_on=0
 #print(factor_list)
 
 factors=[1e-10,1e-13,1e-13]
+factors_ace=[0.00001,0.0001,0.001,0.01,0.1,1,10,100]
 if causality_on==0:
     for indx,factor in enumerate(factors):
 
@@ -74,9 +75,9 @@ if causality_on==0:
         #neural.testing_training(loss_training,test_loss_training,'training_performance.png')
 
         #test neural net
-        loss_test_causality=neural.testing()
+        #loss_test_causality=neural.testing()
 
-        PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+        #PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
 
         #torch.save(neural.net.state_dict()﻿,PATH)
         torch.save(neural.net.state_dict(),PATH)
@@ -117,10 +118,10 @@ if causality_on==0:
     #test neural net
     loss_test_causality=neural.testing()
 
-    PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+    #PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
 
     #torch.save(neural.net.state_dict()﻿,PATH)
-    torch.save(neural.net.state_dict(),PATH)
+    #torch.save(neural.net.state_dict(),PATH)
 
     f = open(txt_file, 'a')
     f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
@@ -159,10 +160,10 @@ if causality_on==0:
     #test neural net
     loss_test_causality=neural.testing()
 
-    PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+    #PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
 
     #torch.save(neural.net.state_dict()﻿,PATH)
-    torch.save(neural.net.state_dict(),PATH)
+    #torch.save(neural.net.state_dict(),PATH)
 
     f = open(txt_file, 'a')
     f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
