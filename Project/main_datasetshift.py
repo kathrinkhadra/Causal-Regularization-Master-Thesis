@@ -80,7 +80,7 @@ if causality_on==0:
         #PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
 
         #torch.save(neural.net.state_dict()﻿,PATH)
-        torch.save(neural.net.state_dict(),PATH)
+        #torch.save(neural.net.state_dict(),PATH)
 
         f = open(txt_file, 'a')
         f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
