@@ -43,13 +43,13 @@ splits=[394,433,369]
 #####################Neural Net
 learning_rate=.0005
 epochs=450
-causality_on=0
+causality_on=1
 #factor_list=[1e-13,1e-12,1e-11,1e-10,0.000000001,0.00000001,0.0000001,0.000001,0.00001,0.001,0.01]#[0.1,1,10,100,1000]#[1e-09,1e-10,1e-11,1e-12]#np.linspace(0,0.1,10)#
 #print(factor_list)
 
 factors=[1e-10,1e-13,1e-13]
 factors_ace=[0.00001,0.0001,0.001,0.01,0.1,1,10,100]
-if causality_on==0:
+if causality_on==1:
     for indx,factor in enumerate(factors):
         for factor_ace in factors_ace:
 
