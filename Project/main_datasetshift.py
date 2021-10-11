@@ -45,7 +45,7 @@ causality_on=1
 #print(factor_list)
 factors=[0.0000001,1e-05,1e-08]
 factors_ace=[0.00001,0.0001,0.001,0.01,0.1,1,10,100]
-if causality_on==0:
+if causality_on==1:
     for indx,factor in enumerate(factors):
         for factor_ace in factors_ace:
 
