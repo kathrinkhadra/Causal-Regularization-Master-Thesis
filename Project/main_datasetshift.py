@@ -76,7 +76,7 @@ if causality_on==1:
             #neural.testing_training(loss_training,test_loss_training,'training_performance.png')
 
             #test neural net
-            #loss_test_causality=neural.testing()
+            loss_test_causality=neural.testing()
 
             PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
 
