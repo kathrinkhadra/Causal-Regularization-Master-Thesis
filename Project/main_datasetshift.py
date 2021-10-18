@@ -35,7 +35,7 @@ get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 #print(get_data.target_test.shape)
 
 ####with datasetshift
-get_data.dataset_shift(394)#41,243,394,433,369
+#get_data.dataset_shift(394)#41,243,394,433,369
 #from 0 to 12
 #433-> Covariate shift in feature (1,2,3,8,9,10) here mutual information was 0
 #394 -> Covariate shift in feature (4,5,4,12)
@@ -44,7 +44,7 @@ get_data.dataset_shift(394)#41,243,394,433,369
 
 #get_data.target_shift(50)
 #get_data.target_shift_big(50)
-#get_data.target_shift_mid(50,100)
+get_data.target_shift_mid(50,100)
 
 
 #print(get_data.inputs_training.shape)
@@ -85,7 +85,7 @@ get_data.dataset_shift(394)#41,243,394,433,369
 learning_rate=.0005
 epochs=450
 causality_on=0
-factors=[0.00001,0.0001,0.001,0.01,0.1,1,10,100]
+factors=[0.00001,0.0001,0.001,0.01,0.1,1,10,100,1000]
 
 if causality_on==1:
     for factor in factors:
