@@ -133,3 +133,9 @@ class Dataprep(object):
 
         self.target_training=self.target[indices:rand+indices]
         self.target_test=np.concatenate((self.target[:indices],self.target[rand+indices:]))
+
+    def feature_selection(self,number_feat):
+        self.data_preprocessing()
+
+        self.inputs=np.delete(self.inputs, number_feat,1)
+        self.inputs_training, self.inputs_test, self.target_training, self.target_test = train_test_split(self.inputs, self.target , test_size=self.test_size, random_state=0)

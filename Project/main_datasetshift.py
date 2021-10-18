@@ -4,6 +4,9 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mutual_info_score
 from sklearn.metrics import normalized_mutual_info_score
+from sklearn.metrics import adjusted_mutual_info_score
+from scipy.spatial.distance import jensenshannon
+import scipy as sp
 import numpy  as np
 import sklearn
 import matplotlib.pyplot as plt
@@ -23,18 +26,23 @@ get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 ###no dataset_shift
 #get_data.splitting_data_noshift()
 
+#get_data.feature_selection(12)
+
+
 
 #print(get_data.inputs_training.shape)
 #print(get_data.target_training.shape)
 #print(get_data.target_test.shape)
 
 ####with datasetshift
-#get_data.dataset_shift(433)#41,243,394,433,369
-#433-> Covariate shift in feature (2,3,4,10) here mutual information was 0
-#394 -> Covariate shift in feature (5,6,7,13)
-#369 -> Covariate shift in feature (2,3)
+get_data.dataset_shift(394)#41,243,394,433,369
+#from 0 to 12
+#433-> Covariate shift in feature (1,2,3,8,9,10) here mutual information was 0
+#394 -> Covariate shift in feature (4,5,4,12)
+#369 -> Covariate shift in feature (1,2)
 
-get_data.target_shift(50)
+
+#get_data.target_shift(50)
 #get_data.target_shift_big(50)
 #get_data.target_shift_mid(50,100)
 
@@ -50,10 +58,16 @@ get_data.target_shift(50)
 #print(target_test)
 #print(get_data.target_training)
 #print(normalized_mutual_info_score(target_test,get_data.target_training,average_method='arithmetic'))
+#print(mutual_info_score(inputs_test[:,8],get_data.inputs_training[:,8]))
 #for i in range(13):
     #print(inputs_test[:,i].shape)
     #print(get_data.inputs_training[:,i].shape)
-#    print(normalized_mutual_info_score(inputs_test[:,i],get_data.inputs_training[:,i],average_method='arithmetic'))
+#    print(i)
+#    print(normalized_mutual_info_score(inputs_test[:,i],get_data.inputs_training[:,i]))
+    #print(inputs_test[:,i])
+    #print(get_data.inputs_training[:,i])
+    #jsd(inputs_test[:,i],get_data.inputs_training[:,i])
+    #jensenshannon(inputs_test[:,i],get_data.inputs_training[:,i], axis=1)
 #mutual_score=[]
 #for i in range(450):
 #    get_data.target_shift(i)
@@ -70,7 +84,7 @@ get_data.target_shift(50)
 #####################Neural Net
 learning_rate=.0005
 epochs=450
-causality_on=1
+causality_on=0
 factors=[0.00001,0.0001,0.001,0.01,0.1,1,10,100]
 
 if causality_on==1:
