@@ -41,7 +41,7 @@ splits=[394,433,369]
 learning_rate=.0005
 epochs=450
 causality_on=0
-#factor_list=[1e-15,1e-14,1e-13,1e-12,1e-11,1e-10,0.000000001,0.00000001,0.0000001,0.000001,0.00001,0.0001,0.001]#[1e-05]#[0.000000001,0.0000001,0.00001,0.001,0.00000001,0.000001]#np.linspace(0,0.4,10)#[0.1,1,10,100,1000]
+#factor_list=[1e-17,1e-16,1e-15,1e-14,1e-13,1e-12,1e-11,1e-10]#[1e-15,1e-14,1e-13,1e-12,1e-11,1e-10,0.000000001,0.00000001,0.0000001,0.000001,0.00001,0.0001,0.001]#[10,100,1000,10000]##[0.00001,0.0001,0.001,0.1,1,10,100,1000]#[1e-15,1e-14,1e-13,1e-12,1e-11,1e-10,0.000000001,0.00000001,0.0000001,0.000001,0.00001,0.0001,0.001]#[1e-05]#[0.000000001,0.0000001,0.00001,0.001,0.00000001,0.000001]#np.linspace(0,0.4,10)#[0.1,1,10,100,1000]
 #print(factor_list)
 factors=[0.0000001,1e-05,1e-08]
 factors_ace=[0.00001,0.0001,0.001,0.01,0.1,1,10,100]
@@ -51,11 +51,12 @@ if causality_on==0:
         get_data.dataset_shift(splits[indx])
         #get_data.target_shift(50)
         #get_data.splitting_data_noshift()
-
+        #get_data.target_shift_big(50) factor=100
+        #get_data.target_shift_mid(50,100) factor= 1e-12
 
         print("CAUSAL NN START")
 
-        txt_file=str(splits[indx])+"_results_datasetshift_regularization_withACE.txt"#splits[indx]
+        txt_file=str(factor)+"_results_datasetshift_regularization_withACE.txt"#str(splits[indx])
 
         f = open(txt_file, 'a')
         f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
@@ -97,6 +98,88 @@ if causality_on==0:
     print("CAUSAL NN START")
 
     txt_file=str(50)+"_results_datasetshift_regularization_withACE.txt"#splits[indx]
+
+    f = open(txt_file, 'a')
+    f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
+    f.close
+
+    neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on,txt_file,0,factor,0,[])
+
+    #build neural net, define optimizer and loss
+    neural.model(get_data.inputs)
+
+    #train neural net
+    loss_training,test_loss_training=neural.training()
+
+    #plot training performance
+    #neural.testing_training(loss_training,test_loss_training,'training_performance.png')
+
+    #test neural net
+    loss_test_causality=neural.testing()
+
+    #loss_test_causality=neural.testing()
+
+    #PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+    #torch.save(neural.net.state_dict(),PATH)
+
+    f = open(txt_file, 'a')
+    f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
+    f.close
+
+    print("factor")
+    print(factor)
+    print("Done")
+
+    del neural.net
+    del neural
+    torch.cuda.empty_cache()
+
+    get_data.target_shift_big(50)
+    factor=100
+    print("CAUSAL NN START")
+
+    txt_file=str(50)+"_1_results_datasetshift_regularization_withACE.txt"#splits[indx]
+
+    f = open(txt_file, 'a')
+    f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
+    f.close
+
+    neural=NeuralNet.neural_network(learning_rate,0,0,0,epochs,get_data.inputs_training,get_data.target_training,get_data.inputs_test,get_data.target_test,causality_on,txt_file,0,factor,0,[])
+
+    #build neural net, define optimizer and loss
+    neural.model(get_data.inputs)
+
+    #train neural net
+    loss_training,test_loss_training=neural.training()
+
+    #plot training performance
+    #neural.testing_training(loss_training,test_loss_training,'training_performance.png')
+
+    #test neural net
+    loss_test_causality=neural.testing()
+
+    #loss_test_causality=neural.testing()
+
+    #PATH=str(splits[indx])+str(factor_ace)+"_model.pth"
+    #torch.save(neural.net.state_dict(),PATH)
+
+    f = open(txt_file, 'a')
+    f.write('loss_test_causal='+str(loss_test_causality)+'\n\n')
+    f.close
+
+    print("factor")
+    print(factor)
+    print("Done")
+
+    del neural.net
+    del neural
+    torch.cuda.empty_cache()
+
+    get_data.target_shift_mid(50,100)
+    factor= 1e-12
+    print("CAUSAL NN START")
+
+    txt_file=str(50)+"_100_1_results_datasetshift_regularization_withACE.txt"#splits[indx]
 
     f = open(txt_file, 'a')
     f.write('-------------------------------CAUSAL NEURAL NET-------------------------------\n\n')
