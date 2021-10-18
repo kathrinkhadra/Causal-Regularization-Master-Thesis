@@ -24,6 +24,8 @@ get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 #datasets.append(get_data.splitting_data_noshift())
 
 #get_data.target_shift(50)
+get_data.target_shift_big(50)
+get_data.target_shift_mid(50,100)
 
 #print(get_data.inputs_test.shape)
 #print(get_data.inputs_training.shape)
