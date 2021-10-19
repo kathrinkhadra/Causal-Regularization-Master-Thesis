@@ -42,8 +42,8 @@ get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 #369 -> Covariate shift in feature (1,2)
 
 
-get_data.target_shift(50)
-#get_data.target_shift_big(50)
+#get_data.target_shift(50)
+get_data.target_shift_big(50)
 #get_data.target_shift_mid(50,100)
 
 
@@ -84,7 +84,7 @@ get_data.target_shift(50)
 #####################Neural Net
 learning_rate=.0005
 epochs=450
-causality_on=0
+causality_on=1
 factors=[0.00001,0.0001,0.001,0.01,0.1,1,10,100,1000]
 
 if causality_on==1:
