@@ -1410,7 +1410,7 @@ MSE_withACE_factor10_501=[MSE_withACE_factor10_501_0]#,MSE_withACE_factor10_501_
 MSE_withACE_factor100_501=[MSE_withACE_factor100_501_0]#,MSE_withACE_factor100_501_1,MSE_withACE_factor100_501_2,MSE_withACE_factor100_501_3]
 MSE_noACE_501=[MSE_noACE_501_0,MSE_noACE_501_1]#,MSE_noACE_501_2,MSE_noACE_501_3]
 
-ACEvalue_withACE_factor05_501=[ACEvalue_withACE_factor05_50100_0]#,ACEvalue_withACE_factor05_50100_1,ACEvalue_withACE_factor05_50100_2]
+ACEvalue_withACE_factor05_50100=[ACEvalue_withACE_factor05_50100_0]#,ACEvalue_withACE_factor05_50100_1,ACEvalue_withACE_factor05_50100_2]
 ACEvalue_withACE_factor04_50100=[ACEvalue_withACE_factor04_50100_0]#,ACEvalue_withACE_factor04_50100_1,ACEvalue_withACE_factor04_50100_2]
 ACEvalue_withACE_factor03_50100=[ACEvalue_withACE_factor03_50100_0]#,ACEvalue_withACE_factor03_50100_1,ACEvalue_withACE_factor03_50100_2,ACEvalue_withACE_factor03_50100_3]
 ACEvalue_withACE_factor02_50100=[ACEvalue_withACE_factor02_50100_0]#,ACEvalue_withACE_factor02_50100_1,ACEvalue_withACE_factor02_50100_2,ACEvalue_withACE_factor02_50100_3]
@@ -1690,6 +1690,172 @@ plt.legend(loc='upper right')
 plt.savefig('Test_entwicklung_433.png')
 plt.close()
 
+#--------------Plotting 501-----------------
+
+var_noACE_501=np.std(ACEvalue_noACE_501, axis=0)
+mean_noACE_501=np.mean(ACEvalue_noACE_501, axis=0)
+
+#mean_noACE_501+=var_noACE_501
+#print(var.shape)
+#print(mean.shape)
+x_axis=[10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300,310,320,330,340,350,360,370,380,390,400,410,420,430,440,450]
+#x_axis=np.arange(1, 451)
+
+#plt.errorbar(x_axis, np.mean(ACEvalue_withACE_factor10_501, axis=0), yerr=np.std(ACEvalue_withACE_factor10_501, axis=0), linestyle='-', marker='s', markersize=2, label="Factor 10")
+#plt.errorbar(x_axis, np.mean(ACEvalue_withACE_factor1_501, axis=0), yerr=np.std(ACEvalue_withACE_factor1_501, axis=0), linestyle='-', marker='s', markersize=2, label="Factor 1")
+#plt.errorbar(x_axis, np.mean(ACEvalue_withACE_factor01_501, axis=0), yerr=np.std(ACEvalue_withACE_factor01_501, axis=0), linestyle='-', marker='s', markersize=2, label="Factor 0.1")
+#plt.errorbar(x_axis, np.mean(ACEvalue_withACE_factor100_501, axis=0), yerr=np.std(ACEvalue_withACE_factor100_501, axis=0), linestyle='-', marker='s', markersize=2, label="Factor 100")
+#plt.errorbar(x_axis, np.mean(ACEvalue_withACE_factor1000_501, axis=0), yerr=np.std(ACEvalue_withACE_factor1000_501, axis=0), linestyle='-', marker='s', markersize=2, label="Factor 1000")
+#plt.errorbar(x_axis, mean_noACE_501, yerr=var_noACE_501, linestyle='--', marker='s', markersize=2, label="Without ACE")
+plt.plot(x_axis, mean_noACE_501, label="Without ACE")
+plt.fill_between(x_axis, mean_noACE_501-var_noACE_501, mean_noACE_501+var_noACE_501,  color='grey')
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor05_501, axis=0), label="Factor e-05")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor05_501, axis=0)-np.std(ACEvalue_withACE_factor05_501, axis=0), np.mean(ACEvalue_withACE_factor05_501, axis=0)+np.std(ACEvalue_withACE_factor05_501, axis=0),  color='grey')
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor04_501, axis=0), label="Factor e-04")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor04_501, axis=0)-np.std(ACEvalue_withACE_factor04_501, axis=0), np.mean(ACEvalue_withACE_factor04_501, axis=0)+np.std(ACEvalue_withACE_factor04_501, axis=0),  color='grey')
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor03_501, axis=0), label="Factor e-03")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor03_501, axis=0)-np.std(ACEvalue_withACE_factor03_501, axis=0), np.mean(ACEvalue_withACE_factor03_501, axis=0)+np.std(ACEvalue_withACE_factor03_501, axis=0),  color='grey')
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor02_501, axis=0), label="Factor e-02")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor02_501, axis=0)-np.std(ACEvalue_withACE_factor02_501, axis=0), np.mean(ACEvalue_withACE_factor02_501, axis=0)+np.std(ACEvalue_withACE_factor02_501, axis=0),  color='grey')
+
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor01_501, axis=0), label="Factor e-01")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor01_501, axis=0)-np.std(ACEvalue_withACE_factor01_501, axis=0), np.mean(ACEvalue_withACE_factor01_501, axis=0)+np.std(ACEvalue_withACE_factor01_501, axis=0),  color='grey')
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor1_501, axis=0), label="Factor 1")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor1_501, axis=0)-np.std(ACEvalue_withACE_factor1_501, axis=0), np.mean(ACEvalue_withACE_factor1_501, axis=0)+np.std(ACEvalue_withACE_factor1_501, axis=0),  color='grey')
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor10_501, axis=0), label="Factor 10")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor10_501, axis=0)-np.std(ACEvalue_withACE_factor10_501, axis=0), np.mean(ACEvalue_withACE_factor10_501, axis=0)+np.std(ACEvalue_withACE_factor10_501, axis=0),  color='grey')
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor100_501, axis=0), label="Factor 100")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor100_501, axis=0)-np.std(ACEvalue_withACE_factor100_501, axis=0), np.mean(ACEvalue_withACE_factor100_501, axis=0)+np.std(ACEvalue_withACE_factor100_501, axis=0),  color='grey')
+
+
+plt.xlabel('Training epoch')
+plt.ylabel('Average causal effect (ACE)')
+plt.legend(loc='upper left')
+plt.savefig('ACE_entwicklung_501.png')
+plt.close()
+
+
+x_axis=[1,2,3,4,5,6,7,8]
+my_xticks = ['e-05',' e-04',' e-03',' e-02',' e-01',' 1',' 10',' 100']
+means_with_ACE_test_MSE_501=np.array([np.mean(test_MSE_withACE_factor05_501),np.mean(test_MSE_withACE_factor04_501),np.mean(test_MSE_withACE_factor03_501),np.mean(test_MSE_withACE_factor02_501),np.mean(test_MSE_withACE_factor01_501),np.mean(test_MSE_withACE_factor1_501),np.mean(test_MSE_withACE_factor10_501),np.mean(test_MSE_noACE_501)])#np.mean(test_MSE_withACE_factor100_501)
+var_with_ACE_test_MSE_501=np.array([np.std(test_MSE_withACE_factor05_501),np.std(test_MSE_withACE_factor04_501),np.std(test_MSE_withACE_factor02_501),np.std(test_MSE_withACE_factor01_501),np.std(test_MSE_withACE_factor01_501),np.std(test_MSE_withACE_factor1_501),np.std(test_MSE_withACE_factor10_501),0])#np.std(test_MSE_withACE_factor100_501)
+
+var_501=np.std(test_MSE_noACE_501)
+mean_501=np.mean(test_MSE_noACE_501)
+without_ACE_test_MSE_501=[mean_501,mean_501,mean_501,mean_501,mean_501,mean_501,mean_501,mean_501]
+
+#print(means_with_ACE_test_MSE_501)
+#print(var_with_ACE_test_MSE_501)
+
+plt.xticks(x_axis, my_xticks)
+#plt.plot(x_axis,with_ACE_test_MSE, marker='o', markersize=2,label="With ACE")
+#plt.plot(x_axis,without_ACE_test_MSE, marker='o', label="Without ACE")
+#plt.errorbar(x_axis, means_with_ACE_test_MSE_501, yerr=var_with_ACE_test_MSE_501, linestyle='-', marker='s', markersize=2, label="With ACE")
+#plt.errorbar(x_axis, without_ACE_test_MSE_501, yerr=var_501, linestyle='--', marker='s', markersize=2, label="Without ACE")
+plt.plot(x_axis, without_ACE_test_MSE_501, label="Without ACE")
+plt.fill_between(x_axis, without_ACE_test_MSE_501-var_501, without_ACE_test_MSE_501+var_501,  color='grey')
+
+plt.plot(x_axis, means_with_ACE_test_MSE_501, label="With ACE")
+plt.fill_between(x_axis, means_with_ACE_test_MSE_501-var_with_ACE_test_MSE_501, means_with_ACE_test_MSE_501+var_with_ACE_test_MSE_501,  color='grey')
+
+
+plt.xlabel('s')
+plt.ylabel('Mean Square Error (MSE)')
+plt.legend(loc='upper right')
+plt.savefig('Test_entwicklung_501.png')
+plt.close()
+
+#--------------Plotting 50100-----------------
+
+var_noACE_50100=np.std(ACEvalue_noACE_50100, axis=0)
+mean_noACE_50100=np.mean(ACEvalue_noACE_50100, axis=0)
+
+#mean_noACE_50100+=var_noACE_50100
+#print(var.shape)
+#print(mean.shape)
+x_axis=[10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300,310,320,330,340,350,360,370,380,390,400,410,420,430,440,450]
+#x_axis=np.arange(1, 451)
+
+#plt.errorbar(x_axis, np.mean(ACEvalue_withACE_factor10_50100, axis=0), yerr=np.std(ACEvalue_withACE_factor10_50100, axis=0), linestyle='-', marker='s', markersize=2, label="Factor 10")
+#plt.errorbar(x_axis, np.mean(ACEvalue_withACE_factor1_50100, axis=0), yerr=np.std(ACEvalue_withACE_factor1_50100, axis=0), linestyle='-', marker='s', markersize=2, label="Factor 1")
+#plt.errorbar(x_axis, np.mean(ACEvalue_withACE_factor01_50100, axis=0), yerr=np.std(ACEvalue_withACE_factor01_50100, axis=0), linestyle='-', marker='s', markersize=2, label="Factor 0.1")
+#plt.errorbar(x_axis, np.mean(ACEvalue_withACE_factor100_50100, axis=0), yerr=np.std(ACEvalue_withACE_factor100_50100, axis=0), linestyle='-', marker='s', markersize=2, label="Factor 100")
+#plt.errorbar(x_axis, np.mean(ACEvalue_withACE_factor1000_50100, axis=0), yerr=np.std(ACEvalue_withACE_factor1000_50100, axis=0), linestyle='-', marker='s', markersize=2, label="Factor 1000")
+#plt.errorbar(x_axis, mean_noACE_50100, yerr=var_noACE_50100, linestyle='--', marker='s', markersize=2, label="Without ACE")
+plt.plot(x_axis, mean_noACE_50100, label="Without ACE")
+plt.fill_between(x_axis, mean_noACE_50100-var_noACE_50100, mean_noACE_50100+var_noACE_50100,  color='grey')
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor05_50100, axis=0), label="Factor e-05")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor05_50100, axis=0)-np.std(ACEvalue_withACE_factor05_50100, axis=0), np.mean(ACEvalue_withACE_factor05_50100, axis=0)+np.std(ACEvalue_withACE_factor05_50100, axis=0),  color='grey')
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor04_50100, axis=0), label="Factor e-04")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor04_50100, axis=0)-np.std(ACEvalue_withACE_factor04_50100, axis=0), np.mean(ACEvalue_withACE_factor04_50100, axis=0)+np.std(ACEvalue_withACE_factor04_50100, axis=0),  color='grey')
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor03_50100, axis=0), label="Factor e-03")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor03_50100, axis=0)-np.std(ACEvalue_withACE_factor03_50100, axis=0), np.mean(ACEvalue_withACE_factor03_50100, axis=0)+np.std(ACEvalue_withACE_factor03_50100, axis=0),  color='grey')
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor02_50100, axis=0), label="Factor e-02")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor02_50100, axis=0)-np.std(ACEvalue_withACE_factor02_50100, axis=0), np.mean(ACEvalue_withACE_factor02_50100, axis=0)+np.std(ACEvalue_withACE_factor02_50100, axis=0),  color='grey')
+
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor01_50100, axis=0), label="Factor e-01")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor01_50100, axis=0)-np.std(ACEvalue_withACE_factor01_50100, axis=0), np.mean(ACEvalue_withACE_factor01_50100, axis=0)+np.std(ACEvalue_withACE_factor01_50100, axis=0),  color='grey')
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor1_50100, axis=0), label="Factor 1")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor1_50100, axis=0)-np.std(ACEvalue_withACE_factor1_50100, axis=0), np.mean(ACEvalue_withACE_factor1_50100, axis=0)+np.std(ACEvalue_withACE_factor1_50100, axis=0),  color='grey')
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor10_50100, axis=0), label="Factor 10")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor10_50100, axis=0)-np.std(ACEvalue_withACE_factor10_50100, axis=0), np.mean(ACEvalue_withACE_factor10_50100, axis=0)+np.std(ACEvalue_withACE_factor10_50100, axis=0),  color='grey')
+
+plt.plot(x_axis, np.mean(ACEvalue_withACE_factor100_50100, axis=0), label="Factor 100")
+plt.fill_between(x_axis, np.mean(ACEvalue_withACE_factor100_50100, axis=0)-np.std(ACEvalue_withACE_factor100_50100, axis=0), np.mean(ACEvalue_withACE_factor100_50100, axis=0)+np.std(ACEvalue_withACE_factor100_50100, axis=0),  color='grey')
+
+
+plt.xlabel('Training epoch')
+plt.ylabel('Average causal effect (ACE)')
+plt.legend(loc='upper left')
+plt.savefig('ACE_entwicklung_50100.png')
+plt.close()
+
+
+x_axis=[1,2,3,4,5,6,7,8]
+my_xticks = ['e-05',' e-04',' e-03',' e-02',' e-01',' 1',' 10',' 100']
+means_with_ACE_test_MSE_50100=np.array([np.mean(test_MSE_withACE_factor05_50100),np.mean(test_MSE_withACE_factor04_50100),np.mean(test_MSE_withACE_factor03_50100),np.mean(test_MSE_withACE_factor02_50100),np.mean(test_MSE_withACE_factor01_50100),np.mean(test_MSE_withACE_factor1_50100),np.mean(test_MSE_withACE_factor10_50100),np.mean(test_MSE_noACE_50100)])#np.mean(test_MSE_withACE_factor100_50100)
+var_with_ACE_test_MSE_50100=np.array([np.std(test_MSE_withACE_factor05_50100),np.std(test_MSE_withACE_factor04_50100),np.std(test_MSE_withACE_factor02_50100),np.std(test_MSE_withACE_factor01_50100),np.std(test_MSE_withACE_factor01_50100),np.std(test_MSE_withACE_factor1_50100),np.std(test_MSE_withACE_factor10_50100),0])#np.std(test_MSE_withACE_factor100_50100)
+
+var_50100=np.std(test_MSE_noACE_50100)
+mean_50100=np.mean(test_MSE_noACE_50100)
+without_ACE_test_MSE_50100=[mean_50100,mean_50100,mean_50100,mean_50100,mean_50100,mean_50100,mean_50100,mean_50100]
+
+#print(means_with_ACE_test_MSE_50100)
+#print(var_with_ACE_test_MSE_50100)
+
+plt.xticks(x_axis, my_xticks)
+#plt.plot(x_axis,with_ACE_test_MSE, marker='o', markersize=2,label="With ACE")
+#plt.plot(x_axis,without_ACE_test_MSE, marker='o', label="Without ACE")
+#plt.errorbar(x_axis, means_with_ACE_test_MSE_50100, yerr=var_with_ACE_test_MSE_50100, linestyle='-', marker='s', markersize=2, label="With ACE")
+#plt.errorbar(x_axis, without_ACE_test_MSE_50100, yerr=var_50100, linestyle='--', marker='s', markersize=2, label="Without ACE")
+plt.plot(x_axis, without_ACE_test_MSE_50100, label="Without ACE")
+plt.fill_between(x_axis, without_ACE_test_MSE_50100-var_50100, without_ACE_test_MSE_50100+var_50100,  color='grey')
+
+plt.plot(x_axis, means_with_ACE_test_MSE_50100, label="With ACE")
+plt.fill_between(x_axis, means_with_ACE_test_MSE_50100-var_with_ACE_test_MSE_50100, means_with_ACE_test_MSE_50100+var_with_ACE_test_MSE_50100,  color='grey')
+
+
+plt.xlabel('s')
+plt.ylabel('Mean Square Error (MSE)')
+plt.legend(loc='upper right')
+plt.savefig('Test_entwicklung_50100.png')
+plt.close()
+
 #--------------Plotting 50-----------------
 
 var_noACE_50=np.std(ACEvalue_noACE_50, axis=0)
@@ -1864,6 +2030,22 @@ plt.close()
 x_axis=[1,2,3,4,5,6,7,8]
 
 plt.xticks(x_axis, my_xticks)
+
+normed_means_501=(means_with_ACE_test_MSE_501-mean_501)/mean_501
+normed_means_50100=(means_with_ACE_test_MSE_50100-mean_50100)/mean_50100
+normed_means_50=(means_with_ACE_test_MSE_50-mean_50)/mean_50
+normed_means=(means_with_ACE_test_MSE-mean)/mean
+normed_means_369=(means_with_ACE_test_MSE_369-mean_369)/mean_369
+normed_means_394=(means_with_ACE_test_MSE_394-mean_394)/mean_394
+normed_means_433=(means_with_ACE_test_MSE_433-mean_433)/mean_433
+
+normed_var_50=(var_with_ACE_test_MSE_50-var_50)/var_50
+normed_var_501=(var_with_ACE_test_MSE_501-var_501)/var_501
+normed_var_50100=(var_with_ACE_test_MSE_50100-var_50100)/var_50100
+normed_var=(var_with_ACE_test_MSE-var)/var
+normed_var_369=(var_with_ACE_test_MSE_369-var_369)/var_369
+normed_var_394=(var_with_ACE_test_MSE_394-var_394)/var_394
+normed_var_433=(var_with_ACE_test_MSE_433-var_433)/var_433
 #plt.plot(x_axis,with_ACE_test_MSE, marker='o', markersize=2,label="With ACE")
 #plt.plot(x_axis,without_ACE_test_MSE, marker='o', label="Without ACE")
 #plt.errorbar(x_axis, means_with_ACE_test_MSE_41, yerr=var_with_ACE_test_MSE_41, linestyle='-', marker='s', markersize=2, label="With ACE 41")
@@ -1873,8 +2055,12 @@ plt.xticks(x_axis, my_xticks)
 #plt.errorbar(x_axis, means_with_ACE_test_MSE_369, yerr=var_with_ACE_test_MSE_369, linestyle='-', marker='s', markersize=2, label="With ACE 369")
 #plt.errorbar(x_axis, without_ACE_test_MSE_369, yerr=var_369, linestyle='--', marker='s', markersize=2, label="Without ACE 369")
 
-mean_overall_withACE=np.mean([means_with_ACE_test_MSE_50,means_with_ACE_test_MSE_433,means_with_ACE_test_MSE_369,means_with_ACE_test_MSE_394],axis=0)#
-var_overall_withACE=np.mean([var_with_ACE_test_MSE_50,var_with_ACE_test_MSE_433,var_with_ACE_test_MSE_369,var_with_ACE_test_MSE_394],axis=0)#
+#mean_overall_withACE=np.mean([means_with_ACE_test_MSE_50,means_with_ACE_test_MSE_433,means_with_ACE_test_MSE_369,means_with_ACE_test_MSE_394],axis=0)#
+#var_overall_withACE=np.mean([var_with_ACE_test_MSE_50,var_with_ACE_test_MSE_433,var_with_ACE_test_MSE_369,var_with_ACE_test_MSE_394],axis=0)#
+
+mean_overall_withACE=np.mean([normed_means_501,normed_means_50100,normed_means_50,normed_means_433,normed_means_369,normed_means_394],axis=0)#
+var_overall_withACE=np.mean([normed_var_501,normed_var_50100,normed_var_50,normed_var_433,normed_var_369,normed_var_394],axis=0)#
+
 
 mean_overall_noACE=np.mean([without_ACE_test_MSE_50,without_ACE_test_MSE_433,without_ACE_test_MSE_369,without_ACE_test_MSE_394],axis=0)#
 var_overall_noACE=np.mean([var_50,var_433,var_369,var_394],axis=0)#
@@ -1883,7 +2069,7 @@ var_overall_noACE=np.mean([var_50,var_433,var_369,var_394],axis=0)#
 #plt.errorbar(x_axis, mean_overall_noACE, yerr=var_overall_noACE, linestyle='--', marker='s', markersize=2, label="Without ACE")
 
 plt.plot(x_axis, mean_overall_withACE, label="With ACE")
-plt.fill_between(x_axis, mean_overall_withACE-var_overall_withACE, mean_overall_withACE+var_overall_withACE,  color='grey')
+#plt.fill_between(x_axis, mean_overall_withACE-var_overall_withACE, mean_overall_withACE+var_overall_withACE,  color='grey')
 
 plt.plot(x_axis, mean_overall_noACE, label="Without ACE")
 plt.fill_between(x_axis, mean_overall_noACE-var_overall_noACE, mean_overall_noACE+var_overall_noACE,  color='grey')
@@ -2121,4 +2307,90 @@ plt.xlabel('Training epoch')
 plt.ylabel('Mean Squared Error (MSE)')
 plt.legend(loc='upper right')
 plt.savefig('Training_error_433.png')
+plt.close()
+
+#--------------------Plotting50_1-------
+
+var_noACE_501=np.std(MSE_noACE_501, axis=0)
+mean_noACE_501=np.mean(MSE_noACE_501, axis=0)
+
+plt.plot(x_axis, mean_noACE_501, label="Without ACE")
+plt.fill_between(x_axis, mean_noACE_501-var_noACE_501, mean_noACE_501+var_noACE_501,  facecolor='#DCDCDC')
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor05_501, axis=0), label="Factor e-05")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor05_501, axis=0)-np.std(MSE_withACE_factor05_501, axis=0), np.mean(MSE_withACE_factor05_501, axis=0)+np.std(MSE_withACE_factor05_501, axis=0),  facecolor='#DCDCDC')
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor04_501, axis=0), label="Factor e-04")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor04_501, axis=0)-np.std(MSE_withACE_factor04_501, axis=0), np.mean(MSE_withACE_factor04_501, axis=0)+np.std(MSE_withACE_factor04_501, axis=0),  facecolor='#DCDCDC')
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor03_501, axis=0), label="Factor e-03")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor03_501, axis=0)-np.std(MSE_withACE_factor03_501, axis=0), np.mean(MSE_withACE_factor03_501, axis=0)+np.std(MSE_withACE_factor03_501, axis=0),  facecolor='#DCDCDC')
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor02_501, axis=0), label="Factor e-02")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor02_501, axis=0)-np.std(MSE_withACE_factor02_501, axis=0), np.mean(MSE_withACE_factor02_501, axis=0)+np.std(MSE_withACE_factor02_501, axis=0),  facecolor='#DCDCDC')
+
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor01_501, axis=0), label="Factor 0.1")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor01_501, axis=0)-np.std(MSE_withACE_factor01_501, axis=0), np.mean(MSE_withACE_factor01_501, axis=0)+np.std(MSE_withACE_factor01_501, axis=0),  facecolor='#DCDCDC')
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor1_501, axis=0), label="Factor 1")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor1_501, axis=0)-np.std(MSE_withACE_factor1_501, axis=0), np.mean(MSE_withACE_factor1_501, axis=0)+np.std(MSE_withACE_factor1_501, axis=0),  facecolor='#DCDCDC')
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor10_501, axis=0), label="Factor 10")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor10_501, axis=0)-np.std(MSE_withACE_factor10_501, axis=0), np.mean(MSE_withACE_factor10_501, axis=0)+np.std(MSE_withACE_factor10_501, axis=0),  facecolor='#DCDCDC')
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor100_501, axis=0), label="Factor 100")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor100_501, axis=0)-np.std(MSE_withACE_factor100_501, axis=0), np.mean(MSE_withACE_factor100_501, axis=0)+np.std(MSE_withACE_factor100_501, axis=0),  facecolor='#DCDCDC')
+
+#plt.plot(x_axis, np.mean(MSE_withACE_factor1000_501, axis=0), label="Factor 1000")
+#plt.fill_between(x_axis, np.mean(MSE_withACE_factor1000_501, axis=0)-np.std(MSE_withACE_factor1000_501, axis=0), np.mean(MSE_withACE_factor1000_501, axis=0)+np.std(MSE_withACE_factor1000_501, axis=0),  facecolor='#DCDCDC')
+
+
+plt.xlabel('Training epoch')
+plt.ylabel('Mean Squared Error (MSE)')
+plt.legend(loc='upper right')
+plt.savefig('Training_error_501.png')
+plt.close()
+
+#--------------------Plotting50100-------
+
+var_noACE_50100=np.std(MSE_noACE_50100, axis=0)
+mean_noACE_50100=np.mean(MSE_noACE_50100, axis=0)
+
+plt.plot(x_axis, mean_noACE_50100, label="Without ACE")
+plt.fill_between(x_axis, mean_noACE_50100-var_noACE_50100, mean_noACE_50100+var_noACE_50100,  facecolor='#DCDCDC')
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor05_50100, axis=0), label="Factor e-05")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor05_50100, axis=0)-np.std(MSE_withACE_factor05_50100, axis=0), np.mean(MSE_withACE_factor05_50100, axis=0)+np.std(MSE_withACE_factor05_50100, axis=0),  facecolor='#DCDCDC')
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor04_50100, axis=0), label="Factor e-04")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor04_50100, axis=0)-np.std(MSE_withACE_factor04_50100, axis=0), np.mean(MSE_withACE_factor04_50100, axis=0)+np.std(MSE_withACE_factor04_50100, axis=0),  facecolor='#DCDCDC')
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor03_50100, axis=0), label="Factor e-03")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor03_50100, axis=0)-np.std(MSE_withACE_factor03_50100, axis=0), np.mean(MSE_withACE_factor03_50100, axis=0)+np.std(MSE_withACE_factor03_50100, axis=0),  facecolor='#DCDCDC')
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor02_50100, axis=0), label="Factor e-02")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor02_50100, axis=0)-np.std(MSE_withACE_factor02_50100, axis=0), np.mean(MSE_withACE_factor02_50100, axis=0)+np.std(MSE_withACE_factor02_50100, axis=0),  facecolor='#DCDCDC')
+
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor01_50100, axis=0), label="Factor 0.1")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor01_50100, axis=0)-np.std(MSE_withACE_factor01_50100, axis=0), np.mean(MSE_withACE_factor01_50100, axis=0)+np.std(MSE_withACE_factor01_50100, axis=0),  facecolor='#DCDCDC')
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor1_50100, axis=0), label="Factor 1")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor1_50100, axis=0)-np.std(MSE_withACE_factor1_50100, axis=0), np.mean(MSE_withACE_factor1_50100, axis=0)+np.std(MSE_withACE_factor1_50100, axis=0),  facecolor='#DCDCDC')
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor10_50100, axis=0), label="Factor 10")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor10_50100, axis=0)-np.std(MSE_withACE_factor10_50100, axis=0), np.mean(MSE_withACE_factor10_50100, axis=0)+np.std(MSE_withACE_factor10_50100, axis=0),  facecolor='#DCDCDC')
+
+plt.plot(x_axis, np.mean(MSE_withACE_factor100_50100, axis=0), label="Factor 100")
+plt.fill_between(x_axis, np.mean(MSE_withACE_factor100_50100, axis=0)-np.std(MSE_withACE_factor100_50100, axis=0), np.mean(MSE_withACE_factor100_50100, axis=0)+np.std(MSE_withACE_factor100_50100, axis=0),  facecolor='#DCDCDC')
+
+#plt.plot(x_axis, np.mean(MSE_withACE_factor1000_50100, axis=0), label="Factor 1000")
+#plt.fill_between(x_axis, np.mean(MSE_withACE_factor1000_50100, axis=0)-np.std(MSE_withACE_factor1000_50100, axis=0), np.mean(MSE_withACE_factor1000_50100, axis=0)+np.std(MSE_withACE_factor1000_50100, axis=0),  facecolor='#DCDCDC')
+
+
+plt.xlabel('Training epoch')
+plt.ylabel('Mean Squared Error (MSE)')
+plt.legend(loc='upper right')
+plt.savefig('Training_error_50100.png')
 plt.close()
