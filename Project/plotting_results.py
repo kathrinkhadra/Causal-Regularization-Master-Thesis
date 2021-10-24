@@ -3942,8 +3942,8 @@ plt.fill_between(x_axis, np.mean(varianz_ACE_1_433, axis=0)-np.std(varianz_ACE_1
 plt.plot(x_axis, np.mean(varianz_ACE_10_433, axis=0), label="Factor 10")
 plt.fill_between(x_axis, np.mean(varianz_ACE_10_433, axis=0)-np.std(varianz_ACE_10_433, axis=0), np.mean(varianz_ACE_10_433, axis=0)+np.std(varianz_ACE_10_433, axis=0),  alpha=0.1)
 
-#plt.plot(x_axis, np.mean(varianz_ACE_100_433, axis=0), label="Factor 100")
-#plt.fill_between(x_axis, np.mean(varianz_ACE_100_433, axis=0)-np.std(varianz_ACE_100_433, axis=0), np.mean(varianz_ACE_100_433, axis=0)+np.std(varianz_ACE_100_433, axis=0),  alpha=0.1)
+plt.plot(x_axis, np.mean(varianz_ACE_100_433, axis=0), label="Factor 100")
+plt.fill_between(x_axis, np.mean(varianz_ACE_100_433, axis=0)-np.std(varianz_ACE_100_433, axis=0), np.mean(varianz_ACE_100_433, axis=0)+np.std(varianz_ACE_100_433, axis=0),  alpha=0.1)
 
 plt.plot(x_axis, np.mean(varianz_ACE_L1_433, axis=0), label="L1")
 plt.fill_between(x_axis, np.mean(varianz_ACE_L1_433, axis=0)-np.std(varianz_ACE_L1_433, axis=0), np.mean(varianz_ACE_L1_433, axis=0)+np.std(varianz_ACE_L1_433, axis=0),  alpha=0.1)
