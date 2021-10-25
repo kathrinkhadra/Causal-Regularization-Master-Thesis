@@ -9,6 +9,8 @@ from sklearn.metrics import normalized_mutual_info_score
 from sklearn.metrics import adjusted_mutual_info_score
 from scipy.spatial.distance import jensenshannon
 from sklearn.feature_selection import mutual_info_regression
+from sklearn.metrics import adjusted_rand_score
+from sklearn.metrics.cluster import rand_score
 from arangopipe.arangopipe_analytics.rf_dataset_shift_detector import RF_DatasetShiftDetector
 import pandas as pd
 import scipy as sp
@@ -50,7 +52,8 @@ for split in splits:
         #print(get_data.inputs_training[:,i].shape)
     #    print(i)
         #print(normalized_mutual_info_score(inputs_test[:,i],get_data.inputs_training[:,i]))
-        mutual_info.append(mutual_info_score(inputs_test[:,i],get_data.inputs_training[:,i]))
+        #mutual_info.append(mutual_info_score(inputs_test[:,i],get_data.inputs_training[:,i]))
+        mutual_info.append(rand_score(inputs_test[:,i],get_data.inputs_training[:,i]))#adjusted_
         #df1=pd.DataFrame(get_data.inputs_test[:,i])
         #df1=df1.query
         #mutual_info.append(rfd.detect_dataset_shift(, pd.DataFrame(get_data.inputs_training[:,i])))
@@ -59,8 +62,7 @@ for split in splits:
         #print(inputs_test[:,i])
         #print(get_data.inputs_training[:,i])
     #mutual_info[8]=-mutual_info[8]
-
-    mutual_info_array.append((mutual_info  - min(mutual_info)) / (max(mutual_info) - min(mutual_info)))
+    mutual_info_array.append(mutual_info)#(mutual_info  - min(mutual_info)) / (max(mutual_info) - min(mutual_info))
 
     #my_xticks = ['e-05',' e-04',' e-03',' e-02',' e-01',' 1',' 10',' 100']
     #plt.xticks(i, my_xticks)
@@ -80,8 +82,8 @@ for split in splits:
     plt.close()
     '''
 
-i=range(13)
-my_xticks = ["CRIM","ZN","INDUS","CHAS","TAX","PTRATIO","B","LSTAT","NOX","RM","AGE","DIS","RAD"]
+i=range(14)
+my_xticks = ["CRIM","ZN","INDUS","CHAS","TAX","PTRATIO","B","LSTAT","NOX","RM","AGE","DIS","RAD","TARGET"]
 
 
 fig, axs = plt.subplots(2, 2)
