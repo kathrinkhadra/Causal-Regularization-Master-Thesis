@@ -74,7 +74,7 @@ for i in range(13):#[9,2,12,7,4]:
             title="Split" + str(split)
         axs[g, c].set_title(title, fontsize=6)#axs[0, 0].set_title("\n".join(wrap(title, 60)))
 
-    name='hist/histogram_'+str(i)+'_.png'
+    name='hist/histogram_'+str(i)+'_.pgf'
     title='Histogram of Feature '+str(feature_names[i])
     fig.tight_layout()
     handles, labels = axs[1,1].get_legend_handles_labels()
