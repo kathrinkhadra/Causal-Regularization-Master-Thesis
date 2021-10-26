@@ -39,7 +39,7 @@ splits=[369,433,394,0]
 mutual_info_array=[]
 rfd = RF_DatasetShiftDetector()
 #scaler = MinMaxScaler(feature_range=(0, 1))
-''''
+
 splits=[0,369,433,394]
 for i in range(13):#[9,2,12,7,4]:
     fig, axs = plt.subplots(2, 2)
@@ -71,7 +71,7 @@ for i in range(13):#[9,2,12,7,4]:
         if split==0:
             title="Well Balanced"
         else:
-            title="Split" + str(ind+1)
+            title="Split" + str(split)
         axs[g, c].set_title(title, fontsize=6)#axs[0, 0].set_title("\n".join(wrap(title, 60)))
 
     name='hist/histogram_'+str(i)+'_.png'
@@ -84,8 +84,8 @@ for i in range(13):#[9,2,12,7,4]:
     fig.subplots_adjust(top=0.88)#0.88
     fig.savefig(name, dpi=300)
     plt.close()
-'''
 
+'''
 for split in splits:
     mutual_info=[]
     if split==0:
@@ -109,13 +109,14 @@ for split in splits:
         #print(inputs_test[:,i])
         #print(get_data.inputs_training[:,i])
     #mutual_info[8]=-mutual_info[8]
+
     mutual_info_array.append(mutual_info)#(mutual_info  - min(mutual_info)) / (max(mutual_info) - min(mutual_info))
 
     #my_xticks = ['e-05',' e-04',' e-03',' e-02',' e-01',' 1',' 10',' 100']
     #plt.xticks(i, my_xticks)
     #i=range(13)
     #plt.bar(i,mutual_info)
-
+'''
 '''
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
@@ -129,14 +130,13 @@ for split in splits:
     plt.savefig(name, dpi=300, bbox_inches="tight")
     plt.close()
 '''
-
-i=range(14)
+'''
+i=range(13)
 my_xticks = ["CRIM","ZN","INDUS","CHAS","TAX","PTRATIO","B","LSTAT","NOX","RM","AGE","DIS","RAD","TARGET"]
 
 
 fig, axs = plt.subplots(2, 2)
 fig.tight_layout()
-
 
 for ax in axs:
     for a in ax:
@@ -147,8 +147,7 @@ for ax in axs:
         a.set_xlabel('Feature', fontsize=6)
         a.set_ylabel('Mutual Information', fontsize=6)
         a.tick_params(axis='x', which='major', labelsize=4)
-        a.axhline(mutual_info_array[3].min,linestyle='--',color="orange")
-
+        a.axhline(min(mutual_info_array[3]),linestyle='--',color="orange")
 axs[0, 0].bar(i,mutual_info_array[3])
 #axs[0, 0].set_xticks(i)
 #axs[0, 0].set_xticklabels(my_xticks)
@@ -191,3 +190,4 @@ axs[1, 1].tick_params(axis='x', which='major', labelsize=4)
 name='hist/feature_mutual_info.png'
 fig.savefig(name, dpi=300)
 plt.close()
+'''
