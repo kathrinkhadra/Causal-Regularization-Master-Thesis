@@ -894,7 +894,7 @@
 \definecolor{textcolor}{rgb}{0.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{textcolor}%
 \pgfsetfillcolor{textcolor}%
-\pgftext[x=3.264801in,y=4.274054in,,base]{\color{textcolor}\sffamily\fontsize{12.000000}{14.400000}\selectfont MSE for dropping each feature}%
+\pgftext[x=3.264801in,y=4.274054in,,base]{\color{textcolor}\sffamily\fontsize{12.000000}{14.400000}\selectfont MSE for Dropping Each Feature}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%

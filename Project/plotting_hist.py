@@ -206,11 +206,11 @@ plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
 
 plt.xlabel('Feature')
-plt.ylabel('Mean Squared Error (MSE)')
-title="MSE for dropping each feature"
+plt.ylabel('Test Mean Squared Error (MSE)')
+title="Test MSE for Dropping Each Feature"
 plt.title(title)
-plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
-name='hist/feature_importance.pgf'
+#plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
+name='hist/feature_importance.png'
 plt.savefig(name, dpi=300, bbox_inches="tight")
 plt.close()
 
