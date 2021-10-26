@@ -213,3 +213,36 @@ plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 name='hist/feature_importance.pgf'
 plt.savefig(name, dpi=300, bbox_inches="tight")
 plt.close()
+
+get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
+get_data.splitting_data_noshift()
+
+#mask1 = y < 0.3
+#mask2 = y >= 0.8
+
+N, bins, patches=plt.hist(get_data.target, bins=20)
+for i in range(0,6):
+    patches[i].set_facecolor('darkblue')
+for i in range(6,12):
+    patches[i].set_facecolor('brown')
+    #height = patches[i].get_height()
+    #plt.text(patches[i].get_x() + patches[i].get_width() / 2, height+0.01, 'Mid Range', ha='center', va='bottom')
+for i in range(12, len(patches)):
+    patches[i].set_facecolor('olivedrab')
+#plt.xticks(i, my_xticks)
+#plt.tick_params(axis='x', which='major', labelsize=8)
+#print(N)
+#plt.legend([N[0], N[3], N[6]], ["Lowest House Price", "Mid Range House Price", "Highest House Price"],loc='upper left', bbox_to_anchor=(1.04,1))
+my_xticks=["Lowest House Price", "Mid Range House Price", "Highest House Price"]
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['right'].set_visible(False)
+plt.xticks([0.15,0.45,0.8],my_xticks)
+plt.tick_params(axis='x', which='major', labelsize=8)
+plt.xlabel('Normed House Prices')
+plt.ylabel('Density')
+title="Histogram of the Target Variable"
+plt.title(title)
+#plt.legend()
+name='hist/target.png'
+plt.savefig(name, dpi=300, bbox_inches="tight")
+plt.close()
