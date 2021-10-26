@@ -39,6 +39,53 @@ splits=[369,433,394,0]
 mutual_info_array=[]
 rfd = RF_DatasetShiftDetector()
 #scaler = MinMaxScaler(feature_range=(0, 1))
+''''
+splits=[0,369,433,394]
+for i in range(13):#[9,2,12,7,4]:
+    fig, axs = plt.subplots(2, 2)
+    for ax in axs:
+        for a in ax:
+            a.spines['top'].set_visible(False)
+            a.spines['right'].set_visible(False)
+            a.set_xlabel('Values of Samples', fontsize=6)
+            a.set_ylabel('Density', fontsize=6)
+    for ind,split in enumerate(splits):
+        if split==0:
+            get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
+            get_data.splitting_data_noshift()
+            g=0
+            c=0
+        else:
+            get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
+            get_data.dataset_shift(split)
+        if split==369:
+            g=0
+            c=1
+        if split==433:
+            g=1
+            c=0
+        if split==394:
+            g=1
+            c=1
+        axs[g,c].hist([get_data.inputs_test[:,i],get_data.inputs_training[:,i]], label=["Test data","Training data"])
+        if split==0:
+            title="Well Balanced"
+        else:
+            title="Split" + str(ind+1)
+        axs[g, c].set_title(title, fontsize=6)#axs[0, 0].set_title("\n".join(wrap(title, 60)))
+
+    name='hist/histogram_'+str(i)+'_.png'
+    title='Histogram of Feature '+str(feature_names[i])
+    fig.tight_layout()
+    handles, labels = axs[1,1].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="upper right", borderaxespad=0.1)#, bbox_to_anchor=(1.04,1)) #,loc = 'lower center', bbox_to_anchor = (0,-0.1,1,1), bbox_transform = plt.gcf().transFigure
+    fig.subplots_adjust(right=0.85)
+    fig.suptitle(title)
+    fig.subplots_adjust(top=0.88)#0.88
+    fig.savefig(name, dpi=300)
+    plt.close()
+'''
+
 for split in splits:
     mutual_info=[]
     if split==0:
@@ -47,7 +94,7 @@ for split in splits:
     else:
         get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
         get_data.dataset_shift(split)
-    for i in range(13):
+    for i in [9,2,12,7,4]:#range(13):
         #print(inputs_test[:,i].shape)
         #print(get_data.inputs_training[:,i].shape)
     #    print(i)
@@ -68,7 +115,8 @@ for split in splits:
     #plt.xticks(i, my_xticks)
     #i=range(13)
     #plt.bar(i,mutual_info)
-    '''
+
+'''
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
@@ -80,7 +128,7 @@ for split in splits:
     name='hist/feature_mutual_info_'+str(split)+'_'+str(i)+'.png'
     plt.savefig(name, dpi=300, bbox_inches="tight")
     plt.close()
-    '''
+'''
 
 i=range(14)
 my_xticks = ["CRIM","ZN","INDUS","CHAS","TAX","PTRATIO","B","LSTAT","NOX","RM","AGE","DIS","RAD","TARGET"]
@@ -99,7 +147,7 @@ for ax in axs:
         a.set_xlabel('Feature', fontsize=6)
         a.set_ylabel('Mutual Information', fontsize=6)
         a.tick_params(axis='x', which='major', labelsize=4)
-        a.axhline(0.4,linestyle='--',color="orange")
+        a.axhline(mutual_info_array[3].min,linestyle='--',color="orange")
 
 axs[0, 0].bar(i,mutual_info_array[3])
 #axs[0, 0].set_xticks(i)
