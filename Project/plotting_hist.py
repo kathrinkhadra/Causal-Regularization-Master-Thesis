@@ -191,3 +191,25 @@ name='hist/feature_mutual_info.png'
 fig.savefig(name, dpi=300)
 plt.close()
 '''
+
+#feature_order=[11,0,9,5,10,1,2,8,12,7,6,3,4]
+i=range(13)
+my_xticks = ["CRIM","ZN","INDUS","CHAS","TAX","PTRATIO","B","LSTAT","NOX","RM","AGE","DIS","RAD","TARGET"]
+my_xticks = [my_xticks[11],my_xticks[0],my_xticks[9],my_xticks[5],my_xticks[10],my_xticks[1],my_xticks[2],my_xticks[8],my_xticks[12],my_xticks[7],my_xticks[6],my_xticks[3],my_xticks[4]]
+
+MSE=[0.0194,0.0253,0.0267,0.0272,0.0278,0.0282,0.0284,0.0289,0.0293,0.0295,0.0304,0.0304,0.0319]
+
+plt.scatter(i,MSE)
+plt.xticks(i, my_xticks)
+plt.tick_params(axis='x', which='major', labelsize=8)
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['right'].set_visible(False)
+
+plt.xlabel('Feature')
+plt.ylabel('Mean Squared Error (MSE)')
+title="MSE for dropping each feature"
+plt.title(title)
+plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
+name='hist/feature_importance.pgf'
+plt.savefig(name, dpi=300, bbox_inches="tight")
+plt.close()
