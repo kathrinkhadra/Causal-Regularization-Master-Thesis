@@ -4257,7 +4257,7 @@ plt.close()
 #mean_ACEvalue_withACE_factor05
 #mean_varianz_ACE_10
 #mean_MSE_withACE_factor05
-
+'''
 mean_ACEvalue_withACE_factor05=np.mean(np.array([np.mean(ACEvalue_withACE_factor05 ,axis=0),np.mean(ACEvalue_withACE_factor05_50 ,axis=0),np.mean(ACEvalue_withACE_factor05_501 ,axis=0),np.mean(ACEvalue_withACE_factor05_50100 ,axis=0),np.mean(ACEvalue_withACE_factor05_394 ,axis=0),np.mean(ACEvalue_withACE_factor05_369 ,axis=0),np.mean(ACEvalue_withACE_factor05_433,axis=0)]),axis=0)
 mean_ACEvalue_withACE_factor04=np.mean(np.array([np.mean(ACEvalue_withACE_factor05 ,axis=0),np.mean(ACEvalue_withACE_factor04_50 ,axis=0),np.mean(ACEvalue_withACE_factor04_501 ,axis=0),np.mean(ACEvalue_withACE_factor04_50100 ,axis=0),np.mean(ACEvalue_withACE_factor04_394 ,axis=0),np.mean(ACEvalue_withACE_factor04_369 ,axis=0),np.mean(ACEvalue_withACE_factor04_433,axis=0)]),axis=0)
 mean_ACEvalue_withACE_factor03=np.mean(np.array([np.mean(ACEvalue_withACE_factor03 ,axis=0),np.mean(ACEvalue_withACE_factor03_50 ,axis=0),np.mean(ACEvalue_withACE_factor03_501 ,axis=0),np.mean(ACEvalue_withACE_factor03_50100 ,axis=0),np.mean(ACEvalue_withACE_factor03_394 ,axis=0),np.mean(ACEvalue_withACE_factor03_369 ,axis=0),np.mean(ACEvalue_withACE_factor03_433,axis=0)]),axis=0)
@@ -4389,7 +4389,7 @@ mean_var_withACE_bias=[mean_varianz_ACE_05[-1],mean_varianz_ACE_04[-1],mean_vari
 #print(mean_MSE_noACE_factor)
 #print(mean_MSE_withACE_L1_factor)
 #print(mean_MSE_withACE_factor)
-
+'''
 '''
 fig, axs = plt.subplots(1, 2)
 
@@ -4418,7 +4418,148 @@ fig.savefig('MSE_ACE_factor.png', dpi=300, bbox_inches="tight")
 plt.close()
 '''
 
+base=np.mean(test_MSE_noACE)
+base_50=np.mean(test_MSE_noACE_50)
+base_501=np.mean(test_MSE_noACE_501)
+base_50100=np.mean(test_MSE_noACE_50100)
+base_369=np.mean(test_MSE_noACE_369)
+base_394=np.mean(test_MSE_noACE_394)
+base_433=np.mean(test_MSE_noACE_433)
 
+mean_MSE_withACE_factor05=np.mean(np.array([(np.mean(test_MSE_withACE_factor05 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_factor05_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor05_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor05_50100 ,axis=0)-base_50100)/base_50100,(np.mean(test_MSE_withACE_factor05_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor05_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor05_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_factor04=np.mean(np.array([(np.mean(test_MSE_withACE_factor04 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_factor04_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor04_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor04_50100 ,axis=0)-base_50100)/base_50100,(np.mean(test_MSE_withACE_factor04_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor04_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor04_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_factor03=np.mean(np.array([(np.mean(test_MSE_withACE_factor03 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_factor03_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor03_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor03_50100 ,axis=0)-base_50100)/base_50100,(np.mean(test_MSE_withACE_factor03_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor03_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor03_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_factor02=np.mean(np.array([(np.mean(test_MSE_withACE_factor02 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_factor02_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor02_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor02_50100 ,axis=0)-base_50100)/base_50100,(np.mean(test_MSE_withACE_factor02_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor02_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor02_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_factor01=np.mean(np.array([(np.mean(test_MSE_withACE_factor01 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_factor01_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor01_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor01_50100 ,axis=0)-base_50100)/base_50100,(np.mean(test_MSE_withACE_factor01_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor01_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor01_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_factor1=np.mean(np.array([(np.mean(test_MSE_withACE_factor1 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_factor1_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor1_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor1_50100 ,axis=0)-base_50100)/base_50100,(np.mean(test_MSE_withACE_factor1_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor1_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor1_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_factor10=np.mean(np.array([(np.mean(test_MSE_withACE_factor10 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_factor10_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor10_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor10_50100 ,axis=0)-base_50100)/base_50100,(np.mean(test_MSE_withACE_factor10_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor10_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor10_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_factor100=np.mean(np.array([(np.mean(test_MSE_withACE_factor100 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_factor100_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor100_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor100_50100 ,axis=0)-base_50100)/base_50100,(np.mean(test_MSE_withACE_factor100_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor100_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor100_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_L1_overall=np.mean(np.array([(np.mean(test_MSE_withACE_L1 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L1_50 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L1_501 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L1_50100 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L1_394 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L1_369 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L1_433,axis=0)-base)/base]),axis=0)
+mean_MSE_withACE_L2_overall=np.mean(np.array([(np.mean(test_MSE_withACE_L2 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L2_50 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L2_501 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L2_50100 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L2_394 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L2_369 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L2_433,axis=0)-base)/base]),axis=0)
+mean_MSE_withACE_noshift=[(np.mean(test_MSE_withACE_factor05)-base)/base,(np.mean(test_MSE_withACE_factor04)-base)/base,(np.mean(test_MSE_withACE_factor03)-base)/base,(np.mean(test_MSE_withACE_factor02)-base)/base,(np.mean(test_MSE_withACE_factor01)-base)/base,(np.mean(test_MSE_withACE_factor1)-base)/base,(np.mean(test_MSE_withACE_factor10)-base)/base,(np.mean(test_MSE_withACE_factor100)-base)/base]
+mean_ACE_withACE_noshift=[np.mean(ACEvalue_withACE_factor05),np.mean(ACEvalue_withACE_factor04),np.mean(ACEvalue_withACE_factor03),np.mean(ACEvalue_withACE_factor02),np.mean(ACEvalue_withACE_factor01),np.mean(ACEvalue_withACE_factor1),np.mean(ACEvalue_withACE_factor10),np.mean(ACEvalue_withACE_factor100)]
+
+
+mean_ACEvalue_withACE_factor05=np.mean(np.array([np.mean(ACEvalue_withACE_factor05 ,axis=0),np.mean(ACEvalue_withACE_factor05_50 ,axis=0),np.mean(ACEvalue_withACE_factor05_501 ,axis=0),np.mean(ACEvalue_withACE_factor05_50100 ,axis=0),np.mean(ACEvalue_withACE_factor05_394 ,axis=0),np.mean(ACEvalue_withACE_factor05_369 ,axis=0),np.mean(ACEvalue_withACE_factor05_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor04=np.mean(np.array([np.mean(ACEvalue_withACE_factor05 ,axis=0),np.mean(ACEvalue_withACE_factor04_50 ,axis=0),np.mean(ACEvalue_withACE_factor04_501 ,axis=0),np.mean(ACEvalue_withACE_factor04_50100 ,axis=0),np.mean(ACEvalue_withACE_factor04_394 ,axis=0),np.mean(ACEvalue_withACE_factor04_369 ,axis=0),np.mean(ACEvalue_withACE_factor04_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor03=np.mean(np.array([np.mean(ACEvalue_withACE_factor03 ,axis=0),np.mean(ACEvalue_withACE_factor03_50 ,axis=0),np.mean(ACEvalue_withACE_factor03_501 ,axis=0),np.mean(ACEvalue_withACE_factor03_50100 ,axis=0),np.mean(ACEvalue_withACE_factor03_394 ,axis=0),np.mean(ACEvalue_withACE_factor03_369 ,axis=0),np.mean(ACEvalue_withACE_factor03_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor02=np.mean(np.array([np.mean(ACEvalue_withACE_factor02 ,axis=0),np.mean(ACEvalue_withACE_factor02_50 ,axis=0),np.mean(ACEvalue_withACE_factor02_501 ,axis=0),np.mean(ACEvalue_withACE_factor02_50100 ,axis=0),np.mean(ACEvalue_withACE_factor02_394 ,axis=0),np.mean(ACEvalue_withACE_factor02_369 ,axis=0),np.mean(ACEvalue_withACE_factor02_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor01=np.mean(np.array([np.mean(ACEvalue_withACE_factor01 ,axis=0),np.mean(ACEvalue_withACE_factor01_50 ,axis=0),np.mean(ACEvalue_withACE_factor01_501 ,axis=0),np.mean(ACEvalue_withACE_factor01_50100 ,axis=0),np.mean(ACEvalue_withACE_factor01_394 ,axis=0),np.mean(ACEvalue_withACE_factor01_369 ,axis=0),np.mean(ACEvalue_withACE_factor01_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor1=np.mean(np.array([np.mean(ACEvalue_withACE_factor1 ,axis=0),np.mean(ACEvalue_withACE_factor1_50 ,axis=0),np.mean(ACEvalue_withACE_factor1_501 ,axis=0),np.mean(ACEvalue_withACE_factor1_50100 ,axis=0),np.mean(ACEvalue_withACE_factor1_394 ,axis=0),np.mean(ACEvalue_withACE_factor1_369 ,axis=0),np.mean(ACEvalue_withACE_factor1_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor10=np.mean(np.array([np.mean(ACEvalue_withACE_factor10 ,axis=0),np.mean(ACEvalue_withACE_factor10_50 ,axis=0),np.mean(ACEvalue_withACE_factor10_501 ,axis=0),np.mean(ACEvalue_withACE_factor10_50100 ,axis=0),np.mean(ACEvalue_withACE_factor10_394 ,axis=0),np.mean(ACEvalue_withACE_factor10_369 ,axis=0),np.mean(ACEvalue_withACE_factor10_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor100=np.mean(np.array([np.mean(ACEvalue_withACE_factor100 ,axis=0),np.mean(ACEvalue_withACE_factor100_50 ,axis=0),np.mean(ACEvalue_withACE_factor100_501 ,axis=0),np.mean(ACEvalue_withACE_factor100_50100 ,axis=0),np.mean(ACEvalue_withACE_factor100_394 ,axis=0),np.mean(ACEvalue_withACE_factor100_369 ,axis=0),np.mean(ACEvalue_withACE_factor100_433,axis=0)]),axis=0)
+mean_varianz_ACE_05=np.mean(np.array([np.mean(varianz_ACE_05 ,axis=0),np.mean(varianz_ACE_05_50 ,axis=0),np.mean(varianz_ACE_05_501 ,axis=0),np.mean(varianz_ACE_05_50100 ,axis=0),np.mean(varianz_ACE_05_394 ,axis=0),np.mean(varianz_ACE_05_369 ,axis=0),np.mean(varianz_ACE_05_433,axis=0)]),axis=0)
+mean_varianz_ACE_04=np.mean(np.array([np.mean(varianz_ACE_05 ,axis=0),np.mean(varianz_ACE_04_50 ,axis=0),np.mean(varianz_ACE_04_501 ,axis=0),np.mean(varianz_ACE_04_50100 ,axis=0),np.mean(varianz_ACE_04_394 ,axis=0),np.mean(varianz_ACE_04_369 ,axis=0),np.mean(varianz_ACE_04_433,axis=0)]),axis=0)
+mean_varianz_ACE_03=np.mean(np.array([np.mean(varianz_ACE_03 ,axis=0),np.mean(varianz_ACE_03_50 ,axis=0),np.mean(varianz_ACE_03_501 ,axis=0),np.mean(varianz_ACE_03_50100 ,axis=0),np.mean(varianz_ACE_03_394 ,axis=0),np.mean(varianz_ACE_03_369 ,axis=0),np.mean(varianz_ACE_03_433,axis=0)]),axis=0)
+mean_varianz_ACE_02=np.mean(np.array([np.mean(varianz_ACE_02 ,axis=0),np.mean(varianz_ACE_02_50 ,axis=0),np.mean(varianz_ACE_02_501 ,axis=0),np.mean(varianz_ACE_02_50100 ,axis=0),np.mean(varianz_ACE_02_394 ,axis=0),np.mean(varianz_ACE_02_369 ,axis=0),np.mean(varianz_ACE_02_433,axis=0)]),axis=0)
+mean_varianz_ACE_01=np.mean(np.array([np.mean(varianz_ACE_01 ,axis=0),np.mean(varianz_ACE_01_50 ,axis=0),np.mean(varianz_ACE_01_501 ,axis=0),np.mean(varianz_ACE_01_50100 ,axis=0),np.mean(varianz_ACE_01_394 ,axis=0),np.mean(varianz_ACE_01_369 ,axis=0),np.mean(varianz_ACE_01_433,axis=0)]),axis=0)
+mean_varianz_ACE_1=np.mean(np.array([np.mean(varianz_ACE_1 ,axis=0),np.mean(varianz_ACE_1_50 ,axis=0),np.mean(varianz_ACE_1_501 ,axis=0),np.mean(varianz_ACE_1_50100 ,axis=0),np.mean(varianz_ACE_1_394 ,axis=0),np.mean(varianz_ACE_1_369 ,axis=0),np.mean(varianz_ACE_1_433,axis=0)]),axis=0)
+mean_varianz_ACE_10=np.mean(np.array([np.mean(varianz_ACE_10 ,axis=0),np.mean(varianz_ACE_10_50 ,axis=0),np.mean(varianz_ACE_10_501 ,axis=0),np.mean(varianz_ACE_10_50100 ,axis=0),np.mean(varianz_ACE_10_394 ,axis=0),np.mean(varianz_ACE_10_369 ,axis=0),np.mean(varianz_ACE_10_433,axis=0)]),axis=0)
+mean_varianz_ACE_100=np.mean(np.array([np.mean(varianz_ACE_100 ,axis=0),np.mean(varianz_ACE_100_50 ,axis=0),np.mean(varianz_ACE_100_501 ,axis=0),np.mean(varianz_ACE_100_50100 ,axis=0),np.mean(varianz_ACE_100_394 ,axis=0),np.mean(varianz_ACE_100_369 ,axis=0),np.mean(varianz_ACE_100_433,axis=0)]),axis=0)
+mean_varianz_ACE_L1_overall=np.mean(np.array([np.mean(varianz_ACE_L1 ,axis=0),np.mean(varianz_ACE_L1_50 ,axis=0),np.mean(varianz_ACE_L1_501 ,axis=0),np.mean(varianz_ACE_L1_50100 ,axis=0),np.mean(varianz_ACE_L1_394 ,axis=0),np.mean(varianz_ACE_L1_369 ,axis=0),np.mean(varianz_ACE_L1_433,axis=0)]),axis=0)
+mean_varianz_ACE_L2_overall=np.mean(np.array([np.mean(varianz_ACE_L2 ,axis=0),np.mean(varianz_ACE_L2_50 ,axis=0),np.mean(varianz_ACE_L2_501 ,axis=0),np.mean(varianz_ACE_L2_50100 ,axis=0),np.mean(varianz_ACE_L2_394 ,axis=0),np.mean(varianz_ACE_L2_369 ,axis=0),np.mean(varianz_ACE_L2_433,axis=0)]),axis=0)
+mean_varianz_noACE_overall=np.mean(np.array([np.mean(varianz_noACE ,axis=0),np.mean(varianz_noACE_50 ,axis=0),np.mean(varianz_noACE_501 ,axis=0),np.mean(varianz_noACE_50100 ,axis=0),np.mean(varianz_noACE_369 ,axis=0),np.mean(varianz_noACE_394 ,axis=0),np.mean(varianz_noACE_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_L1_overall=np.mean(np.array([np.mean(ACEvalue_withACE_L1 ,axis=0),np.mean(ACEvalue_withACE_L1_50 ,axis=0),np.mean(ACEvalue_withACE_L1_501 ,axis=0),np.mean(ACEvalue_withACE_L1_50100 ,axis=0),np.mean(ACEvalue_withACE_L1_394 ,axis=0),np.mean(ACEvalue_withACE_L1_369 ,axis=0),np.mean(ACEvalue_withACE_L1_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_L2_overall=np.mean(np.array([np.mean(ACEvalue_withACE_L2 ,axis=0),np.mean(ACEvalue_withACE_L2_50 ,axis=0),np.mean(ACEvalue_withACE_L2_501 ,axis=0),np.mean(ACEvalue_withACE_L2_50100 ,axis=0),np.mean(ACEvalue_withACE_L2_394 ,axis=0),np.mean(ACEvalue_withACE_L2_369 ,axis=0),np.mean(ACEvalue_withACE_L2_433,axis=0)]),axis=0)
+mean_noACE_overall=np.mean(np.array([np.mean(ACEvalue_noACE ,axis=0),np.mean(ACEvalue_noACE_50 ,axis=0),np.mean(ACEvalue_noACE_501 ,axis=0),np.mean(ACEvalue_noACE_50100 ,axis=0),np.mean(ACEvalue_noACE_369 ,axis=0),np.mean(ACEvalue_noACE_394 ,axis=0),np.mean(ACEvalue_noACE_433,axis=0)]),axis=0)
+mean_MSE_noACE_overall=np.mean(np.array([np.mean(test_MSE_noACE ,axis=0),np.mean(test_MSE_noACE_50 ,axis=0),np.mean(test_MSE_noACE_501 ,axis=0),np.mean(test_MSE_noACE_50100 ,axis=0),np.mean(test_MSE_noACE_369 ,axis=0),np.mean(test_MSE_noACE_394 ,axis=0),np.mean(test_MSE_noACE_433,axis=0)]),axis=0)
+mean_MSE_withACE_overall=[mean_MSE_withACE_factor05,mean_MSE_withACE_factor04,mean_MSE_withACE_factor03,mean_MSE_withACE_factor02,mean_MSE_withACE_factor01,mean_MSE_withACE_factor1,mean_MSE_withACE_factor10,mean_MSE_withACE_factor100]
+mean_ACE_withACE_overall=[mean_ACEvalue_withACE_factor05[-1],mean_ACEvalue_withACE_factor04[-1],mean_ACEvalue_withACE_factor03[-1],mean_ACEvalue_withACE_factor02[-1],mean_ACEvalue_withACE_factor01[-1],mean_ACEvalue_withACE_factor1[-1],mean_ACEvalue_withACE_factor10[-1],mean_ACEvalue_withACE_factor100[-1]]
+mean_var_withACE_overall=[mean_varianz_ACE_05[-1],mean_varianz_ACE_04[-1],mean_varianz_ACE_03[-1],mean_varianz_ACE_02[-1],mean_varianz_ACE_01[-1],mean_varianz_ACE_1[-1],mean_varianz_ACE_10[-1],mean_varianz_ACE_100[-1]]
+
+
+mean_MSE_withACE_factor05=np.mean(np.array([(np.mean(test_MSE_withACE_factor05_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor05_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor05_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_factor04=np.mean(np.array([(np.mean(test_MSE_withACE_factor04_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor04_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor04_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_factor03=np.mean(np.array([(np.mean(test_MSE_withACE_factor03_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor03_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor03_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_factor02=np.mean(np.array([(np.mean(test_MSE_withACE_factor02_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor02_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor02_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_factor01=np.mean(np.array([(np.mean(test_MSE_withACE_factor01_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor01_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor01_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_factor1=np.mean(np.array([(np.mean(test_MSE_withACE_factor1_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor1_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor1_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_factor10=np.mean(np.array([(np.mean(test_MSE_withACE_factor10_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor10_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor10_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_factor100=np.mean(np.array([(np.mean(test_MSE_withACE_factor100_394 ,axis=0)-base_394)/base_394,(np.mean(test_MSE_withACE_factor100_369 ,axis=0)-base_369)/base_369,(np.mean(test_MSE_withACE_factor100_433,axis=0)-base_433)/base_433]),axis=0)
+mean_MSE_withACE_L1_factor=np.mean(np.array([(np.mean(test_MSE_withACE_L1_394 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L1_369 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L1_433,axis=0)-base)/base]),axis=0)
+mean_MSE_withACE_L2_factor=np.mean(np.array([(np.mean(test_MSE_withACE_L2_394 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L2_369 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L2_433,axis=0)-base)/base]),axis=0)
+
+
+
+mean_ACEvalue_withACE_factor05=np.mean(np.array([np.mean(ACEvalue_withACE_factor05_394 ,axis=0),np.mean(ACEvalue_withACE_factor05_369 ,axis=0),np.mean(ACEvalue_withACE_factor05_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor04=np.mean(np.array([np.mean(ACEvalue_withACE_factor04_394 ,axis=0),np.mean(ACEvalue_withACE_factor04_369 ,axis=0),np.mean(ACEvalue_withACE_factor04_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor03=np.mean(np.array([np.mean(ACEvalue_withACE_factor03_394 ,axis=0),np.mean(ACEvalue_withACE_factor03_369 ,axis=0),np.mean(ACEvalue_withACE_factor03_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor02=np.mean(np.array([np.mean(ACEvalue_withACE_factor02_394 ,axis=0),np.mean(ACEvalue_withACE_factor02_369 ,axis=0),np.mean(ACEvalue_withACE_factor02_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor01=np.mean(np.array([np.mean(ACEvalue_withACE_factor01_394 ,axis=0),np.mean(ACEvalue_withACE_factor01_369 ,axis=0),np.mean(ACEvalue_withACE_factor01_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor1=np.mean(np.array([np.mean(ACEvalue_withACE_factor1_394 ,axis=0),np.mean(ACEvalue_withACE_factor1_369 ,axis=0),np.mean(ACEvalue_withACE_factor1_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor10=np.mean(np.array([np.mean(ACEvalue_withACE_factor10_394 ,axis=0),np.mean(ACEvalue_withACE_factor10_369 ,axis=0),np.mean(ACEvalue_withACE_factor10_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor100=np.mean(np.array([np.mean(ACEvalue_withACE_factor100_394 ,axis=0),np.mean(ACEvalue_withACE_factor100_369 ,axis=0),np.mean(ACEvalue_withACE_factor100_433,axis=0)]),axis=0)
+mean_varianz_ACE_05=np.mean(np.array([np.mean(varianz_ACE_05_394 ,axis=0),np.mean(varianz_ACE_05_369 ,axis=0),np.mean(varianz_ACE_05_433,axis=0)]),axis=0)
+mean_varianz_ACE_04=np.mean(np.array([np.mean(varianz_ACE_04_394 ,axis=0),np.mean(varianz_ACE_04_369 ,axis=0),np.mean(varianz_ACE_04_433,axis=0)]),axis=0)
+mean_varianz_ACE_03=np.mean(np.array([np.mean(varianz_ACE_03_394 ,axis=0),np.mean(varianz_ACE_03_369 ,axis=0),np.mean(varianz_ACE_03_433,axis=0)]),axis=0)
+mean_varianz_ACE_02=np.mean(np.array([np.mean(varianz_ACE_02_394 ,axis=0),np.mean(varianz_ACE_02_369 ,axis=0),np.mean(varianz_ACE_02_433,axis=0)]),axis=0)
+mean_varianz_ACE_01=np.mean(np.array([np.mean(varianz_ACE_01_394 ,axis=0),np.mean(varianz_ACE_01_369 ,axis=0),np.mean(varianz_ACE_01_433,axis=0)]),axis=0)
+mean_varianz_ACE_1=np.mean(np.array([np.mean(varianz_ACE_1_394 ,axis=0),np.mean(varianz_ACE_1_369 ,axis=0),np.mean(varianz_ACE_1_433,axis=0)]),axis=0)
+mean_varianz_ACE_10=np.mean(np.array([np.mean(varianz_ACE_10_394 ,axis=0),np.mean(varianz_ACE_10_369 ,axis=0),np.mean(varianz_ACE_10_433,axis=0)]),axis=0)
+mean_varianz_ACE_100=np.mean(np.array([np.mean(varianz_ACE_100_394 ,axis=0),np.mean(varianz_ACE_100_369 ,axis=0),np.mean(varianz_ACE_100_433,axis=0)]),axis=0)
+
+
+mean_varianz_ACE_L1_factor=np.mean(np.array([np.mean(varianz_ACE_L1_394 ,axis=0),np.mean(varianz_ACE_L1_369 ,axis=0),np.mean(varianz_ACE_L1_433,axis=0)]),axis=0)
+mean_varianz_ACE_L2_factor=np.mean(np.array([np.mean(varianz_ACE_L2_394 ,axis=0),np.mean(varianz_ACE_L2_369 ,axis=0),np.mean(varianz_ACE_L2_433,axis=0)]),axis=0)
+mean_varianz_noACE_factor=np.mean(np.array([np.mean(varianz_noACE_369 ,axis=0),np.mean(varianz_noACE_394 ,axis=0),np.mean(varianz_noACE_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_L1_factor=np.mean(np.array([np.mean(ACEvalue_withACE_L1_394 ,axis=0),np.mean(ACEvalue_withACE_L1_369 ,axis=0),np.mean(ACEvalue_withACE_L1_433,axis=0)]),axis=0)
+mean_ACEvalue_withACE_L2_factor=np.mean(np.array([np.mean(ACEvalue_withACE_L2_394 ,axis=0),np.mean(ACEvalue_withACE_L2_369 ,axis=0),np.mean(ACEvalue_withACE_L2_433,axis=0)]),axis=0)
+mean_noACE_factor=np.mean(np.array([np.mean(ACEvalue_noACE_369 ,axis=0),np.mean(ACEvalue_noACE_394 ,axis=0),np.mean(ACEvalue_noACE_433,axis=0)]),axis=0)
+mean_MSE_noACE_factor=np.mean(np.array([np.mean(test_MSE_noACE_369 ,axis=0),np.mean(test_MSE_noACE_394 ,axis=0),np.mean(test_MSE_noACE_433,axis=0)]),axis=0)
+
+
+mean_MSE_withACE_factor=[mean_MSE_withACE_factor05,mean_MSE_withACE_factor04,mean_MSE_withACE_factor03,mean_MSE_withACE_factor02,mean_MSE_withACE_factor01,mean_MSE_withACE_factor1,mean_MSE_withACE_factor10,mean_MSE_withACE_factor100]
+mean_ACE_withACE_factor=[mean_ACEvalue_withACE_factor05[-1],mean_ACEvalue_withACE_factor04[-1],mean_ACEvalue_withACE_factor03[-1],mean_ACEvalue_withACE_factor02[-1],mean_ACEvalue_withACE_factor01[-1],mean_ACEvalue_withACE_factor1[-1],mean_ACEvalue_withACE_factor10[-1],mean_ACEvalue_withACE_factor100[-1]]
+mean_var_withACE_factor=[mean_varianz_ACE_05[-1],mean_varianz_ACE_04[-1],mean_varianz_ACE_03[-1],mean_varianz_ACE_02[-1],mean_varianz_ACE_01[-1],mean_varianz_ACE_1[-1],mean_varianz_ACE_10[-1],mean_varianz_ACE_100[-1]]
+
+mean_MSE_withACE_factor05=np.mean(np.array([(np.mean(test_MSE_withACE_factor05_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor05_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor05_50100 ,axis=0)-base_50100)/base_50100]),axis=0)
+mean_MSE_withACE_factor04=np.mean(np.array([(np.mean(test_MSE_withACE_factor04_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor04_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor04_50100 ,axis=0)-base_50100)/base_50100]),axis=0)
+mean_MSE_withACE_factor03=np.mean(np.array([(np.mean(test_MSE_withACE_factor03_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor03_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor03_50100 ,axis=0)-base_50100)/base_50100]),axis=0)
+mean_MSE_withACE_factor02=np.mean(np.array([(np.mean(test_MSE_withACE_factor02_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor02_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor02_50100 ,axis=0)-base_50100)/base_50100]),axis=0)
+mean_MSE_withACE_factor01=np.mean(np.array([(np.mean(test_MSE_withACE_factor01_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor01_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor01_50100 ,axis=0)-base_50100)/base_50100]),axis=0)
+mean_MSE_withACE_factor1=np.mean(np.array([(np.mean(test_MSE_withACE_factor1_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor1_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor1_50100 ,axis=0)-base_50100)/base_50100]),axis=0)
+mean_MSE_withACE_factor10=np.mean(np.array([(np.mean(test_MSE_withACE_factor10_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor10_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor10_50100 ,axis=0)-base_50100)/base_50100]),axis=0)
+mean_MSE_withACE_factor100=np.mean(np.array([(np.mean(test_MSE_withACE_factor100_50 ,axis=0)-base_50)/base_50,(np.mean(test_MSE_withACE_factor100_501 ,axis=0)-base_501)/base_501,(np.mean(test_MSE_withACE_factor100_50100 ,axis=0)-base_50100)/base_50100]),axis=0)
+mean_MSE_withACE_L1_bias=np.mean(np.array([(np.mean(test_MSE_withACE_L1_50 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L1_501 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L1_50100 ,axis=0)-base)/base]),axis=0)
+mean_MSE_withACE_L2_bias=np.mean(np.array([(np.mean(test_MSE_withACE_L2_50 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L2_501 ,axis=0)-base)/base,(np.mean(test_MSE_withACE_L2_50100 ,axis=0)-base)/base]),axis=0)
+
+
+mean_ACEvalue_withACE_factor05=np.mean(np.array([np.mean(ACEvalue_withACE_factor05_50 ,axis=0),np.mean(ACEvalue_withACE_factor05_501 ,axis=0),np.mean(ACEvalue_withACE_factor05_50100 ,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor04=np.mean(np.array([np.mean(ACEvalue_withACE_factor04_50 ,axis=0),np.mean(ACEvalue_withACE_factor04_501 ,axis=0),np.mean(ACEvalue_withACE_factor04_50100 ,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor03=np.mean(np.array([np.mean(ACEvalue_withACE_factor03_50 ,axis=0),np.mean(ACEvalue_withACE_factor03_501 ,axis=0),np.mean(ACEvalue_withACE_factor03_50100 ,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor02=np.mean(np.array([np.mean(ACEvalue_withACE_factor02_50 ,axis=0),np.mean(ACEvalue_withACE_factor02_501 ,axis=0),np.mean(ACEvalue_withACE_factor02_50100 ,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor01=np.mean(np.array([np.mean(ACEvalue_withACE_factor01_50 ,axis=0),np.mean(ACEvalue_withACE_factor01_501 ,axis=0),np.mean(ACEvalue_withACE_factor01_50100 ,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor1=np.mean(np.array([np.mean(ACEvalue_withACE_factor1_50 ,axis=0),np.mean(ACEvalue_withACE_factor1_501 ,axis=0),np.mean(ACEvalue_withACE_factor1_50100 ,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor10=np.mean(np.array([np.mean(ACEvalue_withACE_factor10_50 ,axis=0),np.mean(ACEvalue_withACE_factor10_501 ,axis=0),np.mean(ACEvalue_withACE_factor10_50100 ,axis=0)]),axis=0)
+mean_ACEvalue_withACE_factor100=np.mean(np.array([np.mean(ACEvalue_withACE_factor100_50 ,axis=0),np.mean(ACEvalue_withACE_factor100_501 ,axis=0),np.mean(ACEvalue_withACE_factor100_50100 ,axis=0)]),axis=0)
+mean_varianz_ACE_05=np.mean(np.array([np.mean(varianz_ACE_05_50 ,axis=0),np.mean(varianz_ACE_05_501 ,axis=0),np.mean(varianz_ACE_05_50100 ,axis=0)]),axis=0)
+mean_varianz_ACE_04=np.mean(np.array([np.mean(varianz_ACE_04_50 ,axis=0),np.mean(varianz_ACE_04_501 ,axis=0),np.mean(varianz_ACE_04_50100 ,axis=0)]),axis=0)
+mean_varianz_ACE_03=np.mean(np.array([np.mean(varianz_ACE_03_50 ,axis=0),np.mean(varianz_ACE_03_501 ,axis=0),np.mean(varianz_ACE_03_50100 ,axis=0)]),axis=0)
+mean_varianz_ACE_02=np.mean(np.array([np.mean(varianz_ACE_02_50 ,axis=0),np.mean(varianz_ACE_02_501 ,axis=0),np.mean(varianz_ACE_02_50100 ,axis=0)]),axis=0)
+mean_varianz_ACE_01=np.mean(np.array([np.mean(varianz_ACE_01_50 ,axis=0),np.mean(varianz_ACE_01_501 ,axis=0),np.mean(varianz_ACE_01_50100 ,axis=0)]),axis=0)
+mean_varianz_ACE_1=np.mean(np.array([np.mean(varianz_ACE_1_50 ,axis=0),np.mean(varianz_ACE_1_501 ,axis=0),np.mean(varianz_ACE_1_50100 ,axis=0)]),axis=0)
+mean_varianz_ACE_10=np.mean(np.array([np.mean(varianz_ACE_10_50 ,axis=0),np.mean(varianz_ACE_10_501 ,axis=0),np.mean(varianz_ACE_10_50100 ,axis=0)]),axis=0)
+mean_varianz_ACE_100=np.mean(np.array([np.mean(varianz_ACE_100_50 ,axis=0),np.mean(varianz_ACE_100_501 ,axis=0),np.mean(varianz_ACE_100_50100 ,axis=0)]),axis=0)
+
+
+mean_varianz_ACE_L1_bias=np.mean(np.array([np.mean(varianz_ACE_L1_50 ,axis=0),np.mean(varianz_ACE_L1_501 ,axis=0),np.mean(varianz_ACE_L1_50100 ,axis=0)]),axis=0)
+mean_varianz_ACE_L2_bias=np.mean(np.array([np.mean(varianz_ACE_L2_50 ,axis=0),np.mean(varianz_ACE_L2_501 ,axis=0),np.mean(varianz_ACE_L2_50100 ,axis=0)]),axis=0)
+mean_varianz_noACE_bias=np.mean(np.array([np.mean(varianz_noACE_50 ,axis=0),np.mean(varianz_noACE_501 ,axis=0),np.mean(varianz_noACE_50100 ,axis=0)]),axis=0)
+mean_ACEvalue_withACE_L1_bias=np.mean(np.array([np.mean(ACEvalue_withACE_L1_50 ,axis=0),np.mean(ACEvalue_withACE_L1_501 ,axis=0),np.mean(ACEvalue_withACE_L1_50100 ,axis=0)]),axis=0)
+mean_ACEvalue_withACE_L2_bias=np.mean(np.array([np.mean(ACEvalue_withACE_L2_50 ,axis=0),np.mean(ACEvalue_withACE_L2_501 ,axis=0),np.mean(ACEvalue_withACE_L2_50100 ,axis=0)]),axis=0)
+mean_noACE_bias=np.mean(np.array([np.mean(ACEvalue_noACE_50 ,axis=0),np.mean(ACEvalue_noACE_501 ,axis=0),np.mean(ACEvalue_noACE_50100 ,axis=0)]),axis=0)
+mean_MSE_noACE_bias=np.mean(np.array([np.mean(test_MSE_noACE_50 ,axis=0),np.mean(test_MSE_noACE_501 ,axis=0),np.mean(test_MSE_noACE_50100 ,axis=0)]),axis=0)
+
+
+mean_MSE_withACE_bias=[mean_MSE_withACE_factor05,mean_MSE_withACE_factor04,mean_MSE_withACE_factor03,mean_MSE_withACE_factor02,mean_MSE_withACE_factor01,mean_MSE_withACE_factor1,mean_MSE_withACE_factor10,mean_MSE_withACE_factor100]
+mean_ACE_withACE_bias=[mean_ACEvalue_withACE_factor05[-1],mean_ACEvalue_withACE_factor04[-1],mean_ACEvalue_withACE_factor03[-1],mean_ACEvalue_withACE_factor02[-1],mean_ACEvalue_withACE_factor01[-1],mean_ACEvalue_withACE_factor1[-1],mean_ACEvalue_withACE_factor10[-1],mean_ACEvalue_withACE_factor100[-1]]
+mean_var_withACE_bias=[mean_varianz_ACE_05[-1],mean_varianz_ACE_04[-1],mean_varianz_ACE_03[-1],mean_varianz_ACE_02[-1],mean_varianz_ACE_01[-1],mean_varianz_ACE_1[-1],mean_varianz_ACE_10[-1],mean_varianz_ACE_100[-1]]
+
+
+
+
+print(mean_ACE_withACE_factor)
+print(mean_MSE_withACE_factor)
 #print(ACEvalue_withACE_L1[-1])
 #print(test_MSE_withACE_L1)
 #print(np.mean(test_MSE_withACE_L1))
