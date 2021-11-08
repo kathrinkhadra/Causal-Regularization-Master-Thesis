@@ -1928,9 +1928,10 @@ plt.plot(x_axis, np.mean(ACEvalue_withACE_L1_369, axis=0), label="L1")
 plt.fill_between(x_axis, np.mean(ACEvalue_withACE_L1_369, axis=0)-np.std(ACEvalue_withACE_L1_369, axis=0), np.mean(ACEvalue_withACE_L1_369, axis=0)+np.std(ACEvalue_withACE_L1_369, axis=0), alpha=0.1)
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Causal Effect (CE)')
+plt.xlabel('Training Epochs')
+plt.ylabel('Causal Effect (CE) on Logarithmic Scale')
 plt.title('CE Development over the Training Epochs for each Case')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.savefig('ACE_entwicklung_369.png', dpi=300, bbox_inches="tight")
@@ -2037,9 +2038,10 @@ plt.plot(x_axis, np.mean(ACEvalue_withACE_L1_394, axis=0), label="L1")
 plt.fill_between(x_axis, np.mean(ACEvalue_withACE_L1_394, axis=0)-np.std(ACEvalue_withACE_L1_394, axis=0), np.mean(ACEvalue_withACE_L1_394, axis=0)+np.std(ACEvalue_withACE_L1_394, axis=0), alpha=0.1)
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Causal Effect (CE)')
+plt.xlabel('Training Epochs')
+plt.ylabel('Causal Effect (CE) on Logarithmic Scale')
 plt.title('CE Development over the Training Epochs for each Case')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.savefig('ACE_entwicklung_394.png', dpi=300, bbox_inches="tight")
@@ -2147,9 +2149,10 @@ plt.plot(x_axis, np.mean(ACEvalue_withACE_L1_433, axis=0), label="L1")
 plt.fill_between(x_axis, np.mean(ACEvalue_withACE_L1_433, axis=0)-np.std(ACEvalue_withACE_L1_433, axis=0), np.mean(ACEvalue_withACE_L1_433, axis=0)+np.std(ACEvalue_withACE_L1_433, axis=0), alpha=0.1)
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Causal Effect (CE)')
+plt.xlabel('Training Epochs')
+plt.ylabel('Causal Effect (CE) on Logarithmic Scale')
 plt.title('CE Development over the Training Epochs for each Case')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.savefig('ACE_entwicklung_433.png', dpi=300, bbox_inches="tight")
@@ -2256,9 +2259,10 @@ plt.plot(x_axis, np.mean(ACEvalue_withACE_L1_501, axis=0), label="L1")
 plt.fill_between(x_axis, np.mean(ACEvalue_withACE_L1_501, axis=0)-np.std(ACEvalue_withACE_L1_501, axis=0), np.mean(ACEvalue_withACE_L1_501, axis=0)+np.std(ACEvalue_withACE_L1_501, axis=0), alpha=0.1)
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Causal Effect (CE)')
+plt.xlabel('Training Epochs')
+plt.ylabel('Causal Effect (CE) on Logarithmic Scale')
 plt.title('CE Development over the Training Epochs for each Case')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.savefig('ACE_entwicklung_501.png', dpi=300, bbox_inches="tight")
@@ -2363,9 +2367,10 @@ plt.plot(x_axis, np.mean(ACEvalue_withACE_L1_50100, axis=0), label="L1")
 plt.fill_between(x_axis, np.mean(ACEvalue_withACE_L1_50100, axis=0)-np.std(ACEvalue_withACE_L1_50100, axis=0), np.mean(ACEvalue_withACE_L1_50100, axis=0)+np.std(ACEvalue_withACE_L1_50100, axis=0), alpha=0.1)
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Causal Effect (CE)')
+plt.xlabel('Training Epochs')
+plt.ylabel('Causal Effect (CE) on Logarithmic Scale')
 plt.title('CE Development over the Training Epochs for each Case')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.savefig('ACE_entwicklung_50100.png', dpi=300, bbox_inches="tight")
@@ -2471,9 +2476,10 @@ plt.plot(x_axis, np.mean(ACEvalue_withACE_L1_50, axis=0), label="L1")
 plt.fill_between(x_axis, np.mean(ACEvalue_withACE_L1_50, axis=0)-np.std(ACEvalue_withACE_L1_50, axis=0), np.mean(ACEvalue_withACE_L1_50, axis=0)+np.std(ACEvalue_withACE_L1_50, axis=0), alpha=0.1)
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Causal Effect (CE)')
+plt.xlabel('Training Epochs')
+plt.ylabel('Causal Effect (CE) on Logarithmic Scale')
 plt.title('CE Development over the Training Epochs for each Case')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.savefig('ACE_entwicklung_50.png', dpi=300, bbox_inches="tight")
@@ -2580,10 +2586,11 @@ plt.plot(x_axis, np.mean(ACEvalue_withACE_L1, axis=0), label="L1")
 plt.fill_between(x_axis, np.mean(ACEvalue_withACE_L1, axis=0)-np.std(ACEvalue_withACE_L1, axis=0), np.mean(ACEvalue_withACE_L1, axis=0)+np.std(ACEvalue_withACE_L1, axis=0), alpha=0.1)
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Causal Effect (CE)')
-plt.title('CE Development over the Training Epochs for each Case')
+plt.xlabel('Training Epochs')
+plt.ylabel('Causal Effect (CE) on Logarithmic Scale')
+plt.title('CE Development over the Training Epochs for Well-Balanced Dataset')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.savefig('ACE_entwicklung_noshift.png', dpi=300, bbox_inches="tight")
 plt.close()
@@ -2632,7 +2639,7 @@ plt.gca().spines['right'].set_visible(False)
 plt.xlabel('Test Factors')
 plt.ylabel('Mean Square Error (MSE)')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
-plt.title('Test MSE for Well Balanced Dataset')
+plt.title('Test MSE for Well-Balanced Dataset')
 plt.savefig('Test_entwicklung_noshift.png', dpi=300, bbox_inches="tight")
 plt.close()
 
@@ -2733,7 +2740,7 @@ plt.fill_between(x_axis, mean_overall_L2_withACE-var_overall_L2_withACE, mean_ov
 
 #plt.fill_between(x_axis, mean_overall_withACE-var_overall_withACE, mean_overall_withACE+var_overall_withACE,  color='grey')
 line=[0,0,0,0,0,0,0,0]
-plt.plot(x_axis, line,linestyle='--')
+plt.plot(x_axis, line,linestyle='--', label="Baseline")
 #plt.plot(x_axis, mean_overall_noACE, label="Without ACE")
 #plt.fill_between(x_axis, mean_overall_noACE-var_overall_noACE, mean_overall_noACE+var_overall_noACE,  color='grey')
 
@@ -2822,9 +2829,10 @@ plt.fill_between(x_axis, mean_ACEvalue_withACE_L2-std_ACEvalue_withACE_L2, mean_
 
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Causal Effect (CE)')
+plt.xlabel('Training Epochs')
+plt.ylabel('Causal Effect (CE) on Logarithmic Scale')
 plt.title('CE Development over the Training Epochs for all Datasets Combined')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.savefig('ACE_entwicklung_overall.png', dpi=300, bbox_inches="tight")
@@ -2864,7 +2872,7 @@ plt.fill_between(x_axis, mean_overall_L2_withACE-var_overall_L2_withACE, mean_ov
 
 #plt.fill_between(x_axis, mean_overall_withACE-var_overall_withACE, mean_overall_withACE+var_overall_withACE,  color='grey')
 line=[0,0,0,0,0,0,0,0]
-plt.plot(x_axis, line,linestyle='--')
+plt.plot(x_axis, line,linestyle='--', label="Baseline")
 #plt.plot(x_axis, mean_overall_noACE, label="Without ACE")
 #plt.fill_between(x_axis, mean_overall_noACE-var_overall_noACE, mean_overall_noACE+var_overall_noACE,  color='grey')
 
@@ -2943,10 +2951,11 @@ plt.fill_between(x_axis, mean_ACEvalue_withACE_L2-std_ACEvalue_withACE_L2, mean_
 
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Causal Effect (CE)')
-plt.title('CE Development over the Training Epochs for each Case')
+plt.xlabel('Training Epochs')
+plt.ylabel('Causal Effect (CE) on Logarithmic Scale')
+plt.title('CE Development over the Training Epochs for Covariate Shift')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.savefig('ACE_entwicklung_factors.png', dpi=300, bbox_inches="tight")
 plt.close()
@@ -2997,7 +3006,7 @@ plt.fill_between(x_axis, mean_overall_L2_withACE-var_overall_L2_withACE, mean_ov
 
 #plt.fill_between(x_axis, mean_overall_withACE-var_overall_withACE, mean_overall_withACE+var_overall_withACE,  color='grey')
 line=[0,0,0,0,0,0,0,0]
-plt.plot(x_axis, line,linestyle='--')
+plt.plot(x_axis, line,linestyle='--', label="Baseline")
 #plt.plot(x_axis, mean_overall_noACE, label="Without ACE")
 #plt.fill_between(x_axis, mean_overall_noACE-var_overall_noACE, mean_overall_noACE+var_overall_noACE,  color='grey')
 
@@ -3078,16 +3087,17 @@ plt.fill_between(x_axis, mean_ACEvalue_withACE_L2-std_ACEvalue_withACE_L2, mean_
 
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Causal Effect (CE)')
-plt.title('CE Development over the Training Epochs for each Case')
+plt.xlabel('Training Epochs')
+plt.ylabel('Causal Effect (CE) on Logarithmic Scale')
+plt.title('CE Development over the Training Epochs for Prior Probability Shift')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.savefig('ACE_entwicklung_bias.png', dpi=300, bbox_inches="tight")
 plt.close()
 
 
-x_axis=np.arange(45)+1
+x_axis=(np.arange(45)+1)*10
 
 #--------------------Plotting No Shift-------
 
@@ -3140,11 +3150,13 @@ plt.fill_between(x_axis, np.mean(MSE_withACE_L2, axis=0)-np.std(MSE_withACE_L2, 
 
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
+#plt.xscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Mean Squared Error (MSE)')
+plt.xlabel('Training Epochs')
+plt.ylabel('Mean Squared Error (MSE) on Logarithmic Scale')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
-plt.title('Training MSE for Well Balanced Dataset')
+plt.title('Training MSE for Well-Balanced Dataset')
 plt.savefig('Training_error_noshift.png', dpi=300, bbox_inches="tight")
 plt.close()
 
@@ -3192,9 +3204,10 @@ plt.fill_between(x_axis, np.mean(MSE_withACE_L2_50, axis=0)-np.std(MSE_withACE_L
 #plt.fill_between(x_axis, np.mean(MSE_withACE_factor1000_50, axis=0)-np.std(MSE_withACE_factor1000_50, axis=0), np.mean(MSE_withACE_factor1000_50, axis=0)+np.std(MSE_withACE_factor1000_50, axis=0),  alpha=0.1)
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Mean Squared Error (MSE)')
+plt.xlabel('Training Epochs')
+plt.ylabel('Mean Squared Error (MSE) on Logarithmic Scale')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.title('Training MSE for Lowest House Prices')
 plt.savefig('Training_error_50.png', dpi=300, bbox_inches="tight")
@@ -3244,9 +3257,10 @@ plt.fill_between(x_axis, np.mean(MSE_withACE_L2_501, axis=0)-np.std(MSE_withACE_
 #plt.fill_between(x_axis, np.mean(MSE_withACE_factor1000_501, axis=0)-np.std(MSE_withACE_factor1000_501, axis=0), np.mean(MSE_withACE_factor1000_501, axis=0)+np.std(MSE_withACE_factor1000_501, axis=0),  alpha=0.1)
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Mean Squared Error (MSE)')
+plt.xlabel('Training Epochs')
+plt.ylabel('Mean Squared Error (MSE) on Logarithmic Scale')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.title('Training MSE Highest House Prices')
 plt.savefig('Training_error_501.png', dpi=300, bbox_inches="tight")
@@ -3296,9 +3310,10 @@ plt.fill_between(x_axis, np.mean(MSE_withACE_L2_50100, axis=0)-np.std(MSE_withAC
 #plt.fill_between(x_axis, np.mean(MSE_withACE_factor1000_50100, axis=0)-np.std(MSE_withACE_factor1000_50100, axis=0), np.mean(MSE_withACE_factor1000_50100, axis=0)+np.std(MSE_withACE_factor1000_50100, axis=0),  alpha=0.1)
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Mean Squared Error (MSE)')
+plt.xlabel('Training Epochs')
+plt.ylabel('Mean Squared Error (MSE) on Logarithmic Scale')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.title('Training MSE for Mid Range House Prices')
 plt.savefig('Training_error_50100.png', dpi=300, bbox_inches="tight")
@@ -3348,9 +3363,10 @@ plt.fill_between(x_axis, np.mean(MSE_withACE_L2_369, axis=0)-np.std(MSE_withACE_
 #plt.fill_between(x_axis, np.mean(MSE_withACE_factor1000_369, axis=0)-np.std(MSE_withACE_factor1000_369, axis=0), np.mean(MSE_withACE_factor1000_369, axis=0)+np.std(MSE_withACE_factor1000_369, axis=0),  alpha=0.1)
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Mean Squared Error (MSE)')
+plt.xlabel('Training Epochs')
+plt.ylabel('Mean Squared Error (MSE) on Logarithmic Scale')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.title('Training MSE for Split 369')
 plt.savefig('Training_error_369.png', dpi=300, bbox_inches="tight")
@@ -3400,9 +3416,10 @@ plt.fill_between(x_axis, np.mean(MSE_withACE_L2_394, axis=0)-np.std(MSE_withACE_
 #plt.fill_between(x_axis, np.mean(MSE_withACE_factor1000_394, axis=0)-np.std(MSE_withACE_factor1000_394, axis=0), np.mean(MSE_withACE_factor1000_394, axis=0)+np.std(MSE_withACE_factor1000_394, axis=0),  alpha=0.1)
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Mean Squared Error (MSE)')
+plt.xlabel('Training Epochs')
+plt.ylabel('Mean Squared Error (MSE) on Logarithmic Scale')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.title('Training MSE for Split 394')
 plt.savefig('Training_error_394.png', dpi=300, bbox_inches="tight")
@@ -3452,9 +3469,10 @@ plt.fill_between(x_axis, np.mean(MSE_withACE_L2_433, axis=0)-np.std(MSE_withACE_
 #plt.fill_between(x_axis, np.mean(MSE_withACE_factor1000_433, axis=0)-np.std(MSE_withACE_factor1000_433, axis=0), np.mean(MSE_withACE_factor1000_433, axis=0)+np.std(MSE_withACE_factor1000_433, axis=0),  alpha=0.1)
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Mean Squared Error (MSE)')
+plt.xlabel('Training Epochs')
+plt.ylabel('Mean Squared Error (MSE) on Logarithmic Scale')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.title('Training MSE for Split 433')
 plt.savefig('Training_error_433.png', dpi=300, bbox_inches="tight")
@@ -3521,9 +3539,10 @@ plt.fill_between(x_axis, mean_MSE_withACE_L2-std_MSE_withACE_L2, mean_MSE_withAC
 
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Mean Squared Error (MSE)')
+plt.xlabel('Training Epochs')
+plt.ylabel('Mean Squared Error (MSE) on Logarithmic Scale')
 plt.title('MSE Development over the Training Epochs')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.title('Training MSE for all Datasets Combined')
@@ -3591,10 +3610,11 @@ plt.fill_between(x_axis, mean_MSE_withACE_L2-std_MSE_withACE_L2, mean_MSE_withAC
 
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Mean Squared Error (MSE)')
-plt.title('MSE Development over the Training Epochs')
+plt.xlabel('Training Epochs')
+plt.ylabel('Mean Squared Error (MSE) on Logarithmic Scale')
+plt.title('MSE Development over the Training Epochs for Covariate Shift')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.savefig('Trainingserror_entwicklung_factors.png', dpi=300, bbox_inches="tight")
 plt.close()
@@ -3660,10 +3680,11 @@ plt.fill_between(x_axis, mean_MSE_withACE_L2-std_MSE_withACE_L2, mean_MSE_withAC
 
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
+plt.yscale('log')
 
-plt.xlabel('Training Epoch')
-plt.ylabel('Mean Squared Error (MSE)')
-plt.title('MSE Development over the Training Epochs')
+plt.xlabel('Training Epochs')
+plt.ylabel('Mean Squared Error (MSE) on Logarithmic Scale')
+plt.title('MSE Development over the Training Epochs for Prior Probability Shift')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.savefig('Trainingserror_entwicklung_bias.png', dpi=300, bbox_inches="tight")
 plt.close()
@@ -3723,10 +3744,10 @@ plt.fill_between(x_axis, np.mean(varianz_ACE_L2, axis=0)-np.std(varianz_ACE_L2, 
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
 
-plt.xlabel('Training Epoch')
+plt.xlabel('Training Epochs')
 plt.ylabel('Variance of the ACE')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
-plt.title('Variance for Well Balanced Dataset')
+plt.title('Variance for Well-Balanced Dataset')
 plt.savefig('Varianz_noshift.png', dpi=300, bbox_inches="tight")
 plt.close()
 
@@ -3777,7 +3798,7 @@ plt.fill_between(x_axis, np.mean(varianz_ACE_L2_50, axis=0)-np.std(varianz_ACE_L
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
 
-plt.xlabel('Training Epoch')
+plt.xlabel('Training Epochs')
 plt.ylabel('Variance of the ACE')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.title('Variance for Lowest House Prices')
@@ -3829,7 +3850,7 @@ plt.fill_between(x_axis, np.mean(varianz_ACE_L2_501, axis=0)-np.std(varianz_ACE_
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
 
-plt.xlabel('Training Epoch')
+plt.xlabel('Training Epochs')
 plt.ylabel('Variance of the ACE')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.title('Variance for Highest House Prices')
@@ -3881,7 +3902,7 @@ plt.fill_between(x_axis, np.mean(varianz_ACE_L2_50100, axis=0)-np.std(varianz_AC
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
 
-plt.xlabel('Training Epoch')
+plt.xlabel('Training Epochs')
 plt.ylabel('Variance of the ACE')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.title('Variance for Mid Range House Prices')
@@ -3933,7 +3954,7 @@ plt.fill_between(x_axis, np.mean(varianz_ACE_L2_369, axis=0)-np.std(varianz_ACE_
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
 
-plt.xlabel('Training Epoch')
+plt.xlabel('Training Epochs')
 plt.ylabel('Variance of the ACE')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.title('Variance for Split 369')
@@ -3985,7 +4006,7 @@ plt.fill_between(x_axis, np.mean(varianz_ACE_L2_394, axis=0)-np.std(varianz_ACE_
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
 
-plt.xlabel('Training Epoch')
+plt.xlabel('Training Epochs')
 plt.ylabel('Variance of the ACE')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.title('Variance for 394')
@@ -4037,7 +4058,7 @@ plt.fill_between(x_axis, np.mean(varianz_ACE_L2_433, axis=0)-np.std(varianz_ACE_
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
 
-plt.xlabel('Training Epoch')
+plt.xlabel('Training Epochs')
 plt.ylabel('Variance of the ACE')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.title('Variance for 433')
@@ -4106,7 +4127,7 @@ plt.fill_between(x_axis, mean_varianz_ACE_L2-std_varianz_ACE_L2, mean_varianz_AC
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
 
-plt.xlabel('Training Epoch')
+plt.xlabel('Training Epochs')
 plt.ylabel('Variance of the ACE')
 plt.title('MSE Development over the Training Epochs')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
@@ -4176,7 +4197,7 @@ plt.fill_between(x_axis, mean_varianz_ACE_L2-std_varianz_ACE_L2, mean_varianz_AC
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
 
-plt.xlabel('Training Epoch')
+plt.xlabel('Training Epochs')
 plt.ylabel('Variance of the ACE')
 plt.title('MSE Development over the Training Epochs')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
@@ -4246,7 +4267,7 @@ plt.fill_between(x_axis, mean_varianz_ACE_L2-std_varianz_ACE_L2, mean_varianz_AC
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
 
-plt.xlabel('Training Epoch')
+plt.xlabel('Training Epochs')
 plt.ylabel('Variance of the ACE')
 plt.title('MSE Development over the Training Epochs')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
@@ -4257,7 +4278,7 @@ plt.close()
 #mean_ACEvalue_withACE_factor05
 #mean_varianz_ACE_10
 #mean_MSE_withACE_factor05
-'''
+
 mean_ACEvalue_withACE_factor05=np.mean(np.array([np.mean(ACEvalue_withACE_factor05 ,axis=0),np.mean(ACEvalue_withACE_factor05_50 ,axis=0),np.mean(ACEvalue_withACE_factor05_501 ,axis=0),np.mean(ACEvalue_withACE_factor05_50100 ,axis=0),np.mean(ACEvalue_withACE_factor05_394 ,axis=0),np.mean(ACEvalue_withACE_factor05_369 ,axis=0),np.mean(ACEvalue_withACE_factor05_433,axis=0)]),axis=0)
 mean_ACEvalue_withACE_factor04=np.mean(np.array([np.mean(ACEvalue_withACE_factor05 ,axis=0),np.mean(ACEvalue_withACE_factor04_50 ,axis=0),np.mean(ACEvalue_withACE_factor04_501 ,axis=0),np.mean(ACEvalue_withACE_factor04_50100 ,axis=0),np.mean(ACEvalue_withACE_factor04_394 ,axis=0),np.mean(ACEvalue_withACE_factor04_369 ,axis=0),np.mean(ACEvalue_withACE_factor04_433,axis=0)]),axis=0)
 mean_ACEvalue_withACE_factor03=np.mean(np.array([np.mean(ACEvalue_withACE_factor03 ,axis=0),np.mean(ACEvalue_withACE_factor03_50 ,axis=0),np.mean(ACEvalue_withACE_factor03_501 ,axis=0),np.mean(ACEvalue_withACE_factor03_50100 ,axis=0),np.mean(ACEvalue_withACE_factor03_394 ,axis=0),np.mean(ACEvalue_withACE_factor03_369 ,axis=0),np.mean(ACEvalue_withACE_factor03_433,axis=0)]),axis=0)
@@ -4390,7 +4411,6 @@ mean_var_withACE_bias=[mean_varianz_ACE_05[-1],mean_varianz_ACE_04[-1],mean_vari
 #print(mean_MSE_withACE_L1_factor)
 #print(mean_MSE_withACE_factor)
 '''
-'''
 fig, axs = plt.subplots(1, 2)
 
 axs[0].scatter(mean_ACEvalue_withACE_L1_factor[-1],mean_MSE_withACE_L1_factor, label="L1",marker='*',alpha=0.5)
@@ -4417,7 +4437,7 @@ fig.subplots_adjust(right=0.85)
 fig.savefig('MSE_ACE_factor.png', dpi=300, bbox_inches="tight")
 plt.close()
 '''
-
+'''
 base=np.mean(test_MSE_noACE)
 base_50=np.mean(test_MSE_noACE_50)
 base_501=np.mean(test_MSE_noACE_501)
@@ -4560,6 +4580,7 @@ mean_var_withACE_bias=[mean_varianz_ACE_05[-1],mean_varianz_ACE_04[-1],mean_vari
 
 print(mean_ACE_withACE_factor)
 print(mean_MSE_withACE_factor)
+'''
 #print(ACEvalue_withACE_L1[-1])
 #print(test_MSE_withACE_L1)
 #print(np.mean(test_MSE_withACE_L1))
@@ -4575,7 +4596,7 @@ plt.gca().spines['right'].set_visible(False)
 plt.xlim([0,0.003])
 plt.xlabel('Causal Effect (CE)')
 plt.ylabel('Test Mean Squared Error (MSE)')
-plt.title('Test MSE Value relative to the CE Value for No Dataset Shift')
+plt.title('Test MSE Value relative to the CE Value for Well-Balanced Dataset')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.savefig('MSE_ACE_noshift.png', dpi=300, bbox_inches="tight")
 plt.close()
@@ -4621,7 +4642,7 @@ plt.gca().spines['right'].set_visible(False)
 plt.xlim([0,0.001])
 plt.xlabel('Causal Effect (CE)')
 plt.ylabel('Test Mean Squared Error (MSE)')
-plt.title('Test MSE Value relative to the CE Value')
+plt.title('Test MSE Value relative to the CE Value for all Datasets Combined')
 plt.legend(loc='upper left', bbox_to_anchor=(1.04,1))
 plt.savefig('MSE_ACE_overall.png', dpi=300, bbox_inches="tight")
 plt.close()

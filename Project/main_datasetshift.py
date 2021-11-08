@@ -35,7 +35,7 @@ get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
 #print(get_data.target_test.shape)
 
 ####with datasetshift
-#get_data.dataset_shift(394)#41,243,394,433,369
+#get_data.dataset_shift(369)#41,243,394,433,369
 #from 0 to 12
 #433-> Covariate shift in feature (1,2,3,8,9,10) here mutual information was 0
 #394 -> Covariate shift in feature (4,5,4,12)
