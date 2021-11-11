@@ -47,14 +47,15 @@ for i in range(13):#[9,2,12,7,4]:
         for a in ax:
             a.spines['top'].set_visible(False)
             a.spines['right'].set_visible(False)
-            a.set_xlabel('Values of Samples', fontsize=6)
-            a.set_ylabel('Density', fontsize=6)
+            a.set_xlabel('Values of Features', fontsize=6)
+            a.set_ylabel('Amount of Value in Dataset', fontsize=6)
     for ind,split in enumerate(splits):
         if split==0:
             get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
             get_data.splitting_data_noshift()
             g=0
             c=0
+
         else:
             get_data= datapreprocessing.Dataprep(0,0,0,0,0,0,test_size)
             get_data.dataset_shift(split)
@@ -67,19 +68,28 @@ for i in range(13):#[9,2,12,7,4]:
         if split==394:
             g=1
             c=1
-        axs[g,c].hist([get_data.inputs_test[:,i],get_data.inputs_training[:,i]], label=["Test data","Training data"])
+        axs[g,c].hist([get_data.inputs_test[:,i],get_data.inputs_training[:,i]], label=["Test Data","Training Data"])
+        #handles, labels = axs[g,c].get_legend_handles_labels()
+        #axs[g,c].legend(handles, labels, loc="upper right",prop={'size': 6})
         if split==0:
             title="Well Balanced"
-        else:
-            title="Split" + str(split)
+        if split==433:
+            title="Wide Split"
+        if split==369:
+            title="Narrow Split"
+        if split==394:
+            title="Skewed Split"
+        #else:
+        #    title="Split" + str(split)
         axs[g, c].set_title(title, fontsize=6)#axs[0, 0].set_title("\n".join(wrap(title, 60)))
 
-    name='hist/histogram_'+str(i)+'_.pgf'
+    name='hist/histogram_'+str(i)+'_.png'
     title='Histogram of Feature '+str(feature_names[i])
     fig.tight_layout()
     handles, labels = axs[1,1].get_legend_handles_labels()
-    fig.legend(handles, labels, loc="upper right", borderaxespad=0.1)#, bbox_to_anchor=(1.04,1)) #,loc = 'lower center', bbox_to_anchor = (0,-0.1,1,1), bbox_transform = plt.gcf().transFigure
-    fig.subplots_adjust(right=0.85)
+    #fig.legend(handles, labels, loc="upper right", borderaxespad=0.1,prop={'size': 6})#, bbox_to_anchor=(1.04,1)) #,loc = 'lower center', bbox_to_anchor = (0,-0.1,1,1), bbox_transform = plt.gcf().transFigure
+    fig.legend(handles, labels, loc="upper right",prop={'size': 6},bbox_to_anchor=(1, 1))#, bbox_to_anchor=(1.04,1)) #,loc = 'lower center', bbox_to_anchor = (0,-0.1,1,1), bbox_transform = plt.gcf().transFigure
+    #fig.subplots_adjust(right=0.85)
     fig.suptitle(title)
     fig.subplots_adjust(top=0.88)#0.88
     fig.savefig(name, dpi=300)
@@ -240,6 +250,35 @@ plt.xticks([0.15,0.45,0.8],my_xticks)
 plt.tick_params(axis='x', which='major', labelsize=8)
 plt.xlabel('Normed House Prices')
 plt.ylabel('Density')
+title="Histogram of the Target Variable"
+plt.title(title)
+#plt.legend()
+name='hist/target_old.png'
+plt.savefig(name, dpi=300, bbox_inches="tight")
+plt.close()
+
+
+target=np.sort(get_data.target)
+print(target.shape)
+
+low,mid,high=np.split(target,[168,450])
+
+N, bins, patches=plt.hist(low, label="Lowest House Price")
+N, bins, patches=plt.hist(mid, label="Mid Range House Price")
+N, bins, patches=plt.hist(high, label="Highest House Price")
+
+#plt.xticks(i, my_xticks)
+#plt.tick_params(axis='x', which='major', labelsize=8)
+#print(N)
+#plt.legend([N[0], N[3], N[6]], ["Lowest House Price", "Mid Range House Price", "Highest House Price"],loc='upper left', bbox_to_anchor=(1.04,1))
+#my_xticks=["Lowest House Price", "Mid Range House Price", "Highest House Price"]
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['right'].set_visible(False)
+plt.legend(loc="upper right")
+#plt.xticks([0.15,0.45,0.8],my_xticks)
+#plt.tick_params(axis='x', which='major', labelsize=8)
+plt.xlabel('Normed House Prices')
+plt.ylabel('Number of Houses with that House Price')
 title="Histogram of the Target Variable"
 plt.title(title)
 #plt.legend()
