@@ -1,6 +1,6 @@
 # Causal-Regularization-Master-Thesis
 
-https://wiki.tum.de/display/ldv/Causal+Regularization+in+Deep+Learning+Using+the+Average+Causal+Effect
+Paper: https://wiki.tum.de/display/ldv/Causal+Regularization+in+Deep+Learning+Using+the+Average+Causal+Effect
 
 Code for Causal Inference in Deep Neural Nets 
 
